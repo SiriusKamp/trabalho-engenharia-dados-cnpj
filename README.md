@@ -1,14 +1,18 @@
-# Trabalho de Engenharia de Dados em Larga Escala - CNPJ
+# Trabalho de Engenharia de Dados - CNPJ
 
-Starter repo local-first para o trabalho avaliativo da aula. O cenário escolhido é o CNPJ, com uma execução pequena e sintética que representa o fluxo completo:
+Starter repo enxuto para o Cenário A da avaliação.
+
+## Estrutura
 
 ```text
-CSV de exemplo -> Bronze -> Silver -> Gold -> qualidade/métricas/auditoria
+data/       dados de exemplo e destino dos ZIPs reais
+docs/       trilha, conceitos e evidências da rubrica
+scripts/    execução do demo e download do CNPJ
+src/        pipeline local e caminho opcional PySpark
+tests/      testes automatizados
 ```
 
-## Executar
-
-Requer Python 3.11 ou superior. O demo não baixa dados nem exige PySpark:
+## Executar o demo
 
 ```powershell
 $env:PYTHONPATH = "src"
@@ -16,22 +20,31 @@ python -m unittest discover -s tests -v
 python scripts/run_demo.py
 ```
 
-Depois da execução, abra `artifacts/gold/answers.json`, `artifacts/quality.json`, `artifacts/metrics.json` e `artifacts/audit.json`.
+## Baixar os ZIPs do CNPJ
 
-## Caminho para os dados reais
+Primeiro confira a lista de URLs sem baixar nada:
 
-1. Baixe um lote oficial do CNPJ e registre referência, data, tamanho e checksum.
-2. Organize os CSVs em `datalake/cnpj/{empresas,estabelecimentos,socios}`.
-3. Instale o extra opcional: `python -m pip install -e ".[spark]"`.
-4. Adapte `jobs/cnpj_pyspark_job.py` ao layout efetivo do lote.
-5. Meça volume, duração, partições, rejeições e custo.
+```powershell
+python scripts/download_cnpj.py --data-ref 2026-01 --dry-run
+```
 
-Não coloque ZIPs, CSVs reais ou PII no Git.
+Quando estiver certo da referência, execute:
 
-## Documentação de estudo
+```powershell
+python scripts/download_cnpj.py --data-ref 2026-01
+```
 
-- `docs/trilha-execucao.md`: passos em ordem para maximizar a pontuação.
-- `docs/conceitos-visuais.md`: fluxos Mermaid para explicar os conceitos.
-- `docs/evidencias-rubrica.md`: checklist dos 100 pontos.
-- `docs/superpowers/specs/2026-11-11-cnpj-lakehouse-design.md`: decisões e limites da base.
-- `jobs/cnpj_pyspark_job.py`: caminho de escala com PySpark.
+Os ZIPs serão gravados em `data/raw/cnpj/2026-01/`. O script não extrai nem transforma os arquivos: eles permanecem como Bronze. Para forçar novo download:
+
+```powershell
+python scripts/download_cnpj.py --data-ref 2026-01 --force
+```
+
+## Próximos passos da avaliação
+
+- `docs/trilha-execucao.md`: ordem recomendada para pontuação.
+- `docs/conceitos-visuais.md`: diagramas Bronze → Silver → Gold.
+- `docs/evidencias-rubrica.md`: checklist dos critérios.
+- `docs/decisoes-arquitetura.md`: perguntas e trade-offs.
+
+O módulo `src/cnpj_lakehouse/pyspark_job.py` é opcional e deve ser usado somente depois de validar o layout do lote baixado.

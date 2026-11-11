@@ -3,6 +3,8 @@ __pycache__/
 .pytest_cache/
 .venv/
 artifacts/
+data/raw/
+data/processed/
 .test-artifacts*/
 tmp7fbtlx2l/
 tmpc1ldiivg/
