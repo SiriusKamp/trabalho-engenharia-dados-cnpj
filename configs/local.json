@@ -1,0 +1,11 @@
+{
+  "input_dir": "data/sample",
+  "output_dir": "artifacts",
+  "scenario": "cnpj",
+  "mode": "demo-local",
+  "gold_questions": [
+    "Quais UFs concentram mais estabelecimentos ativos?",
+    "Como se distribuem os portes das empresas?",
+    "Qual a distribuição de faixa etária dos sócios?"
+  ]
+}

@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "trabalho-engenharia-dados-cnpj"
+version = "0.1.0"
+description = "Starter local-first para o trabalho avaliativo de Engenharia de Dados em Larga Escala"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+spark = ["pyspark>=3.5"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
