@@ -1,0 +1,79 @@
+name: cnpj
+# docker compose up -d mantém os dois serviços rodando em segundo plano.
+# ${VAR:-padrao} usa a variável do shell/.env ou o padrão quando não foi informada.
+services:
+  app:
+    # Dockerfile monta a imagem; o comando padrão inicia a API, não uma carga manual.
+    build: .
+    image: cnpj-app:local
+    mem_limit: 6g
+    # O limite inclui Python, JVM e demais processos. SPARK_DRIVER_MEMORY é só a JVM.
+    cpus: 2
+    restart: unless-stopped
+    environment:
+      # Somente variáveis declaradas aqui são repassadas desta configuração à aplicação.
+      DATA_DIR: /app/DATA
+      MESES: ${MESES:-4}
+      DOWNLOAD_WORKERS: ${DOWNLOAD_WORKERS:-3}
+      AGENDAMENTO_ATIVO: ${AGENDAMENTO_ATIVO:-0}
+      ENGENHARIA_USUARIO: ${ENGENHARIA_USUARIO:-engenharia}
+      ENGENHARIA_SENHA: ${ENGENHARIA_SENHA:-Engenharia123!}
+      ANALISE_USUARIO: ${ANALISE_USUARIO:-analise}
+      ANALISE_SENHA: ${ANALISE_SENHA:-Analise123!}
+      MONITORAMENTO_USUARIO: ${MONITORAMENTO_USUARIO:-monitor}
+      MONITORAMENTO_SENHA: ${MONITORAMENTO_SENHA:-Monitor123!}
+      SPARK_MASTER: ${SPARK_MASTER:-local[2]}
+      SPARK_DRIVER_MEMORY: ${SPARK_DRIVER_MEMORY:-4g}
+      SPARK_SHUFFLE_PARTITIONS: ${SPARK_SHUFFLE_PARTITIONS:-16}
+      SPARK_LOCAL_DIRS: /app/.spark-tmp
+      TLS_CERTIFICADO: ${TLS_CERTIFICADO:-}
+      TLS_CHAVE: ${TLS_CHAVE:-}
+    volumes:
+      # Lado esquerdo = pasta no notebook/servidor; direito = caminho no container.
+      # Os arquivos sobrevivem à recriação do container porque ficam no host.
+      - ${DIRETORIO_DATA:-./DATA}:/app/DATA
+      - ${DIRETORIO_SPARK_TMP:-./.spark-tmp}:/app/.spark-tmp
+      - ${DIRETORIO_TLS:-./.certificados}:/run/certificados:ro
+    ports:
+      # IP_DO_HOST:PORTA_NO_HOST:PORTA_NO_CONTAINER. Para usar localhost:8001,
+      # altere apenas o valor do meio para 8001; a API continua interna em 8000.
+      - 127.0.0.1:8000:8000
+    healthcheck:
+      # Compose verifica se a API responde antes de iniciar o Grafana dependente.
+      test: [CMD, python, -c, "import os,urllib.request; s='https' if os.getenv('TLS_CERTIFICADO') else 'http'; urllib.request.urlopen(s+'://localhost:8000/saude',timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+  grafana:
+    image: grafana/grafana:12.1.1
+    mem_limit: 512m
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_USUARIO:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_SENHA:-admin}
+      GF_AUTH_ANONYMOUS_ENABLED: "false"
+      GF_USERS_ALLOW_SIGN_UP: "false"
+      GF_PLUGINS_PREINSTALL: yesoreyeram-infinity-datasource
+      MONITORAMENTO_USUARIO: ${MONITORAMENTO_USUARIO:-monitor}
+      MONITORAMENTO_SENHA: ${MONITORAMENTO_SENHA:-Monitor123!}
+      GF_SERVER_PROTOCOL: ${GRAFANA_PROTOCOLO:-http}
+      GF_SERVER_CERT_FILE: ${GRAFANA_CERTIFICADO:-}
+      GF_SERVER_CERT_KEY: ${GRAFANA_CHAVE:-}
+    volumes:
+      # Volume nomeado conserva usuários/configurações; arquivos :ro são somente leitura.
+      - grafana-dados:/var/lib/grafana
+      - ./Grafana/datasource.yaml:/etc/grafana/provisioning/datasources/cnpj.yaml:ro
+      - ./Grafana/dashboards.yaml:/etc/grafana/provisioning/dashboards/cnpj.yaml:ro
+      - ./Grafana/dashboard.json:/var/lib/grafana/dashboards/cnpj.json:ro
+      - ./Grafana/alertas.yaml:/etc/grafana/provisioning/alerting/cnpj.yaml:ro
+      - ${DIRETORIO_TLS:-./.certificados}:/run/certificados:ro
+    ports:
+      # Ex.: 127.0.0.1:3001:3000 publica o Grafana em localhost:3001.
+      # 127.0.0.1 limita o acesso publicado ao próprio computador.
+      - 127.0.0.1:3000:3000
+volumes:
+  grafana-dados:

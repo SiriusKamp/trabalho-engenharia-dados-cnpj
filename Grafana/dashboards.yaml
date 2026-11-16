@@ -1,0 +1,14 @@
+# Montar em /etc/grafana/provisioning/dashboards/dashboards.yaml;
+# dashboard.json em /var/lib/grafana/dashboards/dashboard.json.
+apiVersion: 1
+providers:
+  - name: CNPJ
+    orgId: 1
+    folder: CNPJ
+    type: file
+    disableDeletion: false
+    editable: false
+    updateIntervalSeconds: 30
+    options:
+      path: /var/lib/grafana/dashboards
+      foldersFromFilesStructure: false
