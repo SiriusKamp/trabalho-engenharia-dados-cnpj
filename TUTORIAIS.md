@@ -2,6 +2,8 @@
 
 Este guia reúne os comandos de uso diário. Execute-os na raiz do repositório, onde estão `main.py`, `requirements.txt` e `compose.yaml`.
 
+Consulte [Endpoints_Documentacao.MD](Endpoints_Documentacao.MD) para permissões e contratos HTTP, e [Parquets_Documentacao.MD](Parquets_Documentacao.MD) para tipos, relacionamentos e visões históricas de cinco meses.
+
 Os blocos `powershell` são para o terminal do Windows; os blocos `bash` são para Linux/WSL2. Os exemplos usam as credenciais públicas de demonstração de [CREDENCIAIS.md](CREDENCIAIS.md).
 
 ## 1. Escolher o modo de execução

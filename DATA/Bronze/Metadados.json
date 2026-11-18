@@ -1,4 +1,261 @@
 {
-  "arquivos": {},
-  "execucoes": []
+  "arquivos": {
+    "2026-08/Empresas0.zip": {
+      "status": "descartado",
+      "erro": null,
+      "atualizado_em": "2026-11-18T16:42:30.721890+00:00",
+      "versao": "196a5613e6f147ac007cfa4064fc6d89e57425e8fa865cf878b6d93188e4ec18",
+      "extraido_em": "2026-11-18T16:33:36.336409+00:00",
+      "arquivos": [
+        "Bronze/2026-08/Empresas0/K3241.K03200Y0.D60808.EMPRECSV"
+      ],
+      "bytes": 2272785898,
+      "duracao_s": 74.779,
+      "descartado_em": "2026-11-18T16:42:30.712646+00:00"
+    },
+    "2026-08/Empresas1.zip": {
+      "status": "descartado",
+      "erro": null,
+      "atualizado_em": "2026-11-18T16:46:59.380026+00:00",
+      "versao": "c07c02a46bea7558364ec745b233596ad736c3e9ff29aa387cc365e7543f8295",
+      "extraido_em": "2026-11-18T16:42:45.660527+00:00",
+      "arquivos": [
+        "Bronze/2026-08/Empresas1/K3241.K03200Y1.D60808.EMPRECSV"
+      ],
+      "bytes": 325886848,
+      "duracao_s": 14.885,
+      "descartado_em": "2026-11-18T16:46:59.370053+00:00"
+    },
+    "2026-08/Empresas2.zip": {
+      "status": "descartado",
+      "erro": null,
+      "atualizado_em": "2026-11-18T16:51:50.866738+00:00",
+      "versao": "27576e04684ca27ddc0fd3ffcf908006eaf3ab83148cde569086b6fb67a2bb55",
+      "extraido_em": "2026-11-18T16:47:13.786617+00:00",
+      "arquivos": [
+        "Bronze/2026-08/Empresas2/K3241.K03200Y2.D60808.EMPRECSV"
+      ],
+      "bytes": 344222739,
+      "duracao_s": 14.352,
+      "descartado_em": "2026-11-18T16:51:50.857556+00:00"
+    },
+    "2026-08/Empresas3.zip": {
+      "status": "descartado",
+      "erro": null,
+      "atualizado_em": "2026-11-18T16:57:36.607358+00:00",
+      "versao": "98dbc47ec0712b56b1210c3c9ad97614da6860d6e08244a710e23c23d7937656",
+      "extraido_em": "2026-11-18T16:52:24.943471+00:00",
+      "arquivos": [
+        "Bronze/2026-08/Empresas3/K3241.K03200Y3.D60808.EMPRECSV"
+      ],
+      "bytes": 349182819,
+      "duracao_s": 9.834,
+      "descartado_em": "2026-11-18T16:57:36.599625+00:00"
+    },
+    "2026-08/Empresas4.zip": {
+      "status": "descartado",
+      "erro": null,
+      "atualizado_em": "2026-11-18T17:03:22.457686+00:00",
+      "versao": "c01a28cd0e4a1a662d99a7bf2c86ec5645c5a13869805f91633d1cd4980e26b5",
+      "extraido_em": "2026-11-18T16:57:48.357104+00:00",
+      "arquivos": [
+        "Bronze/2026-08/Empresas4/K3241.K03200Y4.D60808.EMPRECSV"
+      ],
+      "bytes": 353831338,
+      "duracao_s": 11.706,
+      "descartado_em": "2026-11-18T17:03:22.449062+00:00"
+    },
+    "2026-08/Empresas5.zip": {
+      "status": "descartado",
+      "erro": null,
+      "atualizado_em": "2026-11-18T17:10:09.776104+00:00",
+      "versao": "30e3ad49917fcc3f3cfa9b39edb80e014070ced771cc44d407c114f09c3d181e",
+      "extraido_em": "2026-11-18T17:03:34.112457+00:00",
+      "arquivos": [
+        "Bronze/2026-08/Empresas5/K3241.K03200Y5.D60808.EMPRECSV"
+      ],
+      "bytes": 352329655,
+      "duracao_s": 11.614,
+      "descartado_em": "2026-11-18T17:10:09.768717+00:00"
+    },
+    "2026-08/Empresas6.zip": {
+      "status": "descartado",
+      "erro": null,
+      "atualizado_em": "2026-11-18T17:18:57.689502+00:00",
+      "versao": "b0909e27e07be0e4937b62457f7040a31f804fbd94cb0de94176268aa34bec02",
+      "extraido_em": "2026-11-18T17:10:52.492161+00:00",
+      "arquivos": [
+        "Bronze/2026-08/Empresas6/K3241.K03200Y6.D60808.EMPRECSV"
+      ],
+      "bytes": 357908502,
+      "duracao_s": 9.555,
+      "descartado_em": "2026-11-18T17:18:57.681604+00:00"
+    },
+    "2026-08/Empresas7.zip": {
+      "status": "descartado",
+      "erro": null,
+      "atualizado_em": "2026-11-18T17:28:00.871525+00:00",
+      "versao": "be683f6def2a1c854c811feeb237fcbd8e1afabc307b23f0aae98153522f51a0",
+      "extraido_em": "2026-11-18T17:19:10.431691+00:00",
+      "arquivos": [
+        "Bronze/2026-08/Empresas7/K3241.K03200Y7.D60808.EMPRECSV"
+      ],
+      "bytes": 356027757,
+      "duracao_s": 12.701,
+      "descartado_em": "2026-11-18T17:28:00.863772+00:00"
+    },
+    "2026-08/Empresas8.zip": {
+      "status": "descartado",
+      "erro": null,
+      "atualizado_em": "2026-11-18T17:37:37.050168+00:00",
+      "versao": "f958f64176a8edab6e1d5787d4264619a8633b552c22f12808b13deba70fdeab",
+      "extraido_em": "2026-11-18T17:28:12.661591+00:00",
+      "arquivos": [
+        "Bronze/2026-08/Empresas8/K3241.K03200Y8.D60808.EMPRECSV"
+      ],
+      "bytes": 356518546,
+      "duracao_s": 11.746,
+      "descartado_em": "2026-11-18T17:37:37.041834+00:00"
+    },
+    "2026-08/Empresas9.zip": {
+      "status": "descartado",
+      "erro": null,
+      "atualizado_em": "2026-11-18T17:51:52.550295+00:00",
+      "versao": "db36fcae7739dc531fe041d8240455efeb501bc577afcd3440df2a96b6953302",
+      "extraido_em": "2026-11-18T17:38:20.766894+00:00",
+      "arquivos": [
+        "Bronze/2026-08/Empresas9/K3241.K03200Y9.D60808.EMPRECSV"
+      ],
+      "bytes": 362126916,
+      "duracao_s": 14.854,
+      "descartado_em": "2026-11-18T17:51:52.542896+00:00"
+    },
+    "2026-08/Estabelecimentos0.zip": {
+      "status": "extraindo",
+      "erro": null,
+      "atualizado_em": "2026-11-18T17:51:52.599019+00:00"
+    }
+  },
+  "execucoes": [
+    {
+      "registrado_em": "2026-11-18T16:33:36.360567+00:00",
+      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
+      "competencia": "2026-08",
+      "arquivo": "Empresas0.zip",
+      "etapa": "extracao",
+      "status": "sucesso",
+      "inicio": "2026-11-18T16:32:21.543569+00:00",
+      "fim": "2026-11-18T16:33:36.354746+00:00",
+      "bytes": 2272785898,
+      "duracao_s": 74.779
+    },
+    {
+      "registrado_em": "2026-11-18T16:42:45.691380+00:00",
+      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
+      "competencia": "2026-08",
+      "arquivo": "Empresas1.zip",
+      "etapa": "extracao",
+      "status": "sucesso",
+      "inicio": "2026-11-18T16:42:30.750621+00:00",
+      "fim": "2026-11-18T16:42:45.683513+00:00",
+      "bytes": 325886848,
+      "duracao_s": 14.885
+    },
+    {
+      "registrado_em": "2026-11-18T16:47:13.813213+00:00",
+      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
+      "competencia": "2026-08",
+      "arquivo": "Empresas2.zip",
+      "etapa": "extracao",
+      "status": "sucesso",
+      "inicio": "2026-11-18T16:46:59.410198+00:00",
+      "fim": "2026-11-18T16:47:13.806431+00:00",
+      "bytes": 344222739,
+      "duracao_s": 14.352
+    },
+    {
+      "registrado_em": "2026-11-18T16:52:24.972303+00:00",
+      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
+      "competencia": "2026-08",
+      "arquivo": "Empresas3.zip",
+      "etapa": "extracao",
+      "status": "sucesso",
+      "inicio": "2026-11-18T16:52:15.083483+00:00",
+      "fim": "2026-11-18T16:52:24.964335+00:00",
+      "bytes": 349182819,
+      "duracao_s": 9.834
+    },
+    {
+      "registrado_em": "2026-11-18T16:57:48.389235+00:00",
+      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
+      "competencia": "2026-08",
+      "arquivo": "Empresas4.zip",
+      "etapa": "extracao",
+      "status": "sucesso",
+      "inicio": "2026-11-18T16:57:36.628414+00:00",
+      "fim": "2026-11-18T16:57:48.381073+00:00",
+      "bytes": 353831338,
+      "duracao_s": 11.706
+    },
+    {
+      "registrado_em": "2026-11-18T17:03:34.136589+00:00",
+      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
+      "competencia": "2026-08",
+      "arquivo": "Empresas5.zip",
+      "etapa": "extracao",
+      "status": "sucesso",
+      "inicio": "2026-11-18T17:03:22.476504+00:00",
+      "fim": "2026-11-18T17:03:34.129815+00:00",
+      "bytes": 352329655,
+      "duracao_s": 11.614
+    },
+    {
+      "registrado_em": "2026-11-18T17:10:52.518968+00:00",
+      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
+      "competencia": "2026-08",
+      "arquivo": "Empresas6.zip",
+      "etapa": "extracao",
+      "status": "sucesso",
+      "inicio": "2026-11-18T17:10:42.918957+00:00",
+      "fim": "2026-11-18T17:10:52.511816+00:00",
+      "bytes": 357908502,
+      "duracao_s": 9.555
+    },
+    {
+      "registrado_em": "2026-11-18T17:19:10.458202+00:00",
+      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
+      "competencia": "2026-08",
+      "arquivo": "Empresas7.zip",
+      "etapa": "extracao",
+      "status": "sucesso",
+      "inicio": "2026-11-18T17:18:57.709564+00:00",
+      "fim": "2026-11-18T17:19:10.451725+00:00",
+      "bytes": 356027757,
+      "duracao_s": 12.701
+    },
+    {
+      "registrado_em": "2026-11-18T17:28:12.690909+00:00",
+      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
+      "competencia": "2026-08",
+      "arquivo": "Empresas8.zip",
+      "etapa": "extracao",
+      "status": "sucesso",
+      "inicio": "2026-11-18T17:28:00.893782+00:00",
+      "fim": "2026-11-18T17:28:12.682970+00:00",
+      "bytes": 356518546,
+      "duracao_s": 11.746
+    },
+    {
+      "registrado_em": "2026-11-18T17:38:20.799760+00:00",
+      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
+      "competencia": "2026-08",
+      "arquivo": "Empresas9.zip",
+      "etapa": "extracao",
+      "status": "sucesso",
+      "inicio": "2026-11-18T17:38:05.892523+00:00",
+      "fim": "2026-11-18T17:38:20.790338+00:00",
+      "bytes": 362126916,
+      "duracao_s": 14.854
+    }
+  ]
 }

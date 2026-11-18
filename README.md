@@ -166,6 +166,6 @@ Para estudar os comentários, siga esta ordem:
 9. [Dockerfile](Dockerfile), [compose.yaml](compose.yaml) e [.env.example](.env.example): imagem, serviços, volumes, portas e configuração.
 
 - [ARQUITETURA.md](ARQUITETURA.md): decisões aprovadas.
-- [PLANO-DESENVOLVIMENTO.md](PLANO-DESENVOLVIMENTO.md): estado e próximos passos para o trabalho.
-- [PLANO-IMPLEMENTACAO.md](PLANO-IMPLEMENTACAO.md): tarefas e evidências de implementação.
+- [Endpoints_Documentacao.MD](Endpoints_Documentacao.MD): rotas HTTP, permissões, downloads, métricas e limites dos controles de jobs.
+- [Parquets_Documentacao.MD](Parquets_Documentacao.MD): tipos, chaves, relacionamentos e três visões com histórico de cinco meses.
 - [Layout oficial da Receita Federal](https://www.gov.br/receitafederal/dados/cnpj-metadados.pdf).
