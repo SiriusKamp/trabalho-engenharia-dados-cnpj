@@ -61,20 +61,52 @@ class AgendadorTests(unittest.TestCase):
                 self.assertEqual(resultado["indisponiveis"], ["2026-11"])
                 self.assertFalse(Metadados(self.raiz).estado()["manutencao_ativa"])
 
-    def test_pendencias_fora_da_nova_janela_terminam_antes_do_mes_novo(self):
+    def test_pendencias_fora_da_janela_so_retomam_quando_solicitadas(self):
         antigo = {"competencias": ["2026-10", "2026-11"], "indisponiveis": [],
                   "arquivos": {"2026-10": [], "2026-11": []}}
         novo = {"competencias": ["2026-12"], "indisponiveis": [], "arquivos": {"2026-12": []}}
-        with patch("Scripts.Agendador.catalogar", return_value=antigo), patch(
+        with patch("Scripts.Pipeline.BaixarArquivos.meses_calendario", return_value=["2026-10", "2026-11"]), patch("Scripts.Agendador.catalogar", return_value=antigo), patch(
                 "Scripts.Agendador.processar_competencia", side_effect=ValueError("Falha controlada")):
             executar(2, self.raiz)
-        with patch("Scripts.Agendador.catalogar", return_value=novo), patch(
+        with patch("Scripts.Pipeline.BaixarArquivos.meses_calendario", return_value=["2026-12"]), patch("Scripts.Agendador.catalogar", return_value=novo), patch(
                 "Scripts.Agendador.processar_competencia") as processar:
             resultado = executar(1, self.raiz)
         self.assertEqual([chamada.args[0] for chamada in processar.call_args_list],
-                         ["2026-10", "2026-11", "2026-12"])
+                         ["2026-12"])
         self.assertEqual(resultado["status"], "sucesso")
-        self.assertEqual(Metadados(self.raiz).estado()["pendentes"], [])
+        self.assertEqual(Metadados(self.raiz).estado()["pendentes"], ["2026-10", "2026-11"])
+        self.assertFalse(Metadados(self.raiz).estado()["manutencao_ativa"])
+        # Ampliar a janela permite retomar novembro; outubro continua preservado.
+        with patch("Scripts.Pipeline.BaixarArquivos.meses_calendario", return_value=["2026-11", "2026-12"]), patch(
+                "Scripts.Agendador.catalogar", return_value=antigo), patch(
+                "Scripts.Agendador.processar_competencia") as processar:
+            executar(2, self.raiz)
+        self.assertEqual([c.args[0] for c in processar.call_args_list], ["2026-11"])
+        self.assertEqual(Metadados(self.raiz).estado()["pendentes"], ["2026-10"])
+
+    def test_manutencao_filtra_catalogo_antigo_pelo_intervalo_atual(self):
+        plano = {"competencias": ["2026-10", "2026-11"], "indisponiveis": [],
+                 "arquivos": {"2026-10": [], "2026-11": []}}
+        meta = Metadados(self.raiz)
+        meta.estado(meses=1, manutencao_ativa=True, catalogo=plano, pendentes=plano["competencias"])
+        with patch("Scripts.Pipeline.BaixarArquivos.meses_calendario", return_value=["2026-11"]), patch(
+                "Scripts.Agendador.processar_competencia") as processar:
+            manutencao(self.raiz)
+        self.assertEqual([c.args[0] for c in processar.call_args_list], ["2026-11"])
+        self.assertEqual(meta.estado()["pendentes"], ["2026-10"])
+
+    def test_retomada_usa_catalogo_conhecido_para_pendente_dentro_da_janela(self):
+        antigo = {"competencias": ["2026-10"], "indisponiveis": [], "arquivos": {"2026-10": []}}
+        novo = {"competencias": ["2026-11"], "indisponiveis": ["2026-10"], "arquivos": {"2026-11": []}}
+        meta = Metadados(self.raiz)
+        meta.estado(catalogo=antigo, pendentes=["2026-10"])
+        with patch("Scripts.Pipeline.BaixarArquivos.meses_calendario", return_value=["2026-10", "2026-11"]), patch(
+                "Scripts.Agendador.catalogar", return_value=novo), patch(
+                "Scripts.Agendador.processar_competencia") as processar:
+            resultado = executar(2, self.raiz)
+        self.assertEqual([c.args[0] for c in processar.call_args_list], ["2026-10", "2026-11"])
+        self.assertEqual(resultado["status"], "sucesso")
+        self.assertEqual(meta.estado()["pendentes"], [])
 
     def preparar_competencia(self):
         meta = Metadados(self.raiz)

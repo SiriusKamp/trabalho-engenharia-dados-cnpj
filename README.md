@@ -6,7 +6,7 @@ Veja [TUTORIAIS.md](TUTORIAIS.md) para executar e testar com Docker ou Python di
 
 ```text
 Receita Federal -> Raw (ZIP) -> Bronze (CSV) -> Prata (Parquet) -> Ouro (dimensões e fatos)
-                         Metadados.json de cada camada -> API -> Grafana
+                         Metadados.json -> serviço de métricas (somente leitura) -> Grafana
 ```
 
 ## Começar com Docker
@@ -22,6 +22,8 @@ docker compose up -d
 ```
 
 Abra o Grafana em `http://localhost:3000` com `admin` / `admin`. A API está em `http://localhost:8000/docs`. Todas as credenciais de demonstração e permissões estão em [CREDENCIAIS.md](CREDENCIAIS.md).
+
+O Compose inicia `app` (pipeline/API), `metricas` (a mesma API em modo somente leitura, sem Spark) e `grafana`. O Grafana consulta `http://metricas:8000` pela rede interna; esse serviço não publica uma porta no notebook. Apenas a medição de ocupação em disco tem cache de 30 segundos; falhas, etapas e eventos são lidos a cada consulta.
 
 O `.env.example` é o modelo versionado. Faça uma cópia chamada `.env` e edite essa cópia; se ela já existir, edite a configuração existente. O Compose lê `.env` automaticamente para preencher as variáveis declaradas em `compose.yaml`. Neste projeto ele também funciona sem `.env`, usando os padrões do Compose. O Python chamado diretamente fora do Docker consulta as variáveis do processo e não carrega esse arquivo automaticamente.
 
@@ -56,7 +58,7 @@ As portas ficam em `compose.yaml`, em `ports` de cada serviço. A sintaxe usada 
 | API | `127.0.0.1:8000:8000` | `http://localhost:8000/docs` |
 | Grafana | `127.0.0.1:3000:3000` | `http://localhost:3000` |
 
-Por exemplo, altere a linha de `app` para `127.0.0.1:8001:8000` e a de `grafana` para `127.0.0.1:3001:3000`. Depois acesse `http://localhost:8001/docs` e `http://localhost:3001`. Você mudou as portas publicadas no computador; a comunicação interna Grafana -> API continua usando `http://app:8000`. As portas 8001/3001 são apenas exemplos; o arquivo fornecido permanece em 8000/3000.
+Por exemplo, altere a linha de `app` para `127.0.0.1:8001:8000` e a de `grafana` para `127.0.0.1:3001:3000`. Depois acesse `http://localhost:8001/docs` e `http://localhost:3001`. Você mudou as portas publicadas no computador; a comunicação interna Grafana -> API continua usando `http://metricas:8000`. As portas 8001/3001 são apenas exemplos; o arquivo fornecido permanece em 8000/3000.
 
 ```powershell
 # Após editar .env ou os mapeamentos de porta, recriar os serviços.
@@ -93,7 +95,7 @@ O parâmetro controla o intervalo de verificação/importação. Ele nunca apaga
 - Conservar metadados mesmo após descarte; arquivo já consumido não é baixado novamente apenas porque foi removido.
 - Reprocessar uma origem substitui sua contribuição da competência, incluindo registros removidos. Outras competências e candidatos de outras origens permanecem.
 - Gravar falhas por etapa e manter os arquivos necessários para a retomada. A Ouro só é atualizada após concluir a Prata necessária daquele mês.
-- Concluir pendências de uma janela anterior antes dos meses novos, mesmo após a virada do mês ou uma redução de `--meses`.
+- Processar somente competências dentro da janela solicitada, inclusive na manutenção. Pendências antigas permanecem auditadas e só retomam se voltarem ao intervalo.
 - Detectar republicações locais da Prata, invalidar ZIPs corrompidos e retomar descartes interrompidos.
 
 ```powershell
@@ -111,6 +113,10 @@ docker compose run --rm app python main.py manutencao
 Quando o agendamento está habilitado, a manutenção é verificada a cada 30 minutos enquanto houver pendências. Ela fica inativa quando tudo termina sem erros e é reativada por uma nova carga ou pelo comando manual. Uma trava compartilhada entre processos impede duas cargas simultâneas.
 
 A manutenção reutiliza o catálogo conhecido. Quando a consulta ao portal falha, ela tenta consultar novamente no ciclo de 30 minutos. A API reserva a trava antes de aceitar uma importação e responde HTTP 409 se a CLI ou o agendador já estiver executando.
+
+Para consultar sem iniciar uma carga: `GET /operacao/pendentes?meses=1`, com a role de engenharia. A resposta separa arquivos elegíveis, arquivos fora do intervalo e competências Ouro ainda aguardando a Prata. `/metricas/resumo` informa a última etapa registrada, o arquivo e o início da etapa para o Grafana.
+
+Os temporários Spark usam o volume Linux `spark-temporarios` por padrão. Isso evita gravar cache/shuffle no bind mount Windows/OneDrive; DATA continua na pasta do host. Se houver um `.env` antigo com `DIRETORIO_SPARK_TMP=./.spark-tmp`, altere para `spark-temporarios` para adotar esse padrão. A proteção do armazenamento do servidor continua dependendo da configuração do host.
 
 ## Dados e indicadores
 
@@ -143,11 +149,13 @@ As roles são aplicadas na API, com bloqueio de acesso indevido testado. As port
 ## Testar
 
 ```powershell
-# Todas as dependências vêm da imagem; amostras sintéticas, sem baixar CNPJ real.
-docker compose run --rm -v "${PWD}/tests:/app/tests" app python -B -m unittest discover -s tests -v
+# Testes Python na imagem; amostras sintéticas, sem baixar CNPJ real.
+docker compose run --rm -v "${PWD}/tests:/app/tests" -v "${PWD}/Grafana:/app/Grafana:ro" app python -B -m unittest discover -s tests -v
 ```
 
-Configuração inicial: JVM com 4 GB, container da aplicação até 6 GB e Grafana até 512 MB. Medir uma competência real antes de projetar RAM/disco para o histórico completo. Não foi executada uma carga nacional completa durante a implementação.
+O teste do consumidor JavaScript do Infinity requer Node e é ignorado na imagem Python, que não inclui Node. No host com Python e Node, execute `python -B -m unittest discover -s tests -p test_grafana.py -v` para validar os targets reais do dashboard.
+
+Configuração inicial: JVM com 4 GB, aplicação até 6 GB, métricas até 256 MB e Grafana até 512 MB. Medir uma competência real antes de projetar RAM/disco para o histórico completo. Os testes sintéticos não representam o tempo de processamento de uma competência nacional.
 
 ## Arquivos principais
 

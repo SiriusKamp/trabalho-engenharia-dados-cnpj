@@ -1,16 +1,20 @@
 """CSV oficial para snapshots Parquet por competência e origem lógica do ZIP."""
 
 import os
+import logging
 import re
 import shutil
 import tempfile
+import time
 from pathlib import Path
 
 from pyspark import StorageLevel
-from pyspark.sql import DataFrame, SparkSession, Window, functions as F
+from pyspark.sql import DataFrame, Observation, SparkSession, Window, functions as F
 
 from Scripts.Pipeline.Esquemas import CAMPOS_NOME, CHAVES, COLUNAS, esquema_csv, esquema_prata
 from Scripts.Pipeline.Metadados import agora, publicar_diretorio
+
+LOG = logging.getLogger("cnpj")
 
 # DataFrames Spark descrevem operações que só são executadas quando uma ação
 # como count() ou write é chamada. F.col/F.when geram expressões para o Spark;
@@ -115,18 +119,31 @@ def deduplicar(tabela: DataFrame, entidade: str, chaves=None) -> DataFrame:
     )
 
 
-def ler_tabela(spark, raiz: Path, entidade: str, competencia: str) -> DataFrame:
-    """Consolida candidatos entre origens sem apagá-los dos snapshots físicos."""
+def _ler_fragmentos(spark, raiz: Path, entidade: str, competencia: str) -> DataFrame:
     diretorio = _diretorio_competencia(raiz, entidade, competencia)
     fragmentos = _fragmentos(diretorio)
     if not fragmentos:
         raise FileNotFoundError(f"Prata ausente: {entidade}/{competencia}")
-    # Ler todos os fragmentos antes de deduplicar resolve duplicatas entre ZIPs,
-    # preservando fisicamente candidatos necessários para correções futuras.
     tabela = (spark.read.schema(esquema_prata(entidade))
               .option("recursiveFileLookup", "true")
               .parquet(*[str(pasta) for pasta in fragmentos]))
-    return deduplicar(tabela.where(F.col("competencia") == competencia), entidade)
+    return tabela.where(F.col("competencia") == competencia)
+
+
+def ler_tabela(spark, raiz: Path, entidade: str, competencia: str) -> DataFrame:
+    """Consolida candidatos entre origens sem apagá-los dos snapshots físicos."""
+    return deduplicar(_ler_fragmentos(spark, raiz, entidade, competencia), entidade)
+
+
+def ler_insercoes(spark, raiz: Path, entidade: str, competencia: str) -> DataFrame:
+    """Lê só as chaves e datas anteriores; não recalcula vencedores do mês inteiro.
+
+    Para preservar a primeira data, basta o mínimo entre todos os candidatos.
+    Reordenar o histórico por qualidade aqui relia nomes, capital e demais
+    colunas, com janelas/shuffles repetidos a cada ZIP. Parquet agora pode ler
+    apenas as poucas colunas necessárias, sem essas janelas do histórico.
+    """
+    return _ler_fragmentos(spark, raiz, entidade, competencia).select(*CHAVES[entidade], "data_insercao")
 
 
 def _normalizar(bronze: DataFrame, entidade: str) -> DataFrame:
@@ -203,15 +220,22 @@ def processar_arquivo(spark, arquivos: list[Path], entidade: str, competencia: s
     diretorio.mkdir(parents=True, exist_ok=True)
     reconciliar_publicacao(destino)
     staging = Path(tempfile.mkdtemp(prefix=f".{destino.name}.staging-", dir=diretorio))
-    bronze = tabela = None
+    tabela = None
+    inicio = time.monotonic()
     try:
-        # DISK_ONLY reaproveita resultados entre ações sem tentar manter o lote
-        # inteiro na RAM. ISO-8859-1 e ';' seguem o formato publicado pela Receita.
+        # Observation conta as linhas durante a transformação. Evitamos gravar
+        # todo o CSV textual em um segundo cache em disco só para contá-lo.
+        # ISO-8859-1 e ';' seguem o formato publicado pela Receita.
+        # multiLine mantém quebras de linha dentro de campos entre aspas no mesmo
+        # registro (por exemplo, complemento de endereço). FAILFAST continua
+        # impedindo a publicação de um CSV que não possa ser interpretado.
+        # Com multiLine, cada arquivo de entrada é lido por uma única tarefa.
+        leitura = Observation()
         bronze = (spark.read.schema(esquema_csv(entidade))
-                  .options(sep=";", encoding="ISO-8859-1", header="false", quote='"', escape='"', mode="FAILFAST")
+                  .options(sep=";", encoding="ISO-8859-1", header="false", quote='"', escape='"',
+                           multiLine="true", mode="FAILFAST")
                   .csv([str(Path(arquivo)) for arquivo in arquivos])
-                  .persist(StorageLevel.DISK_ONLY))
-        lidas = bronze.count()
+                  .observe(leitura, F.count(F.lit(1)).alias("linhas_lidas")))
         # Uma única data literal por lote evita horários diferentes entre ações Spark.
         instante = F.to_timestamp(F.lit(agora()))
         tabela = (_normalizar(bronze, entidade)
@@ -223,14 +247,26 @@ def processar_arquivo(spark, arquivos: list[Path], entidade: str, competencia: s
                   .withColumn("execucao_id", F.lit(execucao_id)))
         # Datas antigas devem ser lidas ANTES de substituir o snapshot da origem.
         if _fragmentos(diretorio):
-            tabela = preservar_insercao(tabela, ler_tabela(spark, raiz, entidade, competencia), CHAVES[entidade])
+            tabela = preservar_insercao(tabela, ler_insercoes(spark, raiz, entidade, competencia), CHAVES[entidade])
         tabela = deduplicar(tabela, entidade).select(*esquema_prata(entidade).fieldNames()).persist(StorageLevel.DISK_ONLY)
         obrigatorios = ["cnpj_basico"]
         if entidade == "estabelecimentos":
             obrigatorios.extend(["cnpj_ordem", "cnpj_dv", "cnpj_completo"])
-        if tabela.where(F.lit(False) | sum(F.col(nome).isNull().cast("int") for nome in obrigatorios).cast("boolean")).limit(1).count():
+        chave_nula = F.lit(False)
+        for nome in obrigatorios:
+            chave_nula = chave_nula | F.col(nome).isNull()
+        # Esta primeira ação percorre o lote completo: materializa o cache Prata,
+        # conta a saída e valida as chaves. Só depois lemos a observação da entrada.
+        validacao = tabela.agg(
+            F.count(F.lit(1)).alias("linhas"),
+            F.max(F.when(chave_nula, 1).otherwise(0)).alias("chave_nula"),
+        ).first()
+        if validacao.chave_nula:
             raise ValueError("Chave de negócio ausente no lote Bronze")
-        linhas = tabela.count()
+        linhas = validacao.linhas
+        lidas = int(leitura.get["linhas_lidas"])
+        LOG.info("Prata transformada: %s/%s, lidas=%s publicadas=%s duracao_s=%.3f",
+                 competencia, origem, lidas, linhas, time.monotonic() - inicio)
         # overwrite atua somente no staging desta origem/competência, nunca em
         # toda a Prata. A troca definitiva fica a cargo de publicar_diretorio.
         tabela.write.mode("overwrite").parquet(str(staging))
@@ -239,13 +275,11 @@ def processar_arquivo(spark, arquivos: list[Path], entidade: str, competencia: s
             raise ValueError("Contagem do Parquet publicado difere do lote validado")
         tamanho = bytes_diretorio(staging)
         publicar_diretorio(staging, destino)
-        return {"caminho": destino.relative_to(Path(raiz)).as_posix(), "linhas": linhas,
+        return {"caminho": destino.relative_to(Path(raiz)).as_posix(), "linhas": linhas, "linhas_lidas": lidas,
                 "duplicidades": lidas - linhas, "bytes": tamanho}
     finally:
         # persist() precisa de unpersist(): libera o cache em disco ao terminar.
         if tabela is not None:
             tabela.unpersist()
-        if bronze is not None:
-            bronze.unpersist()
         if staging.exists():
             shutil.rmtree(staging)

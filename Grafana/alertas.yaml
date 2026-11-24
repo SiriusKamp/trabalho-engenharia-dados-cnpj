@@ -38,7 +38,7 @@ groups:
               type: json
               parser: backend
               source: url
-              url: http://app:8000/metricas/resumo
+              url: http://metricas:8000/metricas/resumo
               url_options:
                 method: GET
               format: table

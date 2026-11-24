@@ -9,7 +9,7 @@ datasources:
     orgId: 1
     type: yesoreyeram-infinity-datasource
     access: proxy
-    url: http://app:8000
+    url: http://metricas:8000
     isDefault: true
     editable: false
     basicAuth: true
@@ -17,7 +17,7 @@ datasources:
     jsonData:
       auth_method: basicAuth
       allowedHosts:
-        - http://app:8000
+        - http://metricas:8000
       timeoutInSeconds: 30
       allowDangerousHTTPMethods: false
       tlsSkipVerify: false

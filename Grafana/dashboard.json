@@ -2,7 +2,7 @@
   "id": null,
   "uid": "cnpj-operacional",
   "title": "CNPJ | Operação do pipeline",
-  "description": "Manifestos e eventos operacionais, sem consultas a cadastros. Ocupação é o volume atual; bytes históricos preservam o movimento após o descarte. Leituras e alertas usam Infinity JSON com parser backend.",
+  "description": "Manifestos e eventos operacionais, sem consultas a cadastros. Ocupação medida a cada 30 segundos; estados e eventos são lidos a cada consulta. Bytes históricos preservam o movimento após o descarte. Leituras e alertas usam Infinity JSON com parser backend.",
   "tags": ["cnpj", "pipeline", "operacao"],
   "timezone": "America/Sao_Paulo",
   "schemaVersion": 39,
@@ -21,14 +21,14 @@
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "cnpj-api"},
       "fieldConfig": {"defaults": {"decimals": 0, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "red", "value": 1}]}}, "overrides": []},
       "options": {"colorMode": "background", "graphMode": "none", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}},
-      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://app:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "falhas_atuais", "text": "Falhas", "type": "number"}]}]
+      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://metricas:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "falhas_atuais", "text": "Falhas", "type": "number"}]}]
     },
     {
       "id": 2, "type": "stat", "title": "Arquivos pendentes", "gridPos": {"x": 4, "y": 0, "w": 4, "h": 4},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "cnpj-api"},
       "fieldConfig": {"defaults": {"decimals": 0, "thresholds": {"mode": "absolute", "steps": [{"color": "green", "value": null}, {"color": "orange", "value": 1}]}}, "overrides": []},
       "options": {"colorMode": "value", "graphMode": "none", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}},
-      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://app:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "pendencias", "text": "Pendências", "type": "number"}]}]
+      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://metricas:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "pendencias", "text": "Pendências", "type": "number"}]}]
     },
     {
       "id": 3, "type": "stat", "title": "Ocupação atual", "description": "Soma dos arquivos de dados presentes. Manifestos, locks e symlinks não entram no total.",
@@ -36,42 +36,42 @@
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "cnpj-api"},
       "fieldConfig": {"defaults": {"unit": "bytes", "color": {"mode": "fixed", "fixedColor": "blue"}}, "overrides": []},
       "options": {"colorMode": "value", "graphMode": "none", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}},
-      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://app:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "bytes_total", "text": "DATA", "type": "number"}]}]
+      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://metricas:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "bytes_total", "text": "DATA", "type": "number"}]}]
     },
     {
       "id": 4, "type": "stat", "title": "Execuções registradas", "gridPos": {"x": 12, "y": 0, "w": 4, "h": 4},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "cnpj-api"},
       "fieldConfig": {"defaults": {"decimals": 0}, "overrides": []},
       "options": {"graphMode": "none", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}},
-      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://app:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "execucoes_total", "text": "Execuções", "type": "number"}]}]
+      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://metricas:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "execucoes_total", "text": "Execuções", "type": "number"}]}]
     },
     {
       "id": 5, "type": "stat", "title": "Downloads concluídos", "gridPos": {"x": 16, "y": 0, "w": 4, "h": 4},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "cnpj-api"},
       "fieldConfig": {"defaults": {"decimals": 0}, "overrides": []},
       "options": {"graphMode": "none", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}},
-      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://app:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "downloads_total", "text": "Downloads", "type": "number"}]}]
+      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://metricas:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "downloads_total", "text": "Downloads", "type": "number"}]}]
     },
     {
       "id": 6, "type": "stat", "title": "Bytes transferidos acumulados", "gridPos": {"x": 20, "y": 0, "w": 4, "h": 4},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "cnpj-api"},
       "fieldConfig": {"defaults": {"unit": "bytes"}, "overrides": []},
       "options": {"graphMode": "none", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}},
-      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://app:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "bytes_transferidos", "text": "Transferidos", "type": "number"}]}]
+      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://metricas:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "bytes_transferidos", "text": "Transferidos", "type": "number"}]}]
     },
     {
       "id": 7, "type": "bargauge", "title": "Ocupação atual por camada", "gridPos": {"x": 0, "y": 4, "w": 12, "h": 7},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "cnpj-api"},
       "fieldConfig": {"defaults": {"unit": "bytes", "min": 0, "color": {"mode": "palette-classic"}}, "overrides": []},
       "options": {"orientation": "horizontal", "displayMode": "gradient", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}},
-      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://app:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $.bytes_camadas)", "columns": [{"selector": "Raw", "text": "Raw", "type": "number"}, {"selector": "Bronze", "text": "Bronze", "type": "number"}, {"selector": "Prata", "text": "Prata", "type": "number"}, {"selector": "Ouro", "text": "Ouro", "type": "number"}]}]
+      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://metricas:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $.bytes_camadas)", "columns": [{"selector": "Raw", "text": "Raw", "type": "number"}, {"selector": "Bronze", "text": "Bronze", "type": "number"}, {"selector": "Prata", "text": "Prata", "type": "number"}, {"selector": "Ouro", "text": "Ouro", "type": "number"}]}]
     },
     {
       "id": 8, "type": "table", "title": "Duração média e falhas históricas por etapa", "gridPos": {"x": 12, "y": 4, "w": 12, "h": 7},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "cnpj-api"},
       "fieldConfig": {"defaults": {}, "overrides": [{"matcher": {"id": "byName", "options": "Duração média"}, "properties": [{"id": "unit", "value": "s"}]}]},
       "options": {"showHeader": true, "sortBy": [{"displayName": "Etapa", "desc": false}]},
-      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://app:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$.etapas", "columns": [{"selector": "etapa", "text": "Etapa", "type": "string"}, {"selector": "eventos", "text": "Eventos", "type": "number"}, {"selector": "duracao_media_s", "text": "Duração média", "type": "number"}, {"selector": "falhas", "text": "Falhas históricas", "type": "number"}]}]
+      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://metricas:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$.etapas", "columns": [{"selector": "etapa", "text": "Etapa", "type": "string"}, {"selector": "eventos", "text": "Eventos", "type": "number"}, {"selector": "duracao_media_s", "text": "Duração média", "type": "number"}, {"selector": "falhas", "text": "Falhas históricas", "type": "number"}]}]
     },
     {
       "id": 9, "type": "table", "title": "Histórico operacional", "description": "Eventos por arquivo e execução. Detalhes livres de erro ficam restritos; o período exibido vem dos manifestos.",
@@ -79,34 +79,34 @@
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "cnpj-api"},
       "fieldConfig": {"defaults": {}, "overrides": [{"matcher": {"id": "byName", "options": "Bytes"}, "properties": [{"id": "unit", "value": "bytes"}]}, {"matcher": {"id": "byName", "options": "Duração"}, "properties": [{"id": "unit", "value": "s"}]}]},
       "options": {"showHeader": true, "sortBy": [{"displayName": "Início", "desc": true}]},
-      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://app:8000/metricas/execucoes", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$", "columns": [{"selector": "inicio", "text": "Início", "type": "timestamp"}, {"selector": "fim", "text": "Fim", "type": "timestamp"}, {"selector": "execucao_id", "text": "Execução", "type": "string"}, {"selector": "competencia", "text": "Competência", "type": "string"}, {"selector": "camada", "text": "Camada", "type": "string"}, {"selector": "arquivo", "text": "Arquivo", "type": "string"}, {"selector": "etapa", "text": "Etapa", "type": "string"}, {"selector": "status", "text": "Estado", "type": "string"}, {"selector": "duracao_s", "text": "Duração", "type": "number"}, {"selector": "bytes", "text": "Bytes", "type": "number"}, {"selector": "linhas", "text": "Linhas", "type": "number"}, {"selector": "erro", "text": "Erro", "type": "string"}]}]
+      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://metricas:8000/metricas/execucoes", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$", "columns": [{"selector": "inicio", "text": "Início", "type": "timestamp"}, {"selector": "fim", "text": "Fim", "type": "timestamp"}, {"selector": "execucao_id", "text": "Execução", "type": "string"}, {"selector": "competencia", "text": "Competência", "type": "string"}, {"selector": "camada", "text": "Camada", "type": "string"}, {"selector": "arquivo", "text": "Arquivo", "type": "string"}, {"selector": "etapa", "text": "Etapa", "type": "string"}, {"selector": "status", "text": "Estado", "type": "string"}, {"selector": "duracao_s", "text": "Duração", "type": "number"}, {"selector": "bytes", "text": "Bytes", "type": "number"}, {"selector": "linhas", "text": "Linhas", "type": "number"}, {"selector": "erro", "text": "Erro", "type": "string"}]}]
     },
     {
       "id": 10, "type": "table", "title": "Estado do agendamento", "gridPos": {"x": 0, "y": 21, "w": 12, "h": 5},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "cnpj-api"},
       "fieldConfig": {"defaults": {}, "overrides": []}, "options": {"showHeader": true},
-      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://app:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "estado.meses", "text": "Meses solicitados", "type": "number"}, {"selector": "estado.manutencao_ativa", "text": "Manutenção ativa", "type": "boolean"}, {"selector": "estado.proxima_verificacao", "text": "Próxima verificação", "type": "timestamp"}, {"selector": "ultima_extracao", "text": "Última extração", "type": "timestamp"}, {"selector": "status", "text": "Situação atual", "type": "string"}]}]
+      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://metricas:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector":"estado.etapa_atual","text":"Última etapa registrada","type":"string"},{"selector":"estado.competencia_atual","text":"Competência da etapa","type":"string"},{"selector":"estado.arquivo_atual","text":"Arquivo da etapa","type":"string"},{"selector":"estado.etapa_inicio","text":"Início da etapa","type":"timestamp"}, {"selector": "estado.meses", "text": "Meses solicitados", "type": "number"}, {"selector": "estado.manutencao_ativa", "text": "Manutenção ativa", "type": "boolean"}, {"selector": "estado.proxima_verificacao", "text": "Próxima verificação", "type": "timestamp"}, {"selector": "ultima_extracao", "text": "Última extração", "type": "timestamp"}, {"selector": "status", "text": "Situação atual", "type": "string"}]}]
     },
     {
       "id": 11, "type": "stat", "title": "Duração média por evento", "gridPos": {"x": 12, "y": 21, "w": 4, "h": 5},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "cnpj-api"},
       "fieldConfig": {"defaults": {"unit": "s"}, "overrides": []},
       "options": {"graphMode": "none", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}},
-      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://app:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "duracao_media_s", "text": "Média", "type": "number"}]}]
+      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://metricas:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "duracao_media_s", "text": "Média", "type": "number"}]}]
     },
     {
       "id": 12, "type": "stat", "title": "Linhas lidas e publicadas", "description": "Acumulado de eventos; uma mesma linha pode atravessar várias etapas.", "gridPos": {"x": 16, "y": 21, "w": 4, "h": 5},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "cnpj-api"},
       "fieldConfig": {"defaults": {"unit": "short", "decimals": 0}, "overrides": []},
       "options": {"graphMode": "none", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}},
-      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://app:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "linhas_total", "text": "Linhas", "type": "number"}]}]
+      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://metricas:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "linhas_total", "text": "Linhas", "type": "number"}]}]
     },
     {
       "id": 13, "type": "stat", "title": "Qualidade registrada", "gridPos": {"x": 20, "y": 21, "w": 4, "h": 5},
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "cnpj-api"},
       "fieldConfig": {"defaults": {"decimals": 0}, "overrides": []},
       "options": {"graphMode": "none", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}},
-      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://app:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "duplicidades", "text": "Duplicidades", "type": "number"}, {"selector": "erros_qualidade", "text": "Erros de qualidade", "type": "number"}]}]
+      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://metricas:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $)", "columns": [{"selector": "duplicidades", "text": "Duplicidades", "type": "number"}, {"selector": "erros_qualidade", "text": "Erros de qualidade", "type": "number"}]}]
     },
     {
       "id": 14, "type": "bargauge", "title": "Bytes processados acumulados por camada", "description": "Mede passagem histórica pelas etapas; preservado após descarte de ZIP/CSV.",
@@ -114,7 +114,7 @@
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "cnpj-api"},
       "fieldConfig": {"defaults": {"unit": "bytes", "min": 0, "color": {"mode": "palette-classic"}}, "overrides": []},
       "options": {"orientation": "horizontal", "displayMode": "gradient", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}},
-      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://app:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $.bytes_historicos_camadas)", "columns": [{"selector": "Raw", "text": "Raw", "type": "number"}, {"selector": "Bronze", "text": "Bronze", "type": "number"}, {"selector": "Prata", "text": "Prata", "type": "number"}, {"selector": "Ouro", "text": "Ouro", "type": "number"}]}]
+      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://metricas:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $.bytes_historicos_camadas)", "columns": [{"selector": "Raw", "text": "Raw", "type": "number"}, {"selector": "Bronze", "text": "Bronze", "type": "number"}, {"selector": "Prata", "text": "Prata", "type": "number"}, {"selector": "Ouro", "text": "Ouro", "type": "number"}]}]
     },
     {
       "id": 15, "type": "bargauge", "title": "Linhas registradas por camada", "description": "Distingue leitura e publicação pelas camadas do pipeline.",
@@ -122,8 +122,8 @@
       "datasource": {"type": "yesoreyeram-infinity-datasource", "uid": "cnpj-api"},
       "fieldConfig": {"defaults": {"unit": "short", "decimals": 0, "min": 0, "color": {"mode": "palette-classic"}}, "overrides": []},
       "options": {"orientation": "horizontal", "displayMode": "gradient", "reduceOptions": {"calcs": ["lastNotNull"], "fields": "", "values": false}},
-      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://app:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $.linhas_camadas)", "columns": [{"selector": "Raw", "text": "Raw", "type": "number"}, {"selector": "Bronze", "text": "Bronze", "type": "number"}, {"selector": "Prata", "text": "Prata", "type": "number"}, {"selector": "Ouro", "text": "Ouro", "type": "number"}]}]
+      "targets": [{"refId": "A", "type": "json", "parser": "backend", "source": "url", "url": "http://metricas:8000/metricas/resumo", "url_options": {"method": "GET"}, "format": "table", "root_selector": "$append([], $.linhas_camadas)", "columns": [{"selector": "Raw", "text": "Raw", "type": "number"}, {"selector": "Bronze", "text": "Bronze", "type": "number"}, {"selector": "Prata", "text": "Prata", "type": "number"}, {"selector": "Ouro", "text": "Ouro", "type": "number"}]}]
     },
-    {"id":16,"type":"table","title":"Downloads por importação","gridPos":{"x":0,"y":32,"w":24,"h":7},"datasource":{"type":"yesoreyeram-infinity-datasource","uid":"cnpj-api"},"options":{"showHeader":true},"targets":[{"refId":"A","type":"json","parser":"backend","source":"url","url":"http://app:8000/metricas/resumo","format":"table","root_selector":"$.importacoes","columns":[{"selector":"execucao_id","text":"Importação","type":"string"},{"selector":"downloads","text":"Downloads","type":"number"},{"selector":"bytes_transferidos","text":"Bytes transferidos","type":"number"},{"selector":"falhas","text":"Falhas","type":"number"},{"selector":"duracao_s","text":"Duração acumulada (s)","type":"number"}]}]}
+    {"id":16,"type":"table","title":"Downloads por importação","gridPos":{"x":0,"y":32,"w":24,"h":7},"datasource":{"type":"yesoreyeram-infinity-datasource","uid":"cnpj-api"},"options":{"showHeader":true},"targets":[{"refId":"A","type":"json","parser":"backend","source":"url","url":"http://metricas:8000/metricas/resumo","url_options":{"method":"GET"},"format":"table","root_selector":"$.importacoes","columns":[{"selector":"execucao_id","text":"Importação","type":"string"},{"selector":"downloads","text":"Downloads","type":"number"},{"selector":"bytes_transferidos","text":"Bytes transferidos","type":"number"},{"selector":"falhas","text":"Falhas","type":"number"},{"selector":"duracao_s","text":"Duração acumulada (s)","type":"number"}]}]}
   ]
 }

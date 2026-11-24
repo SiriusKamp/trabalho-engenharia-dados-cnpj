@@ -181,6 +181,23 @@ class TestPipelineSpark(unittest.TestCase):
         self.assertEqual(self.tabela("empresas").first().capital_social, Decimal("1234.56"))
         self.assertFalse(list(self.raiz.rglob("*.crc")))
 
+    def test_le_csv_com_quebra_de_linha_entre_aspas_sem_deslocar_colunas(self):
+        # Um campo entre aspas pode ocupar duas linhas físicas no CSV oficial.
+        # O registro seguinte também deve continuar independente, com 30 colunas.
+        complemento = 'ANDAR 16\nTORRE "2"; SALA 2'
+        resultado = self.carregar("estabelecimentos", [
+            estabelecimento(complemento=complemento),
+            estabelecimento("00000002", complemento="SALA 3"),
+        ])
+        self.assertEqual(resultado["linhas"], 2)
+        self.assertEqual(resultado["duplicidades"], 0)
+        linhas = {linha.cnpj_basico: linha for linha in self.tabela("estabelecimentos").collect()}
+        self.assertEqual(linhas["00000001"].complemento, complemento)
+        self.assertEqual(linhas["00000001"].bairro, "Centro")
+        self.assertEqual(linhas["00000001"].cep, "01001000")
+        self.assertEqual(linhas["00000001"].correio_eletronico, "exemplo@example.test")
+        self.assertEqual(linhas["00000002"].complemento, "SALA 3")
+
     def test_substitui_origem_com_remocoes_preservando_candidato_e_insercao(self):
         self.carregar("empresas", [empresa(), empresa("00000002"), empresa("00000003")], origem="Empresas0.zip")
         insercao = self.tabela("empresas").where("cnpj_basico = '00000001'").first().data_insercao
@@ -259,6 +276,134 @@ class TestPipelineSpark(unittest.TestCase):
         pessoa = self.tabela("socios").first()
         self.assertEqual(pessoa.documento_mascarado, "***456789**")
         self.assertEqual(pessoa.representante_legal, "***876543**")
+
+    def test_otimizacao_valida_estagio_em_uma_acao_inclusive_vazio_e_chaves_invalidas(self):
+        from Scripts.Pipeline import PipelineOuro
+
+        validar = getattr(PipelineOuro, "_validar_estagio", None)
+        self.assertTrue(callable(validar), "Falta o validador do staging em uma única ação")
+        casos = [
+            ([("a", "2024-02"), ("b", "2024-02")], 2, None),
+            ([], 0, None),
+            ([(None, "2024-02")], None, "Chave nula"),
+            ([("a", None)], None, "Chave nula"),
+            ([("a", "2024-02"), ("a", "2024-02")], None, "Chave duplicada"),
+            ([(None, "2024-02"), (None, "2024-02")], None, "Chave nula"),
+        ]
+        for indice, (linhas, esperado, erro) in enumerate(casos):
+            with self.subTest(caso=indice):
+                pasta = self.raiz / f"estagio-{indice}"
+                self.spark.createDataFrame(linhas, "chave string, competencia string").write.parquet(str(pasta))
+                estagio = self.spark.read.parquet(str(pasta))
+                classe = type(estagio)
+                coletar_original = classe.collect
+                # collect é a fronteira da ação; os dois agrupamentos são planos lazy.
+                with patch.object(classe, "collect", autospec=True, side_effect=coletar_original) as coletar:
+                    if erro:
+                        with self.assertRaisesRegex(ValueError, erro):
+                            validar(estagio, ["chave", "competencia"], "produto_teste")
+                    else:
+                        self.assertEqual(validar(estagio, ["chave", "competencia"], "produto_teste"), esperado)
+                self.assertEqual(coletar.call_count, 1)
+
+    def test_otimizacao_cache_estreito_base_compartilhada_logs_e_datas(self):
+        from pyspark import StorageLevel
+        from Scripts.Pipeline import PipelineOuro
+
+        self.preparar_mes()
+        classe = type(self.tabela("empresas"))
+        persistir_original = classe.persist
+        caches = []
+
+        def persistir(tabela, nivel):
+            caches.append(tabela)
+            self.assertEqual(nivel, StorageLevel.DISK_ONLY)
+            return persistir_original(tabela, nivel)
+
+        with patch.object(classe, "persist", autospec=True, side_effect=persistir):
+            with self.assertLogs("cnpj", level="INFO") as logs:
+                with patch.object(PipelineOuro, "agora", return_value="2024-03-01T12:00:00+00:00"):
+                    PipelineOuro.processar_ouro(self.spark, self.raiz, "2024-02", "execucao-privada", "usuario-privado")
+        self.assertEqual(len(caches), 4, "Três fontes e uma base compartilhada devem ser persistidas")
+        self.assertEqual(set(caches[1].columns), {
+            "cnpj_basico", "competencia", "identificador_matriz_filial", "situacao_cadastral", "data_inicio_atividade",
+        })
+        self.assertIn("_abertura_matriz", caches[3].columns)
+        self.assertIn("idade_media_estimada_socios_pf", caches[3].columns)
+        self.assertTrue(all(tabela.storageLevel == StorageLevel.NONE for tabela in caches))
+        texto = "\n".join(logs.output)
+        for nome in PRODUTOS:
+            for etapa in ("produto", "validacao"):
+                self.assertIn(f"Ouro {etapa} inicio: competencia=2024-02 produto={nome}", texto)
+                self.assertIn(f"Ouro {etapa} fim: competencia=2024-02 produto={nome} status=sucesso duracao_s=", texto)
+        self.assertNotIn("usuario-privado", texto)
+        self.assertNotIn("execucao-privada", texto)
+        primeiras = {nome: self.produto(nome).collect() for nome in PRODUTOS}
+        with patch.object(PipelineOuro, "agora", return_value="2024-03-02T12:00:00+00:00"):
+            PipelineOuro.processar_ouro(self.spark, self.raiz, "2024-02", "nova-execucao", "novo-usuario")
+        for nome in PRODUTOS:
+            atuais = self.produto(nome).collect()
+            self.assertEqual(len(atuais), len(primeiras[nome]))
+            chave = lambda linha: (linha.competencia, getattr(linha, "cnpj_basico", getattr(linha, "socio_id", None)))
+            for antiga, atual in zip(sorted(primeiras[nome], key=chave), sorted(atuais, key=chave)):
+                self.assertEqual(atual.data_insercao, antiga.data_insercao)
+                self.assertGreater(atual.data_atualizacao, antiga.data_atualizacao)
+                self.assertEqual(atual.execucao_id, "nova-execucao")
+                self.assertEqual(atual.atualizado_por, "novo-usuario")
+                campos = set(atual.asDict()) - {"data_atualizacao", "execucao_id", "atualizado_por"}
+                self.assertEqual({c: atual[c] for c in campos}, {c: antiga[c] for c in campos})
+
+    def test_otimizacao_preserva_qualidade_antes_da_projecao_e_unicidade_entre_origens(self):
+        self.carregar("empresas", [empresa(), empresa("00000002")])
+        # logradouro não vai para o cache estreito, mas decide o vencedor completo.
+        self.carregar("estabelecimentos", [estabelecimento(logradouro="", situacao_cadastral="08")], origem="Estabelecimentos0.zip")
+        self.carregar("estabelecimentos", [estabelecimento()], origem="Estabelecimentos1.zip")
+        self.carregar("socios", [socio(), socio()], origem="Socios0.zip")
+        self.carregar("socios", [socio(), socio("00000002")], origem="Socios1.zip")
+        vinculos = self.tabela("socios")
+        self.assertEqual(vinculos.count(), 2)
+        self.assertEqual(vinculos.select("cnpj_basico", "socio_id", "competencia").distinct().count(), 2)
+        self.ouro()
+        self.assertEqual(self.produto("fato_socios_multiplas_empresas").first().quantidade_empresas, 2)
+        resumo = self.produto("fato_resumo_empresarial").where("cnpj_basico = '00000001'").first()
+        self.assertEqual(resumo.quantidade_estabelecimentos, 1)
+        self.assertEqual(resumo.estabelecimentos_ativos, 1)
+
+    def test_otimizacao_falha_validacao_libera_caches_e_preserva_publicacao(self):
+        from pyspark import StorageLevel
+        from Scripts.Pipeline import PipelineOuro
+
+        validar = getattr(PipelineOuro, "_validar_estagio", None)
+        self.assertTrue(callable(validar), "Falta o validador do staging")
+        self.preparar_mes()
+        self.ouro()
+        anteriores = {nome: self.produto(nome).collect() for nome in PRODUTOS}
+        classe = type(self.tabela("empresas"))
+        persistir_original = classe.persist
+        caches = []
+
+        def persistir(tabela, nivel):
+            caches.append(tabela)
+            return persistir_original(tabela, nivel)
+
+        def validar_com_falha(tabela, chaves, nome):
+            if nome == "fato_resumo_empresarial":
+                raise ValueError("falha sintética na validação")
+            return validar(tabela, chaves, nome)
+
+        with patch.object(classe, "persist", autospec=True, side_effect=persistir):
+            with patch.object(PipelineOuro, "_validar_estagio", side_effect=validar_com_falha):
+                with self.assertLogs("cnpj", level="INFO") as logs:
+                    with self.assertRaisesRegex(ValueError, "falha sintética"):
+                        self.ouro()
+        self.assertEqual(len(caches), 4)
+        self.assertTrue(all(tabela.storageLevel == StorageLevel.NONE for tabela in caches))
+        for nome in PRODUTOS:
+            self.assertCountEqual(self.produto(nome).collect(), anteriores[nome])
+        self.assertFalse([p for p in self.raiz.rglob("*") if ".staging-" in p.name])
+        texto = "\n".join(logs.output)
+        for etapa in ("produto", "validacao"):
+            self.assertIn(f"Ouro {etapa} fim: competencia=2024-02 produto=fato_resumo_empresarial status=erro duracao_s=", texto)
 
     def test_falhas_preservam_prata_e_conjunto_ouro_validos(self):
         self.preparar_mes()
