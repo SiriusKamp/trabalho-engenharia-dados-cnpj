@@ -70,6 +70,10 @@ Os tipos abaixo são os tipos lógicos Spark usados na produção/leitura dos Pa
 
 CNPJ básico e códigos devem continuar como texto para preservar zeros à esquerda. `cnpj_basico` é a raiz esperada de oito dígitos, compartilhada pelos estabelecimentos da empresa; não é o CNPJ completo de 14 dígitos de uma filial.
 
+**Por que competência e faixa etária são texto?** `competencia` representa um mês (`AAAA-MM`), sem um dia original na fonte. Esse formato serve como chave mensal e nome da partição, com ordenação cronológica. Para calendário no BI, derive uma data do primeiro dia do mês; usar um `date` também seria uma escolha válida de contrato, desde que o dia convencional fosse documentado.
+
+`faixa_etaria` é um código de categoria, não a idade numérica. Foi mantida como texto junto com os códigos da fonte e com o mapa de faixas do cálculo. Um inteiro seria igualmente válido para esse código; o valor que entra na média é o ponto médio (`double`), não o número da faixa. Alterar esses tipos no armazenamento exigiria adequar esquemas, chaves/mapas e Parquets históricos. A versão atual conserva o contrato existente, sem migrar os dados já gravados.
+
 Além de `competencia`, descrita em cada tabela, **todos os cinco produtos Ouro** têm estas colunas:
 
 | Coluna | Tipo | O que registra |

@@ -3,8 +3,6 @@
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import nullcontext
 from datetime import datetime, timedelta, timezone
-import hashlib
-import json
 import logging
 import os
 from pathlib import Path
@@ -17,6 +15,7 @@ import zlib
 
 from Scripts.Pipeline.BaixarArquivos import baixar_arquivo, catalogar, extrair_arquivo, versao_remota
 from Scripts.Pipeline.Metadados import Metadados, agora, trava_arquivo
+from Scripts.Pipeline.Pendencias import assinatura_prata
 
 
 LOG = logging.getLogger("cnpj")
@@ -33,6 +32,15 @@ def _evento(meta, camada, execucao_id, competencia, arquivo, etapa, status, inic
     # Um registro por tentativa/etapa alimenta a auditoria histórica e o Grafana.
     meta.evento(camada, {"execucao_id": execucao_id, "competencia": competencia, "arquivo": arquivo,
                          "etapa": etapa, "status": status, "inicio": inicio, "fim": agora(), **campos})
+    LOG.info("Etapa %s: %s/%s, status=%s, duracao_s=%s", etapa, competencia, arquivo or "mes",
+             status, campos.get("duracao_s", "-"))
+
+
+def _iniciar_etapa(meta, etapa, competencia=None, arquivo=None):
+    inicio = agora()
+    meta.estado(etapa_atual=etapa, competencia_atual=competencia, arquivo_atual=arquivo, etapa_inicio=inicio)
+    LOG.info("Iniciando %s: competencia=%s arquivo=%s", etapa, competencia, arquivo or "mes")
+    return inicio
 
 
 def _baixar(item, raiz, meta, execucao_id, forcar):
@@ -115,6 +123,7 @@ def processar_competencia(competencia, itens, raiz, meta, execucao_id, usuario, 
             # baixa em andamento; result() aguarda seu resultado e propaga falhas.
             futuros = [(item, pool.submit(_baixar, item, raiz, meta, execucao_id, forcar)) for item in lote]
             for item, futuro in futuros:
+                _iniciar_etapa(meta, "aguardando_download", competencia, item["nome"])
                 zip_path = futuro.result()
                 chave = f"{competencia}/{item['nome']}"
                 versao = versao_remota(item)
@@ -122,7 +131,7 @@ def processar_competencia(competencia, itens, raiz, meta, execucao_id, usuario, 
                 registro = meta.ler("Bronze")["arquivos"].get(chave, {})
                 # 4. Extração e transformação são sequenciais para limitar RAM/disco.
                 if forcar or registro.get("versao") != versao or registro.get("status") != "extraido" or not destino.is_dir():
-                    inicio = agora()
+                    inicio = _iniciar_etapa(meta, "extracao", competencia, item["nome"])
                     meta.atualizar("Bronze", chave, status="extraindo", erro=None)
                     try:
                         extraido = extrair_arquivo(zip_path, destino)
@@ -142,7 +151,7 @@ def processar_competencia(competencia, itens, raiz, meta, execucao_id, usuario, 
                 # Se houver falha na Prata, o ZIP já pode sair, mas os CSVs permanecem para retomar.
                 zip_path.unlink(missing_ok=True)
                 meta.atualizar("Raw", chave, status="descartado", descartado_em=agora(), erro=None)
-                inicio, relogio = agora(), time.monotonic()
+                inicio, relogio = _iniciar_etapa(meta, "prata", competencia, item["nome"]), time.monotonic()
                 meta.atualizar("Prata", chave, status="processando", erro=None)
                 try:
                     if not spark_ref:
@@ -163,15 +172,11 @@ def processar_competencia(competencia, itens, raiz, meta, execucao_id, usuario, 
                 _descartar_intermediarios(item, raiz, meta)
     # 5. Esta barreira só é alcançada quando toda a Prata necessária terminou.
     # A Ouro depende tanto da versão remota quanto da publicação local da Prata.
-    prata = meta.ler("Prata")["arquivos"]
-    dependencias = {a["nome"]: {campo: prata[f"{competencia}/{a['nome']}"].get(campo)
-                              for campo in ("versao", "publicado_em")}
-                    for a in esperados}
+    dependencias, assinatura = assinatura_prata(meta.ler("Prata")["arquivos"], esperados, competencia)
     # Uma republicação local também invalida a Ouro, mesmo sem mudança no gov.
-    assinatura = hashlib.sha256(json.dumps(dependencias, sort_keys=True).encode()).hexdigest()
     ouro = meta.ler("Ouro")["arquivos"].get(competencia, {})
     if forcar or ouro.get("status") != "sucesso" or ouro.get("versao") != assinatura or not (raiz / ouro.get("caminho", "inexistente")).is_dir():
-        inicio, relogio = agora(), time.monotonic()
+        inicio, relogio = _iniciar_etapa(meta, "ouro", competencia), time.monotonic()
         meta.atualizar("Ouro", competencia, status="processando", erro=None)
         try:
             if not spark_ref:
@@ -189,7 +194,7 @@ def processar_competencia(competencia, itens, raiz, meta, execucao_id, usuario, 
 
 def executar(meses=4, raiz=None, simular=False, forcar=False, usuario="agendador", _catalogo=None, _reservado=False) -> dict:
     from Scripts.Pipeline.BaixarArquivos import meses_calendario
-    meses_calendario(meses)  # valida antes de escrever estado ou consultar a rede
+    solicitadas = meses_calendario(meses)  # valida antes de escrever estado ou consultar a rede
     raiz = raiz_dados(raiz)
     if simular:
         # Simular consulta a fonte, mas não baixa ZIPs nem altera os manifestos.
@@ -200,32 +205,44 @@ def executar(meses=4, raiz=None, simular=False, forcar=False, usuario="agendador
         meta.estado(meses=meses, executando=True, manutencao_ativa=True,
                     catalogo_pendente=_catalogo is None)
         execucao_id, spark_ref = uuid4().hex, []
+        _iniciar_etapa(meta, "catalogo")
+        status_final = "interrompido"
         # Um identificador acompanha todos os arquivos/etapas da mesma execução.
         concluidas = []
         try:
             plano = _catalogo if _catalogo is not None else catalogar(meses)
             estado_anterior = meta.estado()
-            arquivos = dict(plano["arquivos"])
-            antigos = (estado_anterior.get("catalogo") or {}).get("arquivos", {})
-            for competencia in estado_anterior.get("pendentes", []):
-                if competencia not in arquivos and competencia in antigos:
-                    arquivos[competencia] = antigos[competencia]
-            # A janela seleciona novas cargas; uma falha anterior não pode sumir
-            # na virada do mês ou ao executar novamente com --meses menor.
-            plano = {**plano, "arquivos": arquivos, "competencias": sorted(arquivos)}
-            meta.estado(catalogo=plano, catalogo_pendente=False, pendentes=plano["competencias"])
+            # Guardar o catálogo conhecido para auditoria não autoriza executar
+            # suas competências antigas. A janela atual também vale na manutenção.
+            conhecidos = dict((estado_anterior.get("catalogo") or {}).get("arquivos", {}))
+            conhecidos.update(plano["arquivos"])
+            elegiveis_antigas = {m for m in estado_anterior.get("pendentes", [])
+                                if m in solicitadas and m in conhecidos}
+            competencias = sorted({m for m in plano["competencias"] if m in solicitadas} | elegiveis_antigas)
+            pendentes = set(estado_anterior.get("pendentes", [])) | set(competencias)
+            fora_intervalo = sorted(m for m in pendentes if m not in solicitadas)
+            catalogo = {**plano, "arquivos": conhecidos, "competencias": competencias}
+            plano = catalogo
+            meta.estado(catalogo=catalogo, catalogo_pendente=False,
+                        competencias_solicitadas=solicitadas, pendentes=sorted(pendentes),
+                        pendentes_fora_intervalo=fora_intervalo)
             for competencia in plano["competencias"]:
                 # O for é propositalmente sequencial: um mês inteiro antes do próximo.
                 LOG.info("Processando competência %s", competencia)
                 processar_competencia(competencia, plano["arquivos"][competencia], raiz, meta, execucao_id, usuario, forcar, spark_ref)
                 concluidas.append(competencia)
-                meta.estado(pendentes=plano["competencias"][len(concluidas):])
+                pendentes.discard(competencia)
+                meta.estado(pendentes=sorted(pendentes))
             resultado = {"status": "sucesso", "execucao_id": execucao_id, "competencias": concluidas,
-                         "indisponiveis": plano["indisponiveis"]}
+                         "indisponiveis": plano["indisponiveis"], "pendentes_fora_intervalo": fora_intervalo}
             meta.evento("Raw", {"execucao_id": execucao_id, "etapa": "pipeline", "status": "sucesso", "fim": agora()})
-            meta.estado(manutencao_ativa=False, ultimo_resultado=resultado, pendentes=[])
+            # Pendências fora da janela ficam registradas, sem manter um job
+            # tentando baixá-las. Voltam a ser elegíveis quando forem solicitadas.
+            meta.estado(manutencao_ativa=False, ultimo_resultado=resultado, pendentes=sorted(pendentes))
+            status_final = "concluido"
             return resultado
         except Exception as erro:
+            status_final = "erro"
             # Retornar erro mantém a manutenção ativa. A lista persistida de
             # pendências e os estados por arquivo permitem continuar depois.
             resultado = {"status": "erro", "execucao_id": execucao_id, "competencias": concluidas, "erro": str(erro)}
@@ -237,7 +254,8 @@ def executar(meses=4, raiz=None, simular=False, forcar=False, usuario="agendador
             # Libera a JVM mesmo quando uma etapa falha.
             if spark_ref:
                 spark_ref[0].stop()
-            meta.estado(executando=False)
+            meta.estado(executando=False, etapa_atual=status_final, competencia_atual=None,
+                        arquivo_atual=None, etapa_inicio=None)
 
 
 def reativar(raiz=None) -> dict:

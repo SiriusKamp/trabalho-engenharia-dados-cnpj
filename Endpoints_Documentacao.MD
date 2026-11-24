@@ -44,6 +44,7 @@ A identidade técnica do pipeline pode processar as quatro camadas. Isso é dife
 | GET | `/arquivos/Ouro/{arquivo}` | Análise | Baixa um arquivo físico autorizado da Ouro |
 | POST | `/operacao/importar` | Engenharia | Inicia uma importação real em segundo plano |
 | POST | `/operacao/reativar` | Engenharia | Define a manutenção como ativa nos metadados |
+| GET | `/operacao/pendentes` | Engenharia | Lista pendências conhecidas e separa o que está dentro/fora da janela solicitada |
 
 As quatro rotas de camada são variações de `/camadas/{camada}`; as quatro rotas de download são variações de `/arquivos/{camada}/{arquivo:path}`. Os nomes de camada são `Raw`, `Bronze`, `Prata` e `Ouro`, com essa capitalização.
 
@@ -74,6 +75,8 @@ O resultado é **JSON de controle**, contendo `camada`, `competencia`, `arquivos
 Na Ouro, um registro lógico pode representar toda a competência; os arquivos individuais aparecem com caminhos como `competencia=2026-11/fato_resumo_empresarial/part-...parquet`. Para baixar, escolha uma chave de arquivo físico terminado em `.parquet`, e não apenas a chave mensal do manifesto.
 
 O campo `estado` é preenchido somente na listagem Raw. Nas demais camadas ele é `{}`. O estado público expõe `meses`, `manutencao_ativa`, `proxima_verificacao` e uma versão resumida de `ultimo_resultado`.
+
+Também expõe `etapa_atual`, `competencia_atual`, `arquivo_atual` e `etapa_inicio`. Esses campos mostram o último estágio registrado; após uma interrupção abrupta podem permanecer no manifesto até a próxima execução. Na conclusão ou erro tratado, o estágio é finalizado como `concluido` ou `erro`.
 
 **Essas chamadas não executam a Prata ou a Ouro e não retornam as linhas dos Parquets.** Elas consultam arquivos e manifestos existentes, sem abrir uma sessão Spark.
 
@@ -137,6 +140,31 @@ Fechar o navegador, cancelar a espera do cliente ou encerrar a conexão HTTP nã
 
 ## 6. Reativar manutenção e entender os jobs
 
+### Consultar pendências sem executar
+
+```powershell
+curl.exe -u "engenharia:Engenharia123!" "$api/operacao/pendentes?meses=1"
+```
+
+`meses` é opcional e deve ser positivo. Sem ele, a consulta usa a última quantidade persistida, ou quatro meses como padrão. A consulta usa apenas catálogo/manifestos já conhecidos e existência dos caminhos; não consulta o gov, baixa arquivos ou inicia Spark.
+
+| Campo | Significado |
+|---|---|
+| `competencias_solicitadas` | Janela calculada para a consulta |
+| `total_arquivos_pendentes` | Origens ainda não concluídas, inclusive meses fora da janela |
+| `arquivos_elegiveis` | Arquivos pendentes dentro do intervalo |
+| `arquivos_fora_intervalo` | Arquivos preservados na auditoria, mas fora do intervalo |
+| `arquivos` | Competência, ZIP, entidade, próxima etapa e estados Raw/Bronze/Prata de cada origem |
+| `ouro` | Competências aguardando Prata, entidades ou publicação Ouro, com indicador de elegibilidade |
+
+O catálogo permite mostrar também arquivos que ainda não começaram. Essa é uma listagem de controle do pipeline, não acesso da engenharia às linhas ou downloads da Ouro.
+
+O inventário conhecido de cada mês define suas origens ativas. Uma origem retirada desse inventário continua nos registros de auditoria da camada, mas não cria uma nova pendência nem muda a assinatura esperada da Ouro na consulta. Quando uma competência pendente continua dentro da janela e não aparece na nova descoberta, a retomada pode usar seu catálogo persistido; falhas dessa tentativa ficam registradas normalmente.
+
+Na execução e na manutenção, arquivos de meses fora da janela não são baixados nem transformados. Eles voltam a ser elegíveis quando uma solicitação incluir sua competência novamente; registros e arquivos já existentes continuam preservados. Consultar `pendentes?meses=1` só muda o recorte exibido: para executar esse recorte, use `POST /operacao/importar?meses=1`.
+
+### Reativar a manutenção
+
 ```http
 POST /operacao/reativar
 ```
@@ -181,6 +209,10 @@ curl.exe -u "monitor:Monitor123!" "$api/metricas/execucoes"
 
 São métricas de operação. Os indicadores empresariais e as visões históricas estão nos Parquets da Ouro, não nesses endpoints.
 
+A ocupação (`bytes_camadas`/`bytes_total`) é medida uma vez a cada 30 segundos e compartilhada entre as consultas concorrentes. Falhas, pendências, etapas e eventos continuam sendo lidos dos manifestos em cada chamada. A medição não conta staging, backups, metadados nem links.
+
+No Compose, o Grafana usa `http://metricas:8000`, um serviço interno somente de leitura que executa a mesma implementação dos endpoints acima. Ele oferece saúde, documentação e as duas rotas de métricas; rotas de arquivos ou operação retornam 404 e o agendador permanece desabilitado. As rotas da API pública em `localhost:8000` continuam disponíveis com a role `monitor`.
+
 ## 8. Grafana
 
 | Acesso | Endereço padrão | Autenticação |
@@ -190,7 +222,7 @@ São métricas de operação. Os indicadores empresariais e as visões históric
 | Saúde | [http://localhost:3000/api/health](http://localhost:3000/api/health) | Público na configuração local |
 | JSON do dashboard | [http://localhost:3000/api/dashboards/uid/cnpj-operacional](http://localhost:3000/api/dashboards/uid/cnpj-operacional) | Conta do Grafana com permissão de leitura |
 
-O datasource usa a conta `monitor` da API e consulta `http://app:8000/metricas/resumo` e `/metricas/execucoes` pela rede interna Docker. Alterar somente a porta publicada no notebook não muda esse endereço interno. Para rodar a API fora do Docker, consulte a configuração específica dos tutoriais.
+O datasource usa a conta `monitor` da API e consulta `http://metricas:8000/metricas/resumo` e `/metricas/execucoes` pela rede interna Docker. Alterar somente a porta publicada no notebook não muda esse endereço interno. Para rodar a API fora do Docker, consulte a configuração específica dos tutoriais.
 
 ## 9. Códigos HTTP para diagnóstico
 

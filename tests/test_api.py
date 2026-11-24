@@ -11,6 +11,7 @@ import tempfile
 import threading
 import types
 import unittest
+from concurrent.futures import ThreadPoolExecutor
 from unittest.mock import patch
 
 
@@ -54,6 +55,141 @@ class TestAPI(unittest.TestCase):
         destino.parent.mkdir(parents=True, exist_ok=True)
         destino.write_bytes(conteudo)
         return destino
+
+    def test_metricas_compartilham_medicao_entre_paineis_concorrentes(self):
+        from Scripts import API
+
+        self.arquivo("Prata", "empresas/parte.parquet", b"1234567")
+        with patch("Scripts.API._arquivos_fisicos", wraps=API._arquivos_fisicos) as medir:
+            with ThreadPoolExecutor(max_workers=15) as pool:
+                respostas = list(pool.map(
+                    lambda _: self.cliente.get("/metricas/resumo", auth=MONITOR), range(15)))
+            self.assertTrue(all(r.status_code == 200 for r in respostas))
+            self.assertTrue(all(r.json()["bytes_total"] == 7 for r in respostas))
+            # Uma leitura de cada camada atende todos os painéis deste intervalo.
+            self.assertEqual(medir.call_count, 4)
+
+    def test_cache_de_ocupacao_expira_sem_esconder_novas_falhas(self):
+        self.arquivo("Prata", "empresas/parte.parquet", b"1234567")
+        with patch("Scripts.API.monotonic", return_value=100):
+            primeiro = self.cliente.get("/metricas/resumo", auth=MONITOR).json()
+        self.arquivo("Prata", "empresas/outra.parquet", b"123")
+        self.gravar("Raw", {"arquivos": {"2026-11/Socios0.zip": {"status": "erro"}}})
+        with patch("Scripts.API.monotonic", return_value=110):
+            segundo = self.cliente.get("/metricas/resumo", auth=MONITOR).json()
+        self.assertEqual(primeiro["bytes_total"], 7)
+        self.assertEqual(segundo["bytes_total"], 7)
+        self.assertEqual(segundo["falhas_atuais"], 1)
+        with patch("Scripts.API.monotonic", return_value=131):
+            terceiro = self.cliente.get("/metricas/resumo", auth=MONITOR).json()
+        self.assertEqual(terceiro["bytes_total"], 10)
+        self.assertEqual(terceiro["falhas_atuais"], 1)
+
+    def test_servidor_de_metricas_nao_expoe_operacao_ou_inicia_agendador(self):
+        from fastapi.testclient import TestClient
+        from Scripts.API import criar_app
+
+        with patch.dict(os.environ, {"AGENDAMENTO_ATIVO": "1"}):
+            app = criar_app(self.raiz, somente_metricas=True)
+        with patch("Scripts.Agendador.iniciar") as iniciar, TestClient(app) as cliente:
+            self.assertEqual(cliente.get("/saude").status_code, 200)
+            self.assertEqual(cliente.get("/metricas/resumo").status_code, 401)
+            self.assertEqual(cliente.get("/metricas/resumo", auth=MONITOR).status_code, 200)
+            self.assertEqual(cliente.get("/metricas/resumo", auth=ENGENHARIA).status_code, 403)
+            self.assertEqual(cliente.get("/camadas/Prata", auth=ENGENHARIA).status_code, 404)
+            self.assertEqual(cliente.post("/operacao/importar", auth=ENGENHARIA).status_code, 404)
+            iniciar.assert_not_called()
+
+    def test_metricas_antes_da_primeira_importacao_sem_pastas_data(self):
+        from fastapi.testclient import TestClient
+        from Scripts.API import criar_app
+
+        nova_raiz = self.raiz / "primeira-execucao"
+        with TestClient(criar_app(nova_raiz, somente_metricas=True), raise_server_exceptions=False) as cliente:
+            resposta = cliente.get("/metricas/resumo", auth=MONITOR)
+        self.assertEqual(resposta.status_code, 200)
+        self.assertEqual(resposta.json()["bytes_total"], 0)
+        self.assertEqual(resposta.json()["falhas_atuais"], 0)
+        self.assertFalse(nova_raiz.exists())
+
+    @unittest.skipUnless(hasattr(os, "symlink"), "Sistema sem symlinks")
+    def test_ocupacao_ignora_links_e_publicacoes_incompletas(self):
+        self.arquivo("Prata", "empresas/parte.parquet", b"1234567")
+        self.arquivo("Ouro", ".competencia=2026-10.staging/fato/parte.parquet", b"incompleto")
+        self.arquivo("Ouro", "competencia=2026-10.anterior/fato/parte.parquet", b"antigo")
+        externo = self.raiz.parent / "externo"
+        externo.mkdir()
+        (externo / "segredo.parquet").write_bytes(b"fora da camada")
+        try:
+            (self.raiz / "Prata" / "link").symlink_to(externo, target_is_directory=True)
+            (self.raiz / "Prata" / "link.parquet").symlink_to(externo / "segredo.parquet")
+        except OSError:
+            self.skipTest("Criação de symlinks não permitida neste sistema")
+        resumo = self.cliente.get("/metricas/resumo", auth=MONITOR).json()
+        self.assertEqual(resumo["bytes_camadas"], {"Raw": 0, "Bronze": 0, "Prata": 7, "Ouro": 0})
+
+    def test_pendentes_lista_nao_iniciados_e_separa_fora_do_intervalo_sem_mutar(self):
+        from Scripts.Pipeline.BaixarArquivos import versao_remota
+        catalogo = {mes: [{"competencia": mes, "nome": nome, "etag": "v1", "bytes": 10}
+                         for nome in ("Empresas0.zip", "Estabelecimentos0.zip", "Socios0.zip")]
+                    for mes in ("2026-10", "2026-11")}
+        self.gravar("Raw", {"arquivos": {}, "execucoes": [], "estado": {
+            "meses": 1, "catalogo": {"arquivos": catalogo, "competencias": list(catalogo)}}})
+        self.arquivo("Prata", "empresas/competencia=2026-11/Empresas0/part.parquet")
+        self.gravar("Prata", {"arquivos": {"2026-11/Empresas0.zip": {
+            "status": "sucesso", "versao": versao_remota(catalogo["2026-11"][0]),
+            "caminho": "Prata/empresas/competencia=2026-11/Empresas0"}}, "execucoes": []})
+        self.arquivo("Bronze", "2026-11/Socios0/dados.csv")
+        self.gravar("Bronze", {"arquivos": {"2026-11/Socios0.zip": {"status": "extraido",
+            "versao": versao_remota(catalogo["2026-11"][2])}}, "execucoes": []})
+        antes = {p: p.read_bytes() for p in self.raiz.rglob("*") if p.is_file()}
+        with patch("Scripts.Pipeline.BaixarArquivos.meses_calendario", return_value=["2026-11"]):
+            resposta = self.cliente.get("/operacao/pendentes?meses=1", auth=ENGENHARIA)
+        self.assertEqual(resposta.status_code, 200)
+        dados = resposta.json()
+        self.assertEqual(dados["total_arquivos_pendentes"], 5)
+        self.assertEqual(dados["arquivos_elegiveis"], 2)
+        self.assertEqual(dados["arquivos_fora_intervalo"], 3)
+        socio = next(a for a in dados["arquivos"] if a["competencia"] == "2026-11" and a["arquivo"] == "Socios0.zip")
+        self.assertEqual(socio["etapa"], "prata")
+        self.assertEqual(antes, {p: p.read_bytes() for p in self.raiz.rglob("*") if p.is_file()})
+
+    def test_pendentes_exige_engenharia_e_meses_validos(self):
+        self.assertEqual(self.cliente.get("/operacao/pendentes").status_code, 401)
+        for credenciais in (ANALISE, MONITOR):
+            self.assertEqual(self.cliente.get("/operacao/pendentes", auth=credenciais).status_code, 403)
+        self.assertEqual(self.cliente.get("/operacao/pendentes?meses=0", auth=ENGENHARIA).status_code, 422)
+
+    def test_metricas_expoem_ultima_etapa_arquivo_e_inicio(self):
+        estado = {"etapa_atual": "prata", "competencia_atual": "2026-11",
+                  "arquivo_atual": "Empresas0.zip", "etapa_inicio": "2026-11-23T12:00:00+00:00"}
+        self.gravar("Raw", {"arquivos": {}, "execucoes": [], "estado": estado})
+        resposta = self.cliente.get("/metricas/resumo", auth=MONITOR).json()["estado"]
+        for campo, valor in estado.items():
+            self.assertEqual(resposta.get(campo), valor)
+
+    def test_pendentes_nao_invalida_ouro_por_origem_retirada_do_catalogo(self):
+        from Scripts.Pipeline.BaixarArquivos import versao_remota
+        from Scripts.Pipeline.Pendencias import assinatura_prata
+        itens = [{"competencia": "2026-11", "nome": nome, "etag": "v1"}
+                 for nome in ("Empresas0.zip", "Estabelecimentos0.zip", "Socios0.zip")]
+        registros = {}
+        for item in itens + [{"nome": "Empresas1.zip", "etag": "antiga"}]:
+            caminho = "Prata/2026-11/" + item["nome"][:-4]
+            self.arquivo("Prata", caminho.removeprefix("Prata/") + "/part.parquet")
+            registros["2026-11/" + item["nome"]] = {"status": "sucesso", "versao": versao_remota(item),
+                "caminho": caminho, "publicado_em": "2026-11-18"}
+        _, assinatura = assinatura_prata(registros, itens, "2026-11")
+        self.gravar("Raw", {"arquivos": {}, "execucoes": [], "estado": {"catalogo": {
+            "competencias": ["2026-11"], "arquivos": {"2026-11": itens}}}})
+        self.gravar("Prata", {"arquivos": registros, "execucoes": []})
+        self.arquivo("Ouro", "competencia=2026-11/fato/part.parquet")
+        self.gravar("Ouro", {"arquivos": {"2026-11": {"status": "sucesso", "versao": assinatura,
+            "caminho": "Ouro/competencia=2026-11"}}, "execucoes": []})
+        resposta = self.cliente.get("/operacao/pendentes?meses=1", auth=ENGENHARIA)
+        self.assertEqual(resposta.status_code, 200)
+        self.assertEqual(resposta.json()["total_arquivos_pendentes"], 0)
+        self.assertEqual(resposta.json()["ouro"], [])
 
     def test_saude_publica_e_autenticacao_obrigatoria(self):
         self.assertEqual(self.cliente.get("/saude").json(), {"status": "ok"})
@@ -318,6 +454,7 @@ from fastapi.testclient import TestClient
 with TestClient(criar_app(sys.argv[1])) as cliente:
     assert cliente.get('/metricas/resumo', auth=('monitor','Monitor123!')).status_code == 200
     assert cliente.get('/camadas/Raw', auth=('engenharia','Engenharia123!')).status_code == 200
+    assert cliente.get('/operacao/pendentes', auth=('engenharia','Engenharia123!')).status_code == 200
 """
         resultado = subprocess.run([sys.executable, "-B", "-c", codigo, str(self.raiz)],
                                    capture_output=True, text=True, env=dict(os.environ), timeout=15)

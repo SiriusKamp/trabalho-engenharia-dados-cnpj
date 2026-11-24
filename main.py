@@ -22,11 +22,12 @@ def argumentos(argv=None):
     # --usuario identifica o operador na auditoria da CLI; a autenticação é feita na API.
     comandos.add_parser("manutencao", help="Retomar pendências do catálogo já descoberto")
     comandos.add_parser("reativar", help="Reativar o job de manutenção")
-    servir = comandos.add_parser("servir", help="Iniciar API e, quando habilitado, agendador")
-    # Estes valores são internos ao container. A porta aberta no notebook é
-    # definida pelo mapeamento HOST:CONTAINER no compose.yaml.
-    servir.add_argument("--host", default="0.0.0.0")
-    servir.add_argument("--porta", type=int, default=8000)
+    for nome, descricao in (("servir", "Iniciar API e, quando habilitado, agendador"),
+                            ("metricas", "Iniciar somente o monitoramento, sem operação ou agendador")):
+        servir = comandos.add_parser(nome, help=descricao)
+        # A porta aberta no notebook é definida por HOST:CONTAINER no Compose.
+        servir.add_argument("--host", default="0.0.0.0")
+        servir.add_argument("--porta", type=int, default=8000)
     return parser.parse_args(argv)
 
 
@@ -34,12 +35,12 @@ def main(argv=None) -> int:
     args = argumentos(argv)
     logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
     try:
-        if args.comando == "servir":
+        if args.comando in ("servir", "metricas"):
             # Este é o comando padrão do Dockerfile: mantém a API disponível.
             # O agendador só começa se AGENDAMENTO_ATIVO estiver habilitado.
             import uvicorn
             from Scripts.API import criar_app
-            uvicorn.run(criar_app(), host=args.host, port=args.porta,
+            uvicorn.run(criar_app(somente_metricas=args.comando == "metricas"), host=args.host, port=args.porta,
                         ssl_certfile=os.getenv("TLS_CERTIFICADO") or None,
                         ssl_keyfile=os.getenv("TLS_CHAVE") or None)
             return 0

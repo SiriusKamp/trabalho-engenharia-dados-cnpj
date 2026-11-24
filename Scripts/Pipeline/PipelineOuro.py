@@ -1,7 +1,10 @@
 """Dimensões e três fatos mensais, publicados juntos após validação."""
 
+from contextlib import contextmanager
+import logging
 import shutil
 import tempfile
+import time
 from pathlib import Path
 
 from pyspark import StorageLevel
@@ -15,7 +18,46 @@ from Scripts.Pipeline.PipelinePrata import (
 )
 
 
-def _produtos(empresas, estabelecimentos, socios, competencia):
+LOG = logging.getLogger("cnpj")
+
+
+@contextmanager
+def _medir(etapa, competencia, produto):
+    """Mede ações reais; registra só etapa, competência e nome técnico do produto."""
+    inicio = time.monotonic()
+    LOG.info("Ouro %s inicio: competencia=%s produto=%s", etapa, competencia, produto)
+    status = "erro"
+    try:
+        yield
+        status = "sucesso"
+    finally:
+        # Não registrar linhas, chaves, usuário ou texto da exceção: podem conter PII.
+        LOG.info("Ouro %s fim: competencia=%s produto=%s status=%s duracao_s=%.3f",
+                 etapa, competencia, produto, status, time.monotonic() - inicio)
+
+
+def _validar_estagio(tabela, chaves, nome):
+    """Confere o Parquet gravado e devolve sua contagem em uma única ação Spark."""
+    chave_nula = F.lit(False)
+    for campo in chaves:
+        chave_nula = chave_nula | F.col(campo).isNull()
+    # O primeiro agrupamento já verifica unicidade. Sobre seus grupos calculamos
+    # contagem e indicadores juntos, sem três leituras/ações independentes.
+    grupos = tabela.groupBy(*chaves).agg(F.count("*").alias("_ocorrencias"))
+    estatisticas = grupos.agg(
+        F.coalesce(F.sum("_ocorrencias"), F.lit(0)).alias("linhas"),
+        F.coalesce(F.max(chave_nula.cast("int")), F.lit(0)).alias("chave_nula"),
+        F.coalesce(F.max((F.col("_ocorrencias") > 1).cast("int")), F.lit(0)).alias("chave_duplicada"),
+    ).first()
+    # Um estágio vazio é válido; nulos continuam tendo precedência sobre duplicatas.
+    if estatisticas.chave_nula:
+        raise ValueError(f"Chave nula no produto {nome}")
+    if estatisticas.chave_duplicada:
+        raise ValueError(f"Chave duplicada no produto {nome}")
+    return estatisticas.linhas
+
+
+def _produtos(empresas, estabelecimentos, socios, competencia, persistidos):
     # Fatos guardam medidas e chaves; dimensões guardam nomes/descrições.
     # Incluir competência nos joins mantém o vínculo com o retrato mensal correto.
     chaves = ["cnpj_basico", "competencia"]
@@ -41,6 +83,10 @@ def _produtos(empresas, estabelecimentos, socios, competencia):
             # left mantém empresas mesmo quando não há observação de uma relação.
             .join(estabelecimentos_empresa, chaves, "left")
             .join(socios_empresa, chaves, "left"))
+    # Os writes de resumo e perfil são ações separadas. Persistir esta base
+    # estreita evita repetir seus agrupamentos/joins; o chamador libera no finally.
+    base = base.persist(StorageLevel.DISK_ONLY)
+    persistidos.append(base)
     resumo = base.select(*chaves, "quantidade_estabelecimentos", "estabelecimentos_ativos",
                          "quantidade_socios", "capital_social")
     perfil = base.select(
@@ -50,9 +96,10 @@ def _produtos(empresas, estabelecimentos, socios, competencia):
         "idade_media_estimada_socios_pf", "capital_social",
     )
     multiplos = (socios.groupBy("socio_id", "competencia")
-                # Contar empresas distintas evita transformar vínculos repetidos
-                # na conclusão incorreta de que a pessoa tem mais empresas.
-                .agg(F.countDistinct("cnpj_basico").alias("quantidade_empresas"))
+                # ler_tabela já garante um vínculo por empresa/sócio/competência.
+                # Assim count(*) equivale a countDistinct(cnpj_basico), sem outro
+                # agrupamento distinto. O contrato entre origens é testado.
+                .agg(F.count("*").alias("quantidade_empresas"))
                 .where(F.col("quantidade_empresas") >= 2))
     dim_empresa = empresas.select(
         *chaves, "razao_social", "natureza_juridica", "qualificacao_responsavel",
@@ -88,42 +135,51 @@ def processar_ouro(spark, raiz: Path, competencia: str, execucao_id: str, usuari
     # Os cinco produtos ficam juntos num staging do mês. Uma falha em qualquer
     # produto impede substituir o conjunto válido que o usuário já consultava.
     tabelas = []
+    persistidos = []
     try:
         # Ausência de uma entidade é erro; um snapshot existente sem linhas é válido.
         for entidade in ("empresas", "estabelecimentos", "socios"):
-            tabelas.append(ler_tabela(spark, raiz, entidade, competencia).persist(StorageLevel.DISK_ONLY))
+            tabela = ler_tabela(spark, raiz, entidade, competencia)
+            # Projetar DEPOIS da deduplicação global: campos descartados ainda
+            # precisam participar da qualidade e do desempate entre origens.
+            if entidade == "estabelecimentos":
+                tabela = tabela.select("cnpj_basico", "competencia", "identificador_matriz_filial",
+                                       "situacao_cadastral", "data_inicio_atividade")
+            elif entidade == "empresas":
+                tabela = tabela.select("cnpj_basico", "competencia", "capital_social", "razao_social",
+                                       "natureza_juridica", "qualificacao_responsavel", "porte_empresa",
+                                       "ente_federativo_responsavel")
+            else:
+                # dim_socio ainda usa todos os campos de negócio, origem e inserção
+                # para escolher atributos entre vínculos. Só auditoria refeita sai.
+                tabela = tabela.drop("data_atualizacao", "atualizado_por", "execucao_id")
+            tabela = tabela.persist(StorageLevel.DISK_ONLY)
+            tabelas.append(tabela)
+            persistidos.append(tabela)
         instante = F.to_timestamp(F.lit(agora()))
         contagens = {}
-        for nome, (tabela, chaves) in _produtos(*tabelas, competencia).items():
-            # Auditoria também na Ouro permite rastrear quem e qual execução
-            # produziram os indicadores, além da competência dos dados.
-            tabela = (tabela.withColumn("arquivo_origem", F.lit(f"Prata/competencia={competencia}"))
-                      .withColumn("data_insercao", instante)
-                      .withColumn("data_atualizacao", instante)
-                      .withColumn("atualizado_por", F.lit(usuario))
-                      .withColumn("execucao_id", F.lit(execucao_id)))
-            anterior = destino / nome
-            if anterior.exists():
-                tabela = preservar_insercao(tabela, spark.read.parquet(str(anterior)), chaves)
-            pasta = staging / nome
-            tabela.write.mode("overwrite").parquet(str(pasta))
-            validacao = spark.read.parquet(str(pasta))
-            # Validar o que foi gravado, e não só o DataFrame em memória:
-            # chaves nulas/duplicadas tornariam os joins de consumo ambíguos.
-            chave_nula = F.lit(False)
-            for campo in chaves:
-                chave_nula = chave_nula | F.col(campo).isNull()
-            if validacao.where(chave_nula).limit(1).count():
-                raise ValueError(f"Chave nula no produto {nome}")
-            if validacao.groupBy(*chaves).count().where(F.col("count") > 1).limit(1).count():
-                raise ValueError(f"Chave duplicada no produto {nome}")
-            contagens[nome] = validacao.count()
+        for nome, (tabela, chaves) in _produtos(*tabelas, competencia, persistidos=persistidos).items():
+            with _medir("produto", competencia, nome):
+                # Auditoria também na Ouro permite rastrear quem e qual execução
+                # produziram os indicadores, além da competência dos dados.
+                tabela = (tabela.withColumn("arquivo_origem", F.lit(f"Prata/competencia={competencia}"))
+                          .withColumn("data_insercao", instante)
+                          .withColumn("data_atualizacao", instante)
+                          .withColumn("atualizado_por", F.lit(usuario))
+                          .withColumn("execucao_id", F.lit(execucao_id)))
+                anterior = destino / nome
+                if anterior.exists():
+                    tabela = preservar_insercao(tabela, spark.read.parquet(str(anterior)), chaves)
+                pasta = staging / nome
+                tabela.write.mode("overwrite").parquet(str(pasta))
+                with _medir("validacao", competencia, nome):
+                    contagens[nome] = _validar_estagio(spark.read.parquet(str(pasta)), chaves, nome)
         tamanho = bytes_diretorio(staging)
         # Só uma troca de diretório, depois de todos os produtos escritos e lidos.
         publicar_diretorio(staging, destino)
         return {"caminho": destino.relative_to(raiz).as_posix(), "linhas": contagens, "bytes": tamanho}
     finally:
-        for tabela in tabelas:
+        for tabela in reversed(persistidos):
             tabela.unpersist()
         if staging.exists():
             shutil.rmtree(staging)

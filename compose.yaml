@@ -1,5 +1,5 @@
 name: cnpj
-# docker compose up -d mantém os dois serviços rodando em segundo plano.
+# docker compose up -d mantém os serviços rodando em segundo plano.
 # ${VAR:-padrao} usa a variável do shell/.env ou o padrão quando não foi informada.
 services:
   app:
@@ -32,7 +32,9 @@ services:
       # Lado esquerdo = pasta no notebook/servidor; direito = caminho no container.
       # Os arquivos sobrevivem à recriação do container porque ficam no host.
       - ${DIRETORIO_DATA:-./DATA}:/app/DATA
-      - ${DIRETORIO_SPARK_TMP:-./.spark-tmp}:/app/.spark-tmp
+      # Temporários no filesystem Linux evitam o custo de shuffle/cache no
+      # bind mount Windows/OneDrive. Pode ser sobrescrito por um caminho do host.
+      - ${DIRETORIO_SPARK_TMP:-spark-temporarios}:/app/.spark-tmp
       - ${DIRETORIO_TLS:-./.certificados}:/run/certificados:ro
     ports:
       # IP_DO_HOST:PORTA_NO_HOST:PORTA_NO_CONTAINER. Para usar localhost:8001,
@@ -45,12 +47,36 @@ services:
       timeout: 10s
       start_period: 30s
       retries: 3
+  metricas:
+    # Compartilha o código Python, mas não inicia Spark, downloads ou agendador.
+    # Atualizar este serviço não interrompe a importação que roda em app.
+    build: .
+    image: cnpj-app:local
+    command: [python, main.py, metricas]
+    mem_limit: 256m
+    cpus: 0.5
+    read_only: true
+    restart: unless-stopped
+    environment:
+      DATA_DIR: /app/DATA
+      AGENDAMENTO_ATIVO: "0"
+      MONITORAMENTO_USUARIO: ${MONITORAMENTO_USUARIO:-monitor}
+      MONITORAMENTO_SENHA: ${MONITORAMENTO_SENHA:-Monitor123!}
+    volumes:
+      - ${DIRETORIO_DATA:-./DATA}:/app/DATA:ro
+    # Sem porta publicada no host: o Grafana acessa http://metricas:8000.
+    healthcheck:
+      test: [CMD, python, -c, "import urllib.request; urllib.request.urlopen('http://localhost:8000/saude',timeout=5)"]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
   grafana:
     image: grafana/grafana:12.1.1
     mem_limit: 512m
     restart: unless-stopped
     depends_on:
-      app:
+      metricas:
         condition: service_healthy
     environment:
       GF_SECURITY_ADMIN_USER: ${GRAFANA_USUARIO:-admin}
@@ -77,3 +103,4 @@ services:
       - 127.0.0.1:3000:3000
 volumes:
   grafana-dados:
+  spark-temporarios:

@@ -109,11 +109,15 @@ Um agendador na aplicação, sem Airflow: verificar a fonte a cada 15 dias e exe
 
 O job de manutenção verifica pendências locais de Prata/Ouro a cada 30 minutos enquanto estiver ativo. Se tudo estiver atualizado e sem erros, fica inativo. Downloads novos o reativam; falhas o mantêm ativo. Persistir esse estado para sobreviver a reinício. Disponibilizar uma função explícita de reativação e execução manual, sem exigir reset do projeto.
 
-Uma consulta remota que falhou também é repetida pela manutenção. Competências pendentes permanecem na fila mesmo se saírem do intervalo de uma nova consulta. A assinatura da Ouro inclui a publicação de cada dependência Prata, permitindo retomar uma republicação local interrompida. A API reserva a trava global antes de responder que uma importação foi aceita.
+Uma consulta remota que falhou também é repetida pela manutenção. Competências pendentes fora do intervalo ficam registradas para auditoria, mas não são executadas; só voltam a ser elegíveis se estiverem na janela de uma nova solicitação. A mesma regra filtra catálogos persistidos usados pela manutenção, inclusive após a virada do mês. A assinatura da Ouro inclui a publicação de cada dependência Prata, permitindo retomar uma republicação local interrompida. A API reserva a trava global antes de responder que uma importação foi aceita.
+
+`GET /operacao/pendentes` permite à engenharia consultar essas pendências sem rede ou Spark. A leitura de datas antigas na Prata projeta somente chaves e `data_insercao`, sem refazer a deduplicação de qualidade de todo o mês a cada ZIP. Cache e shuffle usam um volume Linux nomeado por padrão; DATA permanece montado no host para consumo dos arquivos. No servidor, o armazenamento dos temporários também precisa estar sobre disco protegido conforme o requisito de criptografia.
 
 ## Observabilidade
 
-Grafana com dashboard provisionado, consultando resumos JSON por uma API pequena da aplicação e pelo plugin Infinity com parser backend. O Grafana consulta metadados e histórico operacional; não lê milhões de linhas de cadastro para montar gráficos operacionais.
+Grafana com dashboard provisionado, consultando resumos JSON pelo plugin Infinity com parser backend. O serviço `metricas` executa o mesmo código da API em modo somente leitura: não inicia Spark/agendador, não expõe operações e monta DATA como somente leitura. Sua atualização não exige reiniciar o serviço `app`, que pode estar importando. Não há um novo framework ou banco de monitoramento.
+
+Falhas, etapas e eventos são lidos dos manifestos a cada consulta. Apenas a ocupação física tem cache de 30 segundos compartilhado entre os painéis, com uma única varredura concorrente. Em Linux, a enumeração usa descritores de diretórios, sem seguir symlinks ou contar staging/backups. No Windows nativo permanece a validação de junctions. Não ler o conteúdo dos Parquets para montar métricas operacionais.
 
 Mostrar downloads por execução, falhas por etapa, duração média por arquivo, extração, transformação e publicação, bytes ocupados em cada camada, bytes transferidos/processados acumulados, última extração, registros lidos e publicados, duplicidades e erros de qualidade. Ocupação atual de Raw/Bronze pode ser zero depois do descarte; o histórico preserva o volume que passou por elas. Alertas de falha e carga pendente usam esses estados.
 
@@ -135,7 +139,7 @@ Documentar no repositório as credenciais públicas de demonstração de engenha
 
 Testar com amostras: esquema, conversão decimal/data, deduplicação, competências distintas, correção de origem com remoção, reexecução sem duplicação, falha com retomada, metadados concorrentes e bloqueio por role. Depois executar uma competência real e medir RAM, disco e duração antes de importar as quatro. Testes com amostra não serão apresentados como teste de toda a base.
 
-Não adicionar exclusão automática de meses antigos, prazo de retenção, limite fixo de disco, banco transacional externo, cluster Spark ou serviços adicionais de monitoramento.
+Não adicionar exclusão automática de meses antigos, prazo de retenção, limite fixo de disco, banco transacional externo ou cluster Spark. O serviço `metricas` compartilha a imagem/código existente e separa somente a execução do monitoramento para permitir atualizá-lo durante uma carga.
 
 ## Alternativas e referências
 

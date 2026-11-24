@@ -4,7 +4,7 @@ Estas são credenciais públicas de demonstração, incluídas por solicitação
 
 | Acesso | Usuário | Senha de demonstração | Permissões |
 |---|---|---|---|
-| API: engenharia | `engenharia` | `Engenharia123!` | Raw, Bronze, Prata, metadados dessas camadas e operação do pipeline |
+| API: engenharia | `engenharia` | `Engenharia123!` | Raw, Bronze, Prata, consulta de pendências e operação do pipeline |
 | API: análise | `analise` | `Analise123!` | Apenas listagem/download da Ouro |
 | API: monitoramento | `monitor` | `Monitor123!` | Apenas métricas operacionais para o Grafana |
 | Grafana: administração | `admin` | `admin` | Configuração de dashboards e datasource |
@@ -42,6 +42,10 @@ O usuário de análise deve receber HTTP 403 ao tentar ler Prata, Bronze ou Raw.
 
 O Compose publica as portas apenas em localhost. Para acesso remoto, configure HTTPS com certificado válido no ambiente de publicação; HTTP Basic deve trafegar protegido por TLS. A API aceita `TLS_CERTIFICADO` e `TLS_CHAVE`; o Grafana aceita as variáveis `GRAFANA_PROTOCOLO`, `GRAFANA_CERTIFICADO` e `GRAFANA_CHAVE`.
 
-O caminho mais simples com o Compose fornecido é terminar HTTPS no proxy do servidor, mantendo a comunicação interna entre Grafana e API em `http://app:8000`. Se optar por HTTPS nativo na API, ajuste também a URL e `allowedHosts` em `Grafana/datasource.yaml` e as URLs das consultas em `Grafana/dashboard.json` e `Grafana/alertas.yaml`. O certificado precisa ser confiável nos containers e válido para os nomes usados nas consultas e na verificação de saúde. Essa implantação HTTPS ainda deve ser validada no servidor.
+O caminho mais simples no servidor é terminar HTTPS no proxy, mantendo a comunicação privada Grafana -> `metricas` em `http://metricas:8000`, sem publicar a porta desse serviço no host. O modo de métricas usa a credencial `MONITORAMENTO_*`, DATA somente leitura e não expõe operações. As mesmas variáveis de monitoramento devem ser configuradas em `app`, `metricas` e `grafana`.
+
+O TLS nativo configurado em `app` não altera o serviço independente `metricas`. Se a implantação exigir TLS também dentro da rede Docker, configure certificado/chave e volume de certificados no serviço `metricas`, adapte seu healthcheck para HTTPS e atualize URL/`allowedHosts` no datasource, dashboard e alerta. O certificado deve ser confiável no Grafana e corresponder ao nome usado. Essa implantação HTTPS interna deve ser validada no servidor.
 
 Mantenha DATA e temporários Spark em volume criptografado (BitLocker no Windows ou LUKS no Linux). O Docker não criptografa automaticamente um bind mount. A configuração/validação desse volume pertence ao servidor e não será aplicada automaticamente ao computador pelo repositório. Limite acesso direto aos arquivos à conta do serviço e administradores do host; as roles da API não restringem administradores do sistema operacional.
+
+Por desempenho, o padrão de temporários agora é o volume nomeado Linux `spark-temporarios`. Isso não configura criptografia de disco automaticamente: proteja o armazenamento do Docker no host ou sobrescreva `DIRETORIO_SPARK_TMP` com um caminho sobre volume criptografado no servidor. A criptografia de I/O temporário do Spark continua habilitada no código.

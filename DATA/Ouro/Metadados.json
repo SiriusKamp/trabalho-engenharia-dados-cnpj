@@ -1,0 +1,36 @@
+{
+  "arquivos": {
+    "2026-10": {
+      "status": "processando",
+      "erro": null,
+      "atualizado_em": "2026-11-23T18:53:32.635646+00:00",
+      "etapa_erro": null,
+      "interrompido_em": "2026-11-23T18:52:36.371403+00:00",
+      "motivo_pendencia": "Interrompido pelo operador para retomar com a versão otimizada, preservando a Prata."
+    }
+  },
+  "execucoes": [
+    {
+      "registrado_em": "2026-11-23T18:52:36.470830+00:00",
+      "execucao_id": "0086a7fc1f3b4809853e8dedaf5727dd",
+      "competencia": "2026-10",
+      "etapa": "agregacao",
+      "status": "interrompido",
+      "inicio": "2026-11-23T17:16:11.526825+00:00",
+      "fim": "2026-11-23T18:52:36.371403+00:00",
+      "duracao_s": 5784.845,
+      "motivo": "Interrompido pelo operador para retomar com a versão otimizada, preservando a Prata."
+    },
+    {
+      "registrado_em": "2026-11-23T18:52:36.967780+00:00",
+      "execucao_id": "0086a7fc1f3b4809853e8dedaf5727dd",
+      "etapa": "limpeza_staging",
+      "status": "sucesso",
+      "fim": "2026-11-23T18:52:36.951299+00:00",
+      "motivo": "Descarte de resultados incompletos da execução interrompida",
+      "diretorios": [
+        ".competencia=2026-10.staging-dw07ssi_"
+      ]
+    }
+  ]
+}

@@ -7,7 +7,9 @@ import math
 import os
 from pathlib import Path
 import re
+import stat
 import threading
+from time import monotonic
 from urllib.parse import quote
 
 from fastapi import Depends, FastAPI, HTTPException, Query
@@ -48,7 +50,9 @@ def _estado_publico(estado):
         ultimo = "registrado"
     return {"meses": estado.get("meses", 4),
             "manutencao_ativa": bool(estado.get("manutencao_ativa", False)),
-            "proxima_verificacao": estado.get("proxima_verificacao"), "ultimo_resultado": ultimo}
+            "proxima_verificacao": estado.get("proxima_verificacao"), "ultimo_resultado": ultimo,
+            **{campo: estado.get(campo) if isinstance(estado.get(campo), str) else None
+               for campo in ("etapa_atual", "competencia_atual", "arquivo_atual", "etapa_inicio")}}
 
 
 def _ler_manifesto(raiz, camada):
@@ -69,6 +73,28 @@ def _arquivos_fisicos(raiz, camada):
     # Medir bytes dos arquivos presentes dá a ocupação atual. Raw/Bronze já
     # descartadas continuam no histórico, mas deixam de ocupar esses bytes.
     pasta = diretorio_camada(raiz, camada)
+    if not pasta.exists():
+        # Uma instalação nova pode consultar o Grafana antes da primeira carga.
+        return
+    if hasattr(os, "fwalk"):
+        # Linux/Docker: o descritor prende cada diretório durante a medição.
+        # stat relativo evita resolver e validar o caminho inteiro para cada
+        # Parquet. Links não são seguidos, nem mesmo para medir seus bytes.
+        for diretorio, subpastas, nomes, descritor in os.fwalk(pasta, follow_symlinks=False):
+            subpastas[:] = [nome for nome in subpastas if nome_publico(nome)]
+            for nome in nomes:
+                if not nome_publico(nome):
+                    continue
+                try:
+                    atributos = os.stat(nome, dir_fd=descritor, follow_symlinks=False)
+                    if stat.S_ISREG(atributos.st_mode):
+                        relativo = (Path(diretorio) / nome).relative_to(pasta).as_posix()
+                        yield relativo, atributos.st_size
+                except OSError:
+                    # O pipeline pode publicar ou remover um arquivo neste instante.
+                    continue
+        return
+    # Windows nativo: mantém a validação de junctions e caminhos da API.
     for diretorio, subpastas, nomes in os.walk(pasta, followlinks=False):
         subpastas[:] = [nome for nome in subpastas if nome_publico(nome)
                        and not (Path(diretorio) / nome).is_symlink()
@@ -112,11 +138,9 @@ def _eventos(manifestos):
             yield publico
 
 
-def _resumo(raiz, manifestos, eventos):
+def _resumo(manifestos, eventos, ocupacao):
     # Há duas visões: estado atual (pendências/falhas ainda abertas) e histórico
     # acumulado (tentativas, bytes e durações, inclusive de falhas já resolvidas).
-    ocupacao = {camada: sum(tamanho for _, tamanho in _arquivos_fisicos(raiz, camada))
-                for camada in CAMADAS}
     pendencias, falhas_atuais = set(), set()
     arquivos = {}
     for camada, manifesto in manifestos.items():
@@ -186,12 +210,14 @@ def _resumo(raiz, manifestos, eventos):
     }
 
 
-def criar_app(raiz=None):
+def criar_app(raiz=None, somente_metricas=False):
     """raiz aponta diretamente para DATA; nenhum acesso HTTP cria sessão Spark."""
     raiz = Path(raiz) if raiz is not None else Path(os.environ.get("DATA_DIR", Path(__file__).resolve().parents[1] / "DATA"))
     raiz = raiz.absolute()
     autenticar = criar_autenticacao()
-    agendamento_ativo = os.environ.get("AGENDAMENTO_ATIVO", "0") == "1"
+    agendamento_ativo = not somente_metricas and os.environ.get("AGENDAMENTO_ATIVO", "0") == "1"
+    ocupacao_cache, ocupacao_ate = None, 0
+    ocupacao_lock = threading.Lock()
 
     @asynccontextmanager
     async def lifespan(app):
@@ -228,12 +254,26 @@ def criar_app(raiz=None):
 
     @app.get("/metricas/resumo", dependencies=[Depends(monitor)])
     def resumo():
+        nonlocal ocupacao_cache, ocupacao_ate
         manifestos = {c: _ler_manifesto(raiz, c) for c in CAMADAS}
-        return _resumo(raiz, manifestos, list(_eventos(manifestos)))
+        # Somente a medição de espaço tem cache. Falhas, eventos e etapa atual
+        # continuam sendo lidos dos JSONs em cada consulta. O lock faz os 15
+        # painéis compartilharem uma varredura, inclusive na primeira chamada.
+        with ocupacao_lock:
+            if ocupacao_cache is None or monotonic() >= ocupacao_ate:
+                ocupacao_cache = {c: sum(n for _, n in _arquivos_fisicos(raiz, c)) for c in CAMADAS}
+                ocupacao_ate = monotonic() + 30
+            ocupacao = dict(ocupacao_cache)
+        return _resumo(manifestos, list(_eventos(manifestos)), ocupacao)
 
     @app.get("/metricas/execucoes", dependencies=[Depends(monitor)])
     def execucoes():
         return list(_eventos({c: _ler_manifesto(raiz, c) for c in CAMADAS}))
+
+    if somente_metricas:
+        # O serviço do Grafana não tem endpoints de download ou operação e pode
+        # ser recriado separadamente, com DATA montado apenas para leitura.
+        return app
 
     @app.get("/camadas/{camada}")
     def listar(camada: str, competencia: str | None = None, identidade: Identidade = Depends(autenticar)):
@@ -278,6 +318,14 @@ def criar_app(raiz=None):
     @app.post("/operacao/reativar", dependencies=[Depends(engenharia)])
     def reativar():
         return importlib.import_module("Scripts.Agendador").reativar(raiz)
+
+    @app.get("/operacao/pendentes", dependencies=[Depends(engenharia)])
+    def pendentes(meses: int | None = Query(default=None, gt=0)):
+        # Inclui origens ainda não iniciadas, usando o catálogo já conhecido.
+        # A consulta apenas informa elegibilidade; não inicia downloads/retomada.
+        from Scripts.Pipeline.Pendencias import listar_pendencias
+        manifestos = {camada: _ler_manifesto(raiz, camada) for camada in CAMADAS}
+        return listar_pendencias(raiz, manifestos, meses)
 
     @app.post("/operacao/importar", status_code=202)
     def importar(meses: int = Query(default=4, gt=0), identidade: Identidade = Depends(engenharia)):
