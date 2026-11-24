@@ -1,3 +1,8 @@
+1. Encontrar o motivo do dash do grafana "Downloads por Importação" estar dando o erro "Cant acess property method" 
+2. Quero saber se há uma forma de verificar os pendentes e caso sim, também gostaria de alterar o codigo para que não baixe os pendentes a menos que eles se encontrem dentro da faixa de meses solicitada novamente
+3. Na documentação aparentemente as camadas silver e ouro estão gravando competencia como string em vez de data, no caso de socios faixa etaria esta como string em vez de inteiro teria motivo ?
+4. Deixei horas e não passou do 2026-08, não passou pra ouro, mesmo que eu tenha colocado 2 no meses ele tentou baixar 2026-08 
+
 # Pipeline CNPJ - Python, PySpark e Grafana
 
 Pipeline mensal com histórico Parquet e controle incremental por arquivo. Processa uma competência por vez, da mais antiga para a mais nova.

@@ -6,7 +6,7 @@ services:
     # Dockerfile monta a imagem; o comando padrão inicia a API, não uma carga manual.
     build: .
     image: cnpj-app:local
-    mem_limit: 6g
+    mem_limit: 10g
     # O limite inclui Python, JVM e demais processos. SPARK_DRIVER_MEMORY é só a JVM.
     cpus: 2
     restart: unless-stopped

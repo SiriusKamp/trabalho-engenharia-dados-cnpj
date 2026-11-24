@@ -1,1083 +1,656 @@
 {
   "arquivos": {
-    "2026-08/Cnaes.zip": {
+    "2026-10/Cnaes.zip": {
       "status": "fora_do_escopo",
       "bytes": 22078,
-      "atualizado_em": "2026-11-18T16:29:45.612723+00:00"
+      "atualizado_em": "2026-11-21T11:39:42.142454+00:00"
     },
-    "2026-08/Motivos.zip": {
+    "2026-10/Motivos.zip": {
       "status": "fora_do_escopo",
       "bytes": 1180,
-      "atualizado_em": "2026-11-18T16:29:45.632734+00:00"
+      "atualizado_em": "2026-11-21T11:39:42.156899+00:00"
     },
-    "2026-08/Municipios.zip": {
+    "2026-10/Municipios.zip": {
       "status": "fora_do_escopo",
       "bytes": 43443,
-      "atualizado_em": "2026-11-18T16:29:45.654055+00:00"
+      "atualizado_em": "2026-11-21T11:39:42.172394+00:00"
     },
-    "2026-08/Naturezas.zip": {
+    "2026-10/Naturezas.zip": {
       "status": "fora_do_escopo",
-      "bytes": 1563,
-      "atualizado_em": "2026-11-18T16:29:45.675157+00:00"
+      "bytes": 1585,
+      "atualizado_em": "2026-11-21T11:39:42.244604+00:00"
     },
-    "2026-08/Paises.zip": {
+    "2026-10/Paises.zip": {
       "status": "fora_do_escopo",
       "bytes": 2745,
-      "atualizado_em": "2026-11-18T16:29:45.695987+00:00"
+      "atualizado_em": "2026-11-21T11:39:42.261726+00:00"
     },
-    "2026-08/Qualificacoes.zip": {
+    "2026-10/Qualificacoes.zip": {
       "status": "fora_do_escopo",
       "bytes": 980,
-      "atualizado_em": "2026-11-18T16:29:45.715773+00:00"
+      "atualizado_em": "2026-11-21T11:39:42.276622+00:00"
     },
-    "2026-08/Simples.zip": {
+    "2026-10/Simples.zip": {
       "status": "fora_do_escopo",
-      "bytes": 302289129,
-      "atualizado_em": "2026-11-18T16:29:45.733988+00:00"
+      "bytes": 310608217,
+      "atualizado_em": "2026-11-21T11:39:42.302260+00:00"
     },
-    "2026-08/Empresas0.zip": {
+    "2026-10/Empresas1.zip": {
       "status": "descartado",
-      "tentativa_em": "2026-11-18T16:29:45.884879+00:00",
+      "tentativa_em": "2026-11-21T01:25:35.305507+00:00",
       "erro": null,
-      "atualizado_em": "2026-11-18T16:33:36.394305+00:00",
-      "versao": "196a5613e6f147ac007cfa4064fc6d89e57425e8fa865cf878b6d93188e4ec18",
-      "baixado_em": "2026-11-18T16:32:21.501274+00:00",
-      "modificado_em": "2026-08-09T18:27:00+00:00",
-      "etag": "\"95c254b100063e48cf4cbb966ecce2a4\"",
-      "caminho": "Raw/2026-08/Empresas0.zip",
-      "checksum": "013209887a088240833d494c6eeac384df36df0a80dfe359495804cca535c10a",
-      "bytes": 552734286,
+      "atualizado_em": "2026-11-21T01:56:47.597607+00:00",
+      "versao": "a8f5959c09080f01d7de4124175b86cf43d328e0d15994362695a2c250e04c3d",
+      "baixado_em": "2026-11-21T01:25:58.458711+00:00",
+      "modificado_em": "2026-10-13T22:01:01+00:00",
+      "etag": "\"6633896e0be254a1492fa1e601e3abce\"",
+      "caminho": "Raw/2026-10/Empresas1.zip",
+      "checksum": "226713337ad77b876be58d7ac9cc92a7d9144f5780991515a0b3506b1a4a9900",
+      "bytes": 77901368,
       "tentativas": 1,
-      "duracao_s": 155.584,
-      "descartado_em": "2026-11-18T16:33:36.386612+00:00"
+      "duracao_s": 23.135,
+      "descartado_em": "2026-11-21T01:56:47.589424+00:00"
     },
-    "2026-08/Empresas1.zip": {
+    "2026-10/Empresas2.zip": {
       "status": "descartado",
-      "tentativa_em": "2026-11-18T16:29:45.930361+00:00",
+      "tentativa_em": "2026-11-21T01:25:35.309648+00:00",
       "erro": null,
-      "atualizado_em": "2026-11-18T16:42:45.729505+00:00",
-      "versao": "c07c02a46bea7558364ec745b233596ad736c3e9ff29aa387cc365e7543f8295",
-      "baixado_em": "2026-11-18T16:30:09.343044+00:00",
-      "modificado_em": "2026-08-09T18:27:06+00:00",
-      "etag": "\"03172453ff1e75c9b7a94ad7f52d8caf\"",
-      "caminho": "Raw/2026-08/Empresas1.zip",
-      "checksum": "9742b081739427f47a6070271ff3daaddb3a757b2fe1a1f8f5c3f281c262463b",
-      "bytes": 77892906,
+      "atualizado_em": "2026-11-21T02:18:08.515279+00:00",
+      "versao": "82428f46e0dfeb9f091e07e7904aac1f4cb9206d36959e784c6cfe4b5c21f3b5",
+      "baixado_em": "2026-11-21T01:26:03.888835+00:00",
+      "modificado_em": "2026-10-13T22:01:07+00:00",
+      "etag": "\"0188eb1ae369bdba0d8079d97bac5c86\"",
+      "caminho": "Raw/2026-10/Empresas2.zip",
+      "checksum": "d9ab5e05dd156bca6c207db7651c46e675600659c4301512c51dd89c08f4a55f",
+      "bytes": 79125712,
       "tentativas": 1,
-      "duracao_s": 23.388,
-      "descartado_em": "2026-11-18T16:42:45.720290+00:00"
+      "duracao_s": 28.244,
+      "descartado_em": "2026-11-21T02:18:08.497996+00:00"
     },
-    "2026-08/Empresas2.zip": {
+    "2026-10/Empresas0.zip": {
       "status": "descartado",
-      "tentativa_em": "2026-11-18T16:29:45.897226+00:00",
+      "tentativa_em": "2026-11-21T01:25:35.328240+00:00",
       "erro": null,
-      "atualizado_em": "2026-11-18T16:47:13.846816+00:00",
-      "versao": "27576e04684ca27ddc0fd3ffcf908006eaf3ab83148cde569086b6fb67a2bb55",
-      "baixado_em": "2026-11-18T16:30:09.056211+00:00",
-      "modificado_em": "2026-08-09T18:27:12+00:00",
-      "etag": "\"df0b1492fa939ec2acad5ac130e602b9\"",
-      "caminho": "Raw/2026-08/Empresas2.zip",
-      "checksum": "144814fd230fa8dfc653bb28d1dd3eb37f14ca2beae7a8dfe6719458f2845cc0",
-      "bytes": 79119503,
+      "atualizado_em": "2026-11-21T01:30:59.301175+00:00",
+      "versao": "8b5b4423f4ab2711e2ea31a7410f209713255f26681556b047203fd4e4fda3cb",
+      "baixado_em": "2026-11-21T01:28:18.705505+00:00",
+      "modificado_em": "2026-10-13T22:00:54+00:00",
+      "etag": "\"51ffd6930af710720929322b11eb1027\"",
+      "caminho": "Raw/2026-10/Empresas0.zip",
+      "checksum": "0462e71efbf4e3d841c570176865b69c9ae7778a04014fa07145d99504327f7f",
+      "bytes": 570972127,
       "tentativas": 1,
-      "duracao_s": 23.078,
-      "descartado_em": "2026-11-18T16:47:13.838778+00:00"
+      "duracao_s": 163.057,
+      "descartado_em": "2026-11-21T01:30:59.273335+00:00"
     },
-    "2026-08/Empresas3.zip": {
+    "2026-10/Empresas4.zip": {
       "status": "descartado",
-      "tentativa_em": "2026-11-18T16:51:50.927680+00:00",
+      "tentativa_em": "2026-11-21T02:35:15.157662+00:00",
       "erro": null,
-      "atualizado_em": "2026-11-18T16:52:25.006494+00:00",
-      "versao": "98dbc47ec0712b56b1210c3c9ad97614da6860d6e08244a710e23c23d7937656",
-      "baixado_em": "2026-11-18T16:52:15.029122+00:00",
-      "modificado_em": "2026-08-09T18:27:19+00:00",
-      "etag": "\"b33da6ef871f57e0bc628216fee75a39\"",
-      "caminho": "Raw/2026-08/Empresas3.zip",
-      "checksum": "c3caf6ce4fd6955a537f4d4f78fbd6ef75498574e66340576cfdc5c9b5149b93",
-      "bytes": 85107043,
+      "atualizado_em": "2026-11-21T02:47:15.766657+00:00",
+      "versao": "268730f4b28eed56fb596998e49174d03bb0f9be74be78e8aa9f542f34bfdfb9",
+      "baixado_em": "2026-11-21T02:35:48.285149+00:00",
+      "modificado_em": "2026-10-13T22:01:21+00:00",
+      "etag": "\"6787c0295649c453370886f2d7de8b48\"",
+      "caminho": "Raw/2026-10/Empresas4.zip",
+      "checksum": "7f7b726b0394112ee39bdda4e16b1a409cdd17dcadb2554e78b7508408deac25",
+      "bytes": 90222463,
       "tentativas": 1,
-      "duracao_s": 24.048,
-      "descartado_em": "2026-11-18T16:52:24.999095+00:00"
+      "duracao_s": 33.102,
+      "descartado_em": "2026-11-21T02:47:15.758354+00:00"
     },
-    "2026-08/Empresas5.zip": {
+    "2026-10/Empresas3.zip": {
       "status": "descartado",
-      "tentativa_em": "2026-11-18T16:51:50.941267+00:00",
+      "tentativa_em": "2026-11-21T02:35:15.162399+00:00",
       "erro": null,
-      "atualizado_em": "2026-11-18T17:03:34.173253+00:00",
-      "versao": "30e3ad49917fcc3f3cfa9b39edb80e014070ced771cc44d407c114f09c3d181e",
-      "baixado_em": "2026-11-18T16:52:19.198059+00:00",
-      "modificado_em": "2026-08-09T18:27:33+00:00",
-      "etag": "\"418af92a70194e1dc02d2974c4b5c727\"",
-      "caminho": "Raw/2026-08/Empresas5.zip",
-      "checksum": "104dd760360164c0b1d3efe223643077d45b09b781441dc5b121df3d6b542bb3",
-      "bytes": 97335034,
+      "atualizado_em": "2026-11-21T02:35:57.931661+00:00",
+      "versao": "6cf2ad4b7e95d52b3147d834e0518ef8bbd29fa7f8cea29f37db933675f91a87",
+      "baixado_em": "2026-11-21T02:35:42.692389+00:00",
+      "modificado_em": "2026-10-13T22:01:14+00:00",
+      "etag": "\"7f8efb532ed87ae7a9543452b191ef82\"",
+      "caminho": "Raw/2026-10/Empresas3.zip",
+      "checksum": "5b360ae214d61bc1392e053cc76dc751154e5d379ae962e640ce6ea919d57153",
+      "bytes": 85102880,
       "tentativas": 1,
-      "duracao_s": 28.109,
-      "descartado_em": "2026-11-18T17:03:34.166634+00:00"
+      "duracao_s": 27.41,
+      "descartado_em": "2026-11-21T02:35:57.919050+00:00"
     },
-    "2026-08/Empresas4.zip": {
+    "2026-10/Empresas5.zip": {
       "status": "descartado",
-      "tentativa_em": "2026-11-18T16:51:51.102316+00:00",
+      "tentativa_em": "2026-11-21T02:35:15.286756+00:00",
       "erro": null,
-      "atualizado_em": "2026-11-18T16:57:48.436394+00:00",
-      "versao": "c01a28cd0e4a1a662d99a7bf2c86ec5645c5a13869805f91633d1cd4980e26b5",
-      "baixado_em": "2026-11-18T16:52:17.706878+00:00",
-      "modificado_em": "2026-08-09T18:27:26+00:00",
-      "etag": "\"33051e9d6140d7994f14f08ce9032b69\"",
-      "caminho": "Raw/2026-08/Empresas4.zip",
-      "checksum": "b77895f7236c72a76c97afb243f2cf21cfeb03c320e1e3502f8ef3adec8b9856",
-      "bytes": 90236931,
+      "atualizado_em": "2026-11-21T03:01:27.769553+00:00",
+      "versao": "9cc875e300aaad82da98798d9121cca1373101ef38a4189d47a6a96ff0fe7188",
+      "baixado_em": "2026-11-21T02:35:45.654358+00:00",
+      "modificado_em": "2026-10-13T22:01:28+00:00",
+      "etag": "\"a37dace1a0e79e5074b48189517e86e0\"",
+      "caminho": "Raw/2026-10/Empresas5.zip",
+      "checksum": "356cd0b1d33226204059054a4c59ef6a704fb8f68e182f02e5939dd8b89170f7",
+      "bytes": 97310075,
       "tentativas": 1,
-      "duracao_s": 26.549,
-      "descartado_em": "2026-11-18T16:57:48.427234+00:00"
+      "duracao_s": 30.343,
+      "descartado_em": "2026-11-21T03:01:27.760643+00:00"
     },
-    "2026-08/Empresas6.zip": {
-      "status": "descartado",
-      "tentativa_em": "2026-11-18T17:10:09.819826+00:00",
-      "erro": null,
-      "atualizado_em": "2026-11-18T17:10:52.555375+00:00",
-      "versao": "b0909e27e07be0e4937b62457f7040a31f804fbd94cb0de94176268aa34bec02",
-      "baixado_em": "2026-11-18T17:10:42.872980+00:00",
-      "modificado_em": "2026-08-09T18:27:40+00:00",
-      "etag": "\"3ebd489c4d63299cd9700b6940e1fe5a\"",
-      "caminho": "Raw/2026-08/Empresas6.zip",
-      "checksum": "f3f92e65e9ef7273bb3d71c2bedc2d5f4e42140c85ea12011686e6c522f8bfba",
-      "bytes": 94230071,
-      "tentativas": 1,
-      "duracao_s": 33.024,
-      "descartado_em": "2026-11-18T17:10:52.548139+00:00"
-    },
-    "2026-08/Empresas7.zip": {
-      "status": "descartado",
-      "tentativa_em": "2026-11-18T17:10:09.899792+00:00",
-      "erro": null,
-      "atualizado_em": "2026-11-18T17:19:10.490026+00:00",
-      "versao": "be683f6def2a1c854c811feeb237fcbd8e1afabc307b23f0aae98153522f51a0",
-      "baixado_em": "2026-11-18T17:10:41.877360+00:00",
-      "modificado_em": "2026-08-09T18:27:47+00:00",
-      "etag": "\"1b7277e04f6f824956aca67e74a06c86\"",
-      "caminho": "Raw/2026-08/Empresas7.zip",
-      "checksum": "0110f9e1d760b006330589ab6bff84a522cbb3ac9e23bc1279eee74608605690",
-      "bytes": 98726923,
-      "tentativas": 1,
-      "duracao_s": 31.915,
-      "descartado_em": "2026-11-18T17:19:10.484303+00:00"
-    },
-    "2026-08/Empresas8.zip": {
-      "status": "descartado",
-      "tentativa_em": "2026-11-18T17:10:09.878691+00:00",
-      "erro": null,
-      "atualizado_em": "2026-11-18T17:28:12.736291+00:00",
-      "versao": "f958f64176a8edab6e1d5787d4264619a8633b552c22f12808b13deba70fdeab",
-      "baixado_em": "2026-11-18T17:10:41.965356+00:00",
-      "modificado_em": "2026-08-09T18:27:55+00:00",
-      "etag": "\"8d5c107a13535e2d5eb517273247e7dc\"",
-      "caminho": "Raw/2026-08/Empresas8.zip",
-      "checksum": "198f712d1300eb48a155a2e43298255e9e90b1fffbbd2f60362a9548a674ce14",
-      "bytes": 98801940,
-      "tentativas": 1,
-      "duracao_s": 31.979,
-      "descartado_em": "2026-11-18T17:28:12.727908+00:00"
-    },
-    "2026-08/Estabelecimentos1.zip": {
+    "2026-10/Empresas7.zip": {
       "status": "baixado",
-      "tentativa_em": "2026-11-18T17:37:37.108998+00:00",
+      "tentativa_em": "2026-11-21T03:20:15.058258+00:00",
       "erro": null,
-      "atualizado_em": "2026-11-18T17:39:14.009721+00:00",
-      "versao": "4a443ffb5280d2c3a024294ccdb62562686d85d40ce6aa6f25fd833acbdf1998",
-      "baixado_em": "2026-11-18T17:39:14.001171+00:00",
-      "modificado_em": "2026-08-09T18:30:53+00:00",
-      "etag": "\"034352314476f4e070f85e92090b501f\"",
-      "caminho": "Raw/2026-08/Estabelecimentos1.zip",
-      "checksum": "f0eeb22e5d6dd22d8038cb0a501535c605d987cceff106cd6fc994ccceba21cd",
-      "bytes": 341753658,
+      "atualizado_em": "2026-11-21T03:20:47.463165+00:00",
+      "versao": "c4e8af8ef84f2859ea621c1f1b40793afe4f3b02b99332fd6aebeb196f2c5fb1",
+      "baixado_em": "2026-11-21T03:20:47.455259+00:00",
+      "modificado_em": "2026-10-13T22:01:43+00:00",
+      "etag": "\"61313f2e279e961092d839f209a4f191\"",
+      "caminho": "Raw/2026-10/Empresas7.zip",
+      "checksum": "cacf2f5e184191aa6f5ced48c1ef727a745c343d73da5ad3836848fb36e9123e",
+      "bytes": 98676055,
       "tentativas": 1,
-      "duracao_s": 96.848
+      "duracao_s": 32.358
     },
-    "2026-08/Estabelecimentos0.zip": {
-      "status": "baixado",
-      "tentativa_em": "2026-11-18T17:37:37.112764+00:00",
-      "erro": null,
-      "atualizado_em": "2026-11-18T17:47:07.527303+00:00",
-      "versao": "15c04ac1d5791139c7ef1ed8282f050100251fcb248b23e584b935af402176ff",
-      "baixado_em": "2026-11-18T17:47:07.430577+00:00",
-      "modificado_em": "2026-08-09T18:30:25+00:00",
-      "etag": "\"274eaa108d11a21301caf0346c0d76ec\"",
-      "caminho": "Raw/2026-08/Estabelecimentos0.zip",
-      "checksum": "110002573a5fd547028aa1bdf8c76cba0dbeca47099ff74c55d8b4a5105eb358",
-      "bytes": 2200116910,
-      "tentativas": 1,
-      "duracao_s": 570.168
-    },
-    "2026-08/Empresas9.zip": {
+    "2026-10/Empresas6.zip": {
       "status": "descartado",
-      "tentativa_em": "2026-11-18T17:37:37.124847+00:00",
+      "tentativa_em": "2026-11-21T03:20:15.065386+00:00",
       "erro": null,
-      "atualizado_em": "2026-11-18T17:38:20.837831+00:00",
-      "versao": "db36fcae7739dc531fe041d8240455efeb501bc577afcd3440df2a96b6953302",
-      "baixado_em": "2026-11-18T17:38:05.847786+00:00",
-      "modificado_em": "2026-08-09T18:28:02+00:00",
-      "etag": "\"3e0b4f02b52521a8341be95f88f2261c\"",
-      "caminho": "Raw/2026-08/Empresas9.zip",
-      "checksum": "f7b66570b59355fc6a592035a6426102e6e94cfa008fe0c2ff6752d29316d799",
-      "bytes": 94372131,
+      "atualizado_em": "2026-11-21T11:39:42.702026+00:00",
+      "versao": "4f3f591a6f0e14debd3c118e0757061f130b14bc962c2f9c1ea9fd3b7ce5b0b2",
+      "baixado_em": "2026-11-21T03:20:47.888766+00:00",
+      "modificado_em": "2026-10-13T22:01:36+00:00",
+      "etag": "\"cacc4632c09c0f47f6241fc591af428a\"",
+      "caminho": "Raw/2026-10/Empresas6.zip",
+      "checksum": "9260ac6e25b6b11651fcf4b09ab57a03c2e9940edee4594fb2218837fe9898aa",
+      "bytes": 94194819,
       "tentativas": 1,
-      "duracao_s": 28.615,
-      "descartado_em": "2026-11-18T17:38:20.830209+00:00"
+      "duracao_s": 32.768,
+      "descartado_em": "2026-11-21T11:39:42.688761+00:00"
+    },
+    "2026-10/Empresas8.zip": {
+      "status": "baixado",
+      "tentativa_em": "2026-11-21T03:20:15.126279+00:00",
+      "erro": null,
+      "atualizado_em": "2026-11-21T03:20:45.161831+00:00",
+      "versao": "9394cbf99d5ef4bb614a127b007c1ac4864a25eeebfa5a73da97e314dc4fd088",
+      "baixado_em": "2026-11-21T03:20:45.143034+00:00",
+      "modificado_em": "2026-10-13T22:01:50+00:00",
+      "etag": "\"244475b345e6245c3b0a408d0615ec14\"",
+      "caminho": "Raw/2026-10/Empresas8.zip",
+      "checksum": "2401492df8263624eef750e986d9e2e263a9f2b8802bf20a7a84bf77f030ced7",
+      "bytes": 98736571,
+      "tentativas": 1,
+      "duracao_s": 29.984
     }
   },
   "execucoes": [
     {
-      "registrado_em": "2026-11-18T16:30:09.082886+00:00",
-      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
-      "competencia": "2026-08",
-      "arquivo": "Empresas2.zip",
-      "etapa": "download",
-      "status": "sucesso",
-      "inicio": "2026-11-18T16:29:45.897226+00:00",
-      "fim": "2026-11-18T16:30:09.076195+00:00",
-      "checksum": "144814fd230fa8dfc653bb28d1dd3eb37f14ca2beae7a8dfe6719458f2845cc0",
-      "bytes": 79119503,
-      "tentativas": 1,
-      "duracao_s": 23.078
-    },
-    {
-      "registrado_em": "2026-11-18T16:30:09.366084+00:00",
-      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
-      "competencia": "2026-08",
+      "registrado_em": "2026-11-21T01:25:58.487844+00:00",
+      "execucao_id": "6b7d9db4816142bc86afae37422e5248",
+      "competencia": "2026-10",
       "arquivo": "Empresas1.zip",
       "etapa": "download",
       "status": "sucesso",
-      "inicio": "2026-11-18T16:29:45.930361+00:00",
-      "fim": "2026-11-18T16:30:09.360446+00:00",
-      "checksum": "9742b081739427f47a6070271ff3daaddb3a757b2fe1a1f8f5c3f281c262463b",
-      "bytes": 77892906,
+      "inicio": "2026-11-21T01:25:35.305507+00:00",
+      "fim": "2026-11-21T01:25:58.479014+00:00",
+      "checksum": "226713337ad77b876be58d7ac9cc92a7d9144f5780991515a0b3506b1a4a9900",
+      "bytes": 77901368,
       "tentativas": 1,
-      "duracao_s": 23.388
+      "duracao_s": 23.135
     },
     {
-      "registrado_em": "2026-11-18T16:32:21.526325+00:00",
-      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
-      "competencia": "2026-08",
+      "registrado_em": "2026-11-21T01:26:03.908716+00:00",
+      "execucao_id": "6b7d9db4816142bc86afae37422e5248",
+      "competencia": "2026-10",
+      "arquivo": "Empresas2.zip",
+      "etapa": "download",
+      "status": "sucesso",
+      "inicio": "2026-11-21T01:25:35.309648+00:00",
+      "fim": "2026-11-21T01:26:03.903353+00:00",
+      "checksum": "d9ab5e05dd156bca6c207db7651c46e675600659c4301512c51dd89c08f4a55f",
+      "bytes": 79125712,
+      "tentativas": 1,
+      "duracao_s": 28.244
+    },
+    {
+      "registrado_em": "2026-11-21T01:28:18.793655+00:00",
+      "execucao_id": "6b7d9db4816142bc86afae37422e5248",
+      "competencia": "2026-10",
       "arquivo": "Empresas0.zip",
       "etapa": "download",
       "status": "sucesso",
-      "inicio": "2026-11-18T16:29:45.884879+00:00",
-      "fim": "2026-11-18T16:32:21.519807+00:00",
-      "checksum": "013209887a088240833d494c6eeac384df36df0a80dfe359495804cca535c10a",
-      "bytes": 552734286,
+      "inicio": "2026-11-21T01:25:35.328240+00:00",
+      "fim": "2026-11-21T01:28:18.786242+00:00",
+      "checksum": "0462e71efbf4e3d841c570176865b69c9ae7778a04014fa07145d99504327f7f",
+      "bytes": 570972127,
       "tentativas": 1,
-      "duracao_s": 155.584
+      "duracao_s": 163.057
     },
     {
-      "registrado_em": "2026-11-18T16:52:15.059289+00:00",
-      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
-      "competencia": "2026-08",
+      "registrado_em": "2026-11-21T02:35:42.755650+00:00",
+      "execucao_id": "6b7d9db4816142bc86afae37422e5248",
+      "competencia": "2026-10",
       "arquivo": "Empresas3.zip",
       "etapa": "download",
       "status": "sucesso",
-      "inicio": "2026-11-18T16:51:50.927680+00:00",
-      "fim": "2026-11-18T16:52:15.051657+00:00",
-      "checksum": "c3caf6ce4fd6955a537f4d4f78fbd6ef75498574e66340576cfdc5c9b5149b93",
-      "bytes": 85107043,
+      "inicio": "2026-11-21T02:35:15.162399+00:00",
+      "fim": "2026-11-21T02:35:42.736991+00:00",
+      "checksum": "5b360ae214d61bc1392e053cc76dc751154e5d379ae962e640ce6ea919d57153",
+      "bytes": 85102880,
       "tentativas": 1,
-      "duracao_s": 24.048
+      "duracao_s": 27.41
     },
     {
-      "registrado_em": "2026-11-18T16:52:17.734920+00:00",
-      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
-      "competencia": "2026-08",
-      "arquivo": "Empresas4.zip",
-      "etapa": "download",
-      "status": "sucesso",
-      "inicio": "2026-11-18T16:51:51.102316+00:00",
-      "fim": "2026-11-18T16:52:17.728048+00:00",
-      "checksum": "b77895f7236c72a76c97afb243f2cf21cfeb03c320e1e3502f8ef3adec8b9856",
-      "bytes": 90236931,
-      "tentativas": 1,
-      "duracao_s": 26.549
-    },
-    {
-      "registrado_em": "2026-11-18T16:52:19.223933+00:00",
-      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
-      "competencia": "2026-08",
+      "registrado_em": "2026-11-21T02:35:45.693554+00:00",
+      "execucao_id": "6b7d9db4816142bc86afae37422e5248",
+      "competencia": "2026-10",
       "arquivo": "Empresas5.zip",
       "etapa": "download",
       "status": "sucesso",
-      "inicio": "2026-11-18T16:51:50.941267+00:00",
-      "fim": "2026-11-18T16:52:19.215848+00:00",
-      "checksum": "104dd760360164c0b1d3efe223643077d45b09b781441dc5b121df3d6b542bb3",
-      "bytes": 97335034,
+      "inicio": "2026-11-21T02:35:15.286756+00:00",
+      "fim": "2026-11-21T02:35:45.681373+00:00",
+      "checksum": "356cd0b1d33226204059054a4c59ef6a704fb8f68e182f02e5939dd8b89170f7",
+      "bytes": 97310075,
       "tentativas": 1,
-      "duracao_s": 28.109
+      "duracao_s": 30.343
     },
     {
-      "registrado_em": "2026-11-18T17:10:41.904896+00:00",
-      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
-      "competencia": "2026-08",
-      "arquivo": "Empresas7.zip",
+      "registrado_em": "2026-11-21T02:35:48.310889+00:00",
+      "execucao_id": "6b7d9db4816142bc86afae37422e5248",
+      "competencia": "2026-10",
+      "arquivo": "Empresas4.zip",
       "etapa": "download",
       "status": "sucesso",
-      "inicio": "2026-11-18T17:10:09.899792+00:00",
-      "fim": "2026-11-18T17:10:41.898604+00:00",
-      "checksum": "0110f9e1d760b006330589ab6bff84a522cbb3ac9e23bc1279eee74608605690",
-      "bytes": 98726923,
+      "inicio": "2026-11-21T02:35:15.157662+00:00",
+      "fim": "2026-11-21T02:35:48.301711+00:00",
+      "checksum": "7f7b726b0394112ee39bdda4e16b1a409cdd17dcadb2554e78b7508408deac25",
+      "bytes": 90222463,
       "tentativas": 1,
-      "duracao_s": 31.915
+      "duracao_s": 33.102
     },
     {
-      "registrado_em": "2026-11-18T17:10:41.986989+00:00",
-      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
-      "competencia": "2026-08",
+      "registrado_em": "2026-11-21T03:20:45.245197+00:00",
+      "execucao_id": "6b7d9db4816142bc86afae37422e5248",
+      "competencia": "2026-10",
       "arquivo": "Empresas8.zip",
       "etapa": "download",
       "status": "sucesso",
-      "inicio": "2026-11-18T17:10:09.878691+00:00",
-      "fim": "2026-11-18T17:10:41.981445+00:00",
-      "checksum": "198f712d1300eb48a155a2e43298255e9e90b1fffbbd2f60362a9548a674ce14",
-      "bytes": 98801940,
+      "inicio": "2026-11-21T03:20:15.126279+00:00",
+      "fim": "2026-11-21T03:20:45.216481+00:00",
+      "checksum": "2401492df8263624eef750e986d9e2e263a9f2b8802bf20a7a84bf77f030ced7",
+      "bytes": 98736571,
       "tentativas": 1,
-      "duracao_s": 31.979
+      "duracao_s": 29.984
     },
     {
-      "registrado_em": "2026-11-18T17:10:42.903035+00:00",
-      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
-      "competencia": "2026-08",
+      "registrado_em": "2026-11-21T03:20:47.494463+00:00",
+      "execucao_id": "6b7d9db4816142bc86afae37422e5248",
+      "competencia": "2026-10",
+      "arquivo": "Empresas7.zip",
+      "etapa": "download",
+      "status": "sucesso",
+      "inicio": "2026-11-21T03:20:15.058258+00:00",
+      "fim": "2026-11-21T03:20:47.477704+00:00",
+      "checksum": "cacf2f5e184191aa6f5ced48c1ef727a745c343d73da5ad3836848fb36e9123e",
+      "bytes": 98676055,
+      "tentativas": 1,
+      "duracao_s": 32.358
+    },
+    {
+      "registrado_em": "2026-11-21T03:20:47.919277+00:00",
+      "execucao_id": "6b7d9db4816142bc86afae37422e5248",
+      "competencia": "2026-10",
       "arquivo": "Empresas6.zip",
       "etapa": "download",
       "status": "sucesso",
-      "inicio": "2026-11-18T17:10:09.819826+00:00",
-      "fim": "2026-11-18T17:10:42.893747+00:00",
-      "checksum": "f3f92e65e9ef7273bb3d71c2bedc2d5f4e42140c85ea12011686e6c522f8bfba",
-      "bytes": 94230071,
+      "inicio": "2026-11-21T03:20:15.065386+00:00",
+      "fim": "2026-11-21T03:20:47.911044+00:00",
+      "checksum": "9260ac6e25b6b11651fcf4b09ab57a03c2e9940edee4594fb2218837fe9898aa",
+      "bytes": 94194819,
       "tentativas": 1,
-      "duracao_s": 33.024
-    },
-    {
-      "registrado_em": "2026-11-18T17:38:05.876801+00:00",
-      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
-      "competencia": "2026-08",
-      "arquivo": "Empresas9.zip",
-      "etapa": "download",
-      "status": "sucesso",
-      "inicio": "2026-11-18T17:37:37.124847+00:00",
-      "fim": "2026-11-18T17:38:05.866409+00:00",
-      "checksum": "f7b66570b59355fc6a592035a6426102e6e94cfa008fe0c2ff6752d29316d799",
-      "bytes": 94372131,
-      "tentativas": 1,
-      "duracao_s": 28.615
-    },
-    {
-      "registrado_em": "2026-11-18T17:39:14.033772+00:00",
-      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
-      "competencia": "2026-08",
-      "arquivo": "Estabelecimentos1.zip",
-      "etapa": "download",
-      "status": "sucesso",
-      "inicio": "2026-11-18T17:37:37.108998+00:00",
-      "fim": "2026-11-18T17:39:14.021500+00:00",
-      "checksum": "f0eeb22e5d6dd22d8038cb0a501535c605d987cceff106cd6fc994ccceba21cd",
-      "bytes": 341753658,
-      "tentativas": 1,
-      "duracao_s": 96.848
-    },
-    {
-      "registrado_em": "2026-11-18T17:47:07.561779+00:00",
-      "execucao_id": "01a8c30cb6a64049b6ea0509f2a1b8a3",
-      "competencia": "2026-08",
-      "arquivo": "Estabelecimentos0.zip",
-      "etapa": "download",
-      "status": "sucesso",
-      "inicio": "2026-11-18T17:37:37.112764+00:00",
-      "fim": "2026-11-18T17:47:07.552528+00:00",
-      "checksum": "110002573a5fd547028aa1bdf8c76cba0dbeca47099ff74c55d8b4a5105eb358",
-      "bytes": 2200116910,
-      "tentativas": 1,
-      "duracao_s": 570.168
+      "duracao_s": 32.768
     }
   ],
   "estado": {
-    "meses": 4,
-    "manutencao_ativa": true,
+    "meses": 1,
     "executando": true,
+    "manutencao_ativa": true,
     "catalogo_pendente": false,
     "catalogo": {
       "competencias": [
-        "2026-08",
-        "2026-09",
         "2026-10",
         "2026-11"
       ],
       "indisponiveis": [],
       "arquivos": {
-        "2026-08": [
+        "2026-11": [
           {
             "nome": "Cnaes.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Cnaes.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Cnaes.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:26:22+00:00",
+            "modificado_em": "2026-11-16T10:00:23+00:00",
             "bytes": 22078,
-            "etag": "\"57ca9ef3c6f8149f0ab08589b300f96d\"",
-            "competencia": "2026-08"
+            "etag": "\"87d50b8d93ea716eeea7c8aaff13b795\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Empresas0.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Empresas0.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas0.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:27:00+00:00",
-            "bytes": 552734286,
-            "etag": "\"95c254b100063e48cf4cbb966ecce2a4\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:01:04+00:00",
+            "bytes": 580989288,
+            "etag": "\"634cb2ae4508d645449059ad35c83d4b\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Empresas1.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Empresas1.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas1.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:27:06+00:00",
-            "bytes": 77892906,
-            "etag": "\"03172453ff1e75c9b7a94ad7f52d8caf\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:01:11+00:00",
+            "bytes": 77906042,
+            "etag": "\"5a0fa9a947fb37d43fa89ce02161a907\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Empresas2.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Empresas2.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas2.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:27:12+00:00",
-            "bytes": 79119503,
-            "etag": "\"df0b1492fa939ec2acad5ac130e602b9\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:01:17+00:00",
+            "bytes": 79128361,
+            "etag": "\"5af8138a2c17168a6c089b4d8318f761\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Empresas3.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Empresas3.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas3.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:27:19+00:00",
-            "bytes": 85107043,
-            "etag": "\"b33da6ef871f57e0bc628216fee75a39\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:01:25+00:00",
+            "bytes": 85101965,
+            "etag": "\"699a1eefc63db5d43c6d71c6c8f98d22\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Empresas4.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Empresas4.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas4.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:27:26+00:00",
-            "bytes": 90236931,
-            "etag": "\"33051e9d6140d7994f14f08ce9032b69\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:01:32+00:00",
+            "bytes": 90215342,
+            "etag": "\"670aa8b9771fda43286da3d6187b3516\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Empresas5.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Empresas5.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas5.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:27:33+00:00",
-            "bytes": 97335034,
-            "etag": "\"418af92a70194e1dc02d2974c4b5c727\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:01:40+00:00",
+            "bytes": 97296322,
+            "etag": "\"3bf3352292f28ffa030883743469ee75\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Empresas6.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Empresas6.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas6.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:27:40+00:00",
-            "bytes": 94230071,
-            "etag": "\"3ebd489c4d63299cd9700b6940e1fe5a\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:01:47+00:00",
+            "bytes": 94174592,
+            "etag": "\"d1aafba4c4c868cbe4d2fe01017dcff4\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Empresas7.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Empresas7.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas7.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:27:47+00:00",
-            "bytes": 98726923,
-            "etag": "\"1b7277e04f6f824956aca67e74a06c86\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:01:55+00:00",
+            "bytes": 98646283,
+            "etag": "\"a63fbf67eb0641c902ec7a6a5173d343\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Empresas8.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Empresas8.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas8.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:27:55+00:00",
-            "bytes": 98801940,
-            "etag": "\"8d5c107a13535e2d5eb517273247e7dc\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:02:03+00:00",
+            "bytes": 98698336,
+            "etag": "\"bf073645d067216431ac824788ad5bf0\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Empresas9.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Empresas9.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas9.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:28:02+00:00",
-            "bytes": 94372131,
-            "etag": "\"3e0b4f02b52521a8341be95f88f2261c\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:02:10+00:00",
+            "bytes": 94274393,
+            "etag": "\"1a55272265998443ec12398dbc29a636\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Estabelecimentos0.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Estabelecimentos0.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos0.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:30:25+00:00",
-            "bytes": 2200116910,
-            "etag": "\"274eaa108d11a21301caf0346c0d76ec\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:04:47+00:00",
+            "bytes": 2321438760,
+            "etag": "\"bc3828140ddaf668f91dfe710722ac46\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Estabelecimentos1.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Estabelecimentos1.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos1.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:30:53+00:00",
-            "bytes": 341753658,
-            "etag": "\"034352314476f4e070f85e92090b501f\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:05:20+00:00",
+            "bytes": 342021474,
+            "etag": "\"501ae905c155d69f92cad273c720f400\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Estabelecimentos2.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Estabelecimentos2.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos2.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:31:16+00:00",
-            "bytes": 336127884,
-            "etag": "\"a1975f1811849d63baf092f7373a0926\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:05:44+00:00",
+            "bytes": 336210956,
+            "etag": "\"520a6ffbd90ad0103924d8576c39259e\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Estabelecimentos3.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Estabelecimentos3.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos3.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:31:41+00:00",
-            "bytes": 367641274,
-            "etag": "\"6f13be08362d1b04ae36bdf9bde0168e\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:06:10+00:00",
+            "bytes": 369176602,
+            "etag": "\"9890ba187ff8f26f6ec15d8be58d1fb0\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Estabelecimentos4.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Estabelecimentos4.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos4.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:32:04+00:00",
-            "bytes": 340246482,
-            "etag": "\"3de50043ed243b734df6359c8501b3de\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:06:35+00:00",
+            "bytes": 340015213,
+            "etag": "\"4cfcfdc6b13dae4b6d1c1653297053e9\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Estabelecimentos5.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Estabelecimentos5.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos5.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:32:26+00:00",
-            "bytes": 335998993,
-            "etag": "\"66bf6081e400c1da20159e15dc2792d7\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:06:59+00:00",
+            "bytes": 337828592,
+            "etag": "\"dff12a83cbac914591644b144a4b00bd\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Estabelecimentos6.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Estabelecimentos6.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos6.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:32:53+00:00",
-            "bytes": 368845297,
-            "etag": "\"97fe472872020ffefae283b191474798\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:07:25+00:00",
+            "bytes": 368035905,
+            "etag": "\"f8e82ad407bcedceab81e34be0a37912\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Estabelecimentos7.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Estabelecimentos7.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos7.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:33:15+00:00",
-            "bytes": 339985622,
-            "etag": "\"5802619a3c05fadd56983519875b0b76\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:07:50+00:00",
+            "bytes": 337438307,
+            "etag": "\"30c44928b3338820b6f3f119be090c27\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Estabelecimentos8.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Estabelecimentos8.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos8.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:33:38+00:00",
-            "bytes": 335311452,
-            "etag": "\"f9c775cea944c8e56ddb6f3376c632d2\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:08:16+00:00",
+            "bytes": 351173799,
+            "etag": "\"3b42f090107e950ce0d383714e247fe9\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Estabelecimentos9.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Estabelecimentos9.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos9.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:34:03+00:00",
-            "bytes": 369237808,
-            "etag": "\"211dc76f38f7a427f69d6b07123dfcdb\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:08:41+00:00",
+            "bytes": 357878259,
+            "etag": "\"bb891240222e1c9067647530359c148c\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Motivos.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Motivos.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Motivos.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:34:04+00:00",
+            "modificado_em": "2026-11-16T10:08:42+00:00",
             "bytes": 1180,
-            "etag": "\"5083658d4ea9706f647125aab8e6bc3a\"",
-            "competencia": "2026-08"
+            "etag": "\"228dc9e31bc6e6ea9789d0a2808933f0\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Municipios.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Municipios.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Municipios.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:34:05+00:00",
+            "modificado_em": "2026-11-16T10:08:44+00:00",
             "bytes": 43443,
-            "etag": "\"bf9fa7cea57f10a4383d41d422300d21\"",
-            "competencia": "2026-08"
+            "etag": "\"645d3e1a75b820a85deb5bc6082562e4\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Naturezas.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Naturezas.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Naturezas.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:34:06+00:00",
-            "bytes": 1563,
-            "etag": "\"f4cda4a234df07741789f9d7f42c735e\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:08:45+00:00",
+            "bytes": 1585,
+            "etag": "\"eda7a71e7eb72509fb6dbf462c373b1b\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Paises.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Paises.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Paises.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:34:07+00:00",
+            "modificado_em": "2026-11-16T10:08:45+00:00",
             "bytes": 2745,
-            "etag": "\"a8e0a6cc2d2b1f9bac51c9fba2610d95\"",
-            "competencia": "2026-08"
+            "etag": "\"2b450c5ba79a1d3a623cbddb15f0b6af\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Qualificacoes.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Qualificacoes.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Qualificacoes.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:34:08+00:00",
+            "modificado_em": "2026-11-16T10:08:47+00:00",
             "bytes": 980,
-            "etag": "\"f89579b41375e0d954f29f25eec240e1\"",
-            "competencia": "2026-08"
+            "etag": "\"a0129f49e49c5eeef2e30918e874344a\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Simples.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Simples.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Simples.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:34:30+00:00",
-            "bytes": 302289129,
-            "etag": "\"b39e41a2c405a1ee16c1d802ad8aedb3\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:09:10+00:00",
+            "bytes": 313773702,
+            "etag": "\"230f921aa8dcd189b6bfa59b02b25ed5\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Socios0.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Socios0.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios0.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:34:47+00:00",
-            "bytes": 242883070,
-            "etag": "\"bdb6339aa67b6c063742fabfe1756252\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:09:29+00:00",
+            "bytes": 255704600,
+            "etag": "\"7d73cad90622aa75b15262aae6f9e529\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Socios1.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Socios1.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios1.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:34:52+00:00",
-            "bytes": 49520370,
-            "etag": "\"fd7336f8857dc8cb5126d12caa97a45f\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:09:33+00:00",
+            "bytes": 49557823,
+            "etag": "\"808844693a73fc7cc0b5fdfaf19dc5f2\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Socios2.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Socios2.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios2.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:34:56+00:00",
-            "bytes": 49037679,
-            "etag": "\"341a0ff5295004288b0e510f0f75eb12\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:09:38+00:00",
+            "bytes": 49062173,
+            "etag": "\"e23fecb1da9ccbc857e959ba9d077079\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Socios3.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Socios3.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios3.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:35:00+00:00",
-            "bytes": 49045291,
-            "etag": "\"d2c42f4203b941afa0f0179bf172783c\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:09:42+00:00",
+            "bytes": 49029338,
+            "etag": "\"50d9b2f8af6b631be51d4cd1505838d8\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Socios4.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Socios4.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios4.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:35:04+00:00",
-            "bytes": 49446216,
-            "etag": "\"c32273359ba8b95bcb1c8cb8087fc8ef\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:09:46+00:00",
+            "bytes": 49569340,
+            "etag": "\"11dd0ca6b7eafc11f5341cd3e2a9746e\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Socios5.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Socios5.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios5.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:35:08+00:00",
-            "bytes": 49228829,
-            "etag": "\"ab4f5057207a540a50d2e2bc929ebcf7\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:09:51+00:00",
+            "bytes": 49052806,
+            "etag": "\"038467e16020fe60a2d042ec489c6218\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Socios6.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Socios6.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios6.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:35:13+00:00",
-            "bytes": 49130796,
-            "etag": "\"1cfc01cfda69f17dd2d5ea430d302b2b\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:09:55+00:00",
+            "bytes": 49138696,
+            "etag": "\"4142b2ec6063072fd4bc61299d99c951\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Socios7.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Socios7.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios7.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:35:17+00:00",
-            "bytes": 49017791,
-            "etag": "\"b881ec505e4d6472ddf01c6dd3b8deac\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:09:59+00:00",
+            "bytes": 49324881,
+            "etag": "\"f5f4db4b66d319b1fa861c9bdcb6d86d\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Socios8.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Socios8.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios8.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:35:21+00:00",
-            "bytes": 49525621,
-            "etag": "\"e56b851a957977a30a7c9ac3c339508f\"",
-            "competencia": "2026-08"
+            "modificado_em": "2026-11-16T10:10:04+00:00",
+            "bytes": 49387258,
+            "etag": "\"35a3d466800cf78b32b6063c455b41b1\"",
+            "competencia": "2026-11"
           },
           {
             "nome": "Socios9.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-08/Socios9.zip",
+            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios9.zip",
             "diretorio": false,
-            "modificado_em": "2026-08-09T18:35:25+00:00",
-            "bytes": 49051421,
-            "etag": "\"a547b20f728588759f362cd2afe10db3\"",
-            "competencia": "2026-08"
-          }
-        ],
-        "2026-09": [
-          {
-            "nome": "Cnaes.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Cnaes.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T14:58:51+00:00",
-            "bytes": 22078,
-            "etag": "\"7e8f28b7ecf03ad7b6d5300215e62583\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Empresas0.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Empresas0.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T14:59:29+00:00",
-            "bytes": 563070974,
-            "etag": "\"6861551f6bf06547e87533627067e6be\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Empresas1.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Empresas1.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T14:59:35+00:00",
-            "bytes": 77897750,
-            "etag": "\"7a5524025ba34598e2659a6b06db38e3\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Empresas2.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Empresas2.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T14:59:41+00:00",
-            "bytes": 79123643,
-            "etag": "\"0e1c8abd0a081ddc13f41f67dd27b0fb\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Empresas3.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Empresas3.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T14:59:48+00:00",
-            "bytes": 85104766,
-            "etag": "\"b29fa6e296d4a83e7664a15b7e591ac8\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Empresas4.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Empresas4.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T14:59:55+00:00",
-            "bytes": 90228407,
-            "etag": "\"67c171af7f36cedf42ed3a5d2398bff3\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Empresas5.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Empresas5.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:00:02+00:00",
-            "bytes": 97321360,
-            "etag": "\"df89fa771550d764d76f6275563e2328\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Empresas6.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Empresas6.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:00:09+00:00",
-            "bytes": 94209872,
-            "etag": "\"bf9cf9017f4fc938f955dcdc29572adb\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Empresas7.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Empresas7.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:00:17+00:00",
-            "bytes": 98698360,
-            "etag": "\"66e53aa8e0612fae3a5e30688a381996\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Empresas8.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Empresas8.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:00:24+00:00",
-            "bytes": 98765405,
-            "etag": "\"8595534f7c55919917afbab4233692fe\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Empresas9.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Empresas9.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:00:31+00:00",
-            "bytes": 94336829,
-            "etag": "\"be0fd949cdafb0a6cac9cf0405b2cf5e\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Estabelecimentos0.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Estabelecimentos0.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:02:59+00:00",
-            "bytes": 2243389254,
-            "etag": "\"d4efe5ace49c8948c4946b5978a62559\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Estabelecimentos1.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Estabelecimentos1.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:03:26+00:00",
-            "bytes": 341841240,
-            "etag": "\"d8c005c7fdd5afa545184c732a4697b0\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Estabelecimentos2.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Estabelecimentos2.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:03:50+00:00",
-            "bytes": 336278618,
-            "etag": "\"0948abc43e63328fe60e43fd7ddca331\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Estabelecimentos3.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Estabelecimentos3.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:04:15+00:00",
-            "bytes": 368000820,
-            "etag": "\"68c53f61a443e868d8c30795c4ca143a\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Estabelecimentos4.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Estabelecimentos4.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:04:39+00:00",
-            "bytes": 340870490,
-            "etag": "\"8200a82e366b223db7340c10805c9135\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Estabelecimentos5.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Estabelecimentos5.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:05:02+00:00",
-            "bytes": 335355867,
-            "etag": "\"51f06c45d85fb1d46bcb70e6d1ac72ee\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Estabelecimentos6.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Estabelecimentos6.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:05:27+00:00",
-            "bytes": 369173589,
-            "etag": "\"6c561861e1827f3140d84ee0c386bdfa\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Estabelecimentos7.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Estabelecimentos7.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:05:50+00:00",
-            "bytes": 339164748,
-            "etag": "\"21b95fd5a24b5078a2372a9d105a1b1b\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Estabelecimentos8.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Estabelecimentos8.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:06:13+00:00",
-            "bytes": 340381627,
-            "etag": "\"b4df54fa0d0655d856b0242afdd451dd\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Estabelecimentos9.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Estabelecimentos9.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:06:39+00:00",
-            "bytes": 366879953,
-            "etag": "\"fe5498a33f0281c9907e315a099ef791\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Motivos.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Motivos.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:06:40+00:00",
-            "bytes": 1180,
-            "etag": "\"61c9b2d879ce0e232d4e2cb589d9abba\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Municipios.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Municipios.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:06:41+00:00",
-            "bytes": 43443,
-            "etag": "\"4480b392bc0e6540dbcb32e9198bff55\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Naturezas.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Naturezas.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:06:42+00:00",
-            "bytes": 1563,
-            "etag": "\"3b1e73274f3e882b6abf877ff6e0cc2c\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Paises.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Paises.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:06:43+00:00",
-            "bytes": 2745,
-            "etag": "\"f6028fc8125fdfc47cefc9ca260e7c71\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Qualificacoes.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Qualificacoes.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:06:44+00:00",
-            "bytes": 980,
-            "etag": "\"2358c5f4f60678e9c30ea6df134b5688\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Simples.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Simples.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:07:06+00:00",
-            "bytes": 308027792,
-            "etag": "\"b9cc6da9c805ce33dcb7209895aafe4f\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Socios0.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Socios0.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:07:23+00:00",
-            "bytes": 247683729,
-            "etag": "\"e66edbcdfda5d4eb90834adcf2e396b2\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Socios1.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Socios1.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:07:28+00:00",
-            "bytes": 49555210,
-            "etag": "\"fa6e3f17464ba9adde4bb54800c76517\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Socios2.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Socios2.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:07:32+00:00",
-            "bytes": 49039941,
-            "etag": "\"dc0b2b194e45dcb14dcaa76547e537cd\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Socios3.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Socios3.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:07:36+00:00",
-            "bytes": 49053193,
-            "etag": "\"990fef378a58a2deb04940acb757ba6e\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Socios4.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Socios4.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:07:40+00:00",
-            "bytes": 49494404,
-            "etag": "\"8a4223b3a0be2d351366ee85851b7783\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Socios5.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Socios5.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:07:45+00:00",
-            "bytes": 49079288,
-            "etag": "\"898a8bd8d9a164003a2ffeeef28fa3fb\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Socios6.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Socios6.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:07:49+00:00",
-            "bytes": 49153186,
-            "etag": "\"b4a5e5ecf664c924348b29dd26235632\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Socios7.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Socios7.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:07:53+00:00",
-            "bytes": 49096077,
-            "etag": "\"5c7f0afe7cd25dd45992a6426817d750\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Socios8.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Socios8.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:07:57+00:00",
-            "bytes": 49506254,
-            "etag": "\"2a3e3c7c03dcdb2f048eb917d2fccf08\"",
-            "competencia": "2026-09"
-          },
-          {
-            "nome": "Socios9.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-09/Socios9.zip",
-            "diretorio": false,
-            "modificado_em": "2026-09-14T15:08:02+00:00",
-            "bytes": 49071627,
-            "etag": "\"0f2ec3657f51103cd6d0d5a771966805\"",
-            "competencia": "2026-09"
+            "modificado_em": "2026-11-16T10:10:08+00:00",
+            "bytes": 49168829,
+            "etag": "\"fb36bcdc9bd267cb9dd9d926c34ed4fd\"",
+            "competencia": "2026-11"
           }
         ],
         "2026-10": [
@@ -1414,347 +987,10 @@
             "etag": "\"5e046a3f60fea110c428b47ecb216d4c\"",
             "competencia": "2026-10"
           }
-        ],
-        "2026-11": [
-          {
-            "nome": "Cnaes.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Cnaes.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:00:23+00:00",
-            "bytes": 22078,
-            "etag": "\"87d50b8d93ea716eeea7c8aaff13b795\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Empresas0.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas0.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:01:04+00:00",
-            "bytes": 580989288,
-            "etag": "\"634cb2ae4508d645449059ad35c83d4b\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Empresas1.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas1.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:01:11+00:00",
-            "bytes": 77906042,
-            "etag": "\"5a0fa9a947fb37d43fa89ce02161a907\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Empresas2.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas2.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:01:17+00:00",
-            "bytes": 79128361,
-            "etag": "\"5af8138a2c17168a6c089b4d8318f761\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Empresas3.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas3.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:01:25+00:00",
-            "bytes": 85101965,
-            "etag": "\"699a1eefc63db5d43c6d71c6c8f98d22\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Empresas4.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas4.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:01:32+00:00",
-            "bytes": 90215342,
-            "etag": "\"670aa8b9771fda43286da3d6187b3516\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Empresas5.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas5.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:01:40+00:00",
-            "bytes": 97296322,
-            "etag": "\"3bf3352292f28ffa030883743469ee75\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Empresas6.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas6.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:01:47+00:00",
-            "bytes": 94174592,
-            "etag": "\"d1aafba4c4c868cbe4d2fe01017dcff4\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Empresas7.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas7.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:01:55+00:00",
-            "bytes": 98646283,
-            "etag": "\"a63fbf67eb0641c902ec7a6a5173d343\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Empresas8.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas8.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:02:03+00:00",
-            "bytes": 98698336,
-            "etag": "\"bf073645d067216431ac824788ad5bf0\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Empresas9.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Empresas9.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:02:10+00:00",
-            "bytes": 94274393,
-            "etag": "\"1a55272265998443ec12398dbc29a636\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Estabelecimentos0.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos0.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:04:47+00:00",
-            "bytes": 2321438760,
-            "etag": "\"bc3828140ddaf668f91dfe710722ac46\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Estabelecimentos1.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos1.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:05:20+00:00",
-            "bytes": 342021474,
-            "etag": "\"501ae905c155d69f92cad273c720f400\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Estabelecimentos2.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos2.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:05:44+00:00",
-            "bytes": 336210956,
-            "etag": "\"520a6ffbd90ad0103924d8576c39259e\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Estabelecimentos3.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos3.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:06:10+00:00",
-            "bytes": 369176602,
-            "etag": "\"9890ba187ff8f26f6ec15d8be58d1fb0\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Estabelecimentos4.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos4.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:06:35+00:00",
-            "bytes": 340015213,
-            "etag": "\"4cfcfdc6b13dae4b6d1c1653297053e9\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Estabelecimentos5.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos5.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:06:59+00:00",
-            "bytes": 337828592,
-            "etag": "\"dff12a83cbac914591644b144a4b00bd\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Estabelecimentos6.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos6.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:07:25+00:00",
-            "bytes": 368035905,
-            "etag": "\"f8e82ad407bcedceab81e34be0a37912\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Estabelecimentos7.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos7.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:07:50+00:00",
-            "bytes": 337438307,
-            "etag": "\"30c44928b3338820b6f3f119be090c27\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Estabelecimentos8.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos8.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:08:16+00:00",
-            "bytes": 351173799,
-            "etag": "\"3b42f090107e950ce0d383714e247fe9\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Estabelecimentos9.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Estabelecimentos9.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:08:41+00:00",
-            "bytes": 357878259,
-            "etag": "\"bb891240222e1c9067647530359c148c\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Motivos.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Motivos.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:08:42+00:00",
-            "bytes": 1180,
-            "etag": "\"228dc9e31bc6e6ea9789d0a2808933f0\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Municipios.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Municipios.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:08:44+00:00",
-            "bytes": 43443,
-            "etag": "\"645d3e1a75b820a85deb5bc6082562e4\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Naturezas.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Naturezas.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:08:45+00:00",
-            "bytes": 1585,
-            "etag": "\"eda7a71e7eb72509fb6dbf462c373b1b\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Paises.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Paises.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:08:45+00:00",
-            "bytes": 2745,
-            "etag": "\"2b450c5ba79a1d3a623cbddb15f0b6af\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Qualificacoes.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Qualificacoes.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:08:47+00:00",
-            "bytes": 980,
-            "etag": "\"a0129f49e49c5eeef2e30918e874344a\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Simples.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Simples.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:09:10+00:00",
-            "bytes": 313773702,
-            "etag": "\"230f921aa8dcd189b6bfa59b02b25ed5\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Socios0.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios0.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:09:29+00:00",
-            "bytes": 255704600,
-            "etag": "\"7d73cad90622aa75b15262aae6f9e529\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Socios1.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios1.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:09:33+00:00",
-            "bytes": 49557823,
-            "etag": "\"808844693a73fc7cc0b5fdfaf19dc5f2\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Socios2.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios2.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:09:38+00:00",
-            "bytes": 49062173,
-            "etag": "\"e23fecb1da9ccbc857e959ba9d077079\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Socios3.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios3.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:09:42+00:00",
-            "bytes": 49029338,
-            "etag": "\"50d9b2f8af6b631be51d4cd1505838d8\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Socios4.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios4.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:09:46+00:00",
-            "bytes": 49569340,
-            "etag": "\"11dd0ca6b7eafc11f5341cd3e2a9746e\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Socios5.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios5.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:09:51+00:00",
-            "bytes": 49052806,
-            "etag": "\"038467e16020fe60a2d042ec489c6218\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Socios6.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios6.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:09:55+00:00",
-            "bytes": 49138696,
-            "etag": "\"4142b2ec6063072fd4bc61299d99c951\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Socios7.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios7.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:09:59+00:00",
-            "bytes": 49324881,
-            "etag": "\"f5f4db4b66d319b1fa861c9bdcb6d86d\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Socios8.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios8.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:10:04+00:00",
-            "bytes": 49387258,
-            "etag": "\"35a3d466800cf78b32b6063c455b41b1\"",
-            "competencia": "2026-11"
-          },
-          {
-            "nome": "Socios9.zip",
-            "url": "https://arquivos.receitafederal.gov.br/public.php/dav/files/YggdBLfdninEJX9/2026-11/Socios9.zip",
-            "diretorio": false,
-            "modificado_em": "2026-11-16T10:10:08+00:00",
-            "bytes": 49168829,
-            "etag": "\"fb36bcdc9bd267cb9dd9d926c34ed4fd\"",
-            "competencia": "2026-11"
-          }
         ]
       }
     },
     "pendentes": [
-      "2026-08",
-      "2026-09",
       "2026-10",
       "2026-11"
     ]
