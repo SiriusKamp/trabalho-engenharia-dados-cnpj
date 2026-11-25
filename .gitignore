@@ -9,8 +9,8 @@ spark-warehouse/
 artifacts/
 tests/.teste-*/
 DATA/*/*
-!DATA/*/Metadados.json
-DATA/.*
+# !DATA/*/Metadados.json
+DATA/prata
 *.part
 *.crc
 *.log

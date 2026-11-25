@@ -6,15 +6,15 @@ services:
     # Dockerfile monta a imagem; o comando padrão inicia a API, não uma carga manual.
     build: .
     image: cnpj-app:local
-    mem_limit: 10g
+    mem_limit: 14g
     # O limite inclui Python, JVM e demais processos. SPARK_DRIVER_MEMORY é só a JVM.
     cpus: 2
     restart: unless-stopped
     environment:
       # Somente variáveis declaradas aqui são repassadas desta configuração à aplicação.
       DATA_DIR: /app/DATA
-      MESES: ${MESES:-4}
-      DOWNLOAD_WORKERS: ${DOWNLOAD_WORKERS:-3}
+      MESES: ${MESES:-2}
+      DOWNLOAD_WORKERS: ${DOWNLOAD_WORKERS:-6}
       AGENDAMENTO_ATIVO: ${AGENDAMENTO_ATIVO:-0}
       ENGENHARIA_USUARIO: ${ENGENHARIA_USUARIO:-engenharia}
       ENGENHARIA_SENHA: ${ENGENHARIA_SENHA:-Engenharia123!}
@@ -23,7 +23,7 @@ services:
       MONITORAMENTO_USUARIO: ${MONITORAMENTO_USUARIO:-monitor}
       MONITORAMENTO_SENHA: ${MONITORAMENTO_SENHA:-Monitor123!}
       SPARK_MASTER: ${SPARK_MASTER:-local[2]}
-      SPARK_DRIVER_MEMORY: ${SPARK_DRIVER_MEMORY:-4g}
+      SPARK_DRIVER_MEMORY: ${SPARK_DRIVER_MEMORY:-6g}
       SPARK_SHUFFLE_PARTITIONS: ${SPARK_SHUFFLE_PARTITIONS:-16}
       SPARK_LOCAL_DIRS: /app/.spark-tmp
       TLS_CERTIFICADO: ${TLS_CERTIFICADO:-}
