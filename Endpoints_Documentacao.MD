@@ -100,7 +100,7 @@ curl.exe -u "analise:Analise123!" "$api/camadas/Ouro?competencia=2026-11"
 
 # Cole a chave de um arquivo .parquet retornado nessa lista.
 $caminho = Read-Host "Caminho relativo do arquivo na Ouro"
-$nomeLocal = Split-Path $caminho -Leaf
+$nomeLocal = Split-Path $caminho 
 curl.exe -f -u "analise:Analise123!" "$api/arquivos/Ouro/$caminho" -o $nomeLocal
 ```
 
