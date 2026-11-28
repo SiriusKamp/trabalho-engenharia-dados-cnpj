@@ -1,12 +1,18 @@
 __pycache__/
 *.py[cod]
-.pytest_cache/
 .venv/
+.venv-linux/
+.env
+.certificados/
+.spark-tmp/
+spark-warehouse/
 artifacts/
-data/raw/
-data/processed/
-.test-artifacts*/
-tmp7fbtlx2l/
-tmpc1ldiivg/
+tests/.teste-*/
+DATA/*/*
+# !DATA/*/Metadados.json
+DATA/prata
+*.part
+*.crc
+*.log
 dist/
 *.egg-info/

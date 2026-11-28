@@ -1,0 +1,347 @@
+{
+  "arquivos": {
+    "2026-10": {
+      "status": "sucesso",
+      "erro": null,
+      "atualizado_em": "2026-11-25T05:46:34.818230+00:00",
+      "etapa_erro": null,
+      "interrompido_em": "2026-11-23T18:52:36.371403+00:00",
+      "motivo_pendencia": "Interrompido pelo operador para retomar com a versão otimizada, preservando a Prata.",
+      "versao": "97ed6f56f2ed2d020906ad9a4c2ad7c12f077ffbb7079ebe7e8437366aaae1f2",
+      "dependencias": {
+        "Empresas0.zip": {
+          "versao": "8b5b4423f4ab2711e2ea31a7410f209713255f26681556b047203fd4e4fda3cb",
+          "publicado_em": "2026-11-21T01:56:22.743654+00:00"
+        },
+        "Empresas1.zip": {
+          "versao": "a8f5959c09080f01d7de4124175b86cf43d328e0d15994362695a2c250e04c3d",
+          "publicado_em": "2026-11-21T02:17:23.976362+00:00"
+        },
+        "Empresas2.zip": {
+          "versao": "82428f46e0dfeb9f091e07e7904aac1f4cb9206d36959e784c6cfe4b5c21f3b5",
+          "publicado_em": "2026-11-21T02:35:15.026445+00:00"
+        },
+        "Empresas3.zip": {
+          "versao": "6cf2ad4b7e95d52b3147d834e0518ef8bbd29fa7f8cea29f37db933675f91a87",
+          "publicado_em": "2026-11-21T02:46:53.733050+00:00"
+        },
+        "Empresas4.zip": {
+          "versao": "268730f4b28eed56fb596998e49174d03bb0f9be74be78e8aa9f542f34bfdfb9",
+          "publicado_em": "2026-11-21T03:01:10.030375+00:00"
+        },
+        "Empresas5.zip": {
+          "versao": "9cc875e300aaad82da98798d9121cca1373101ef38a4189d47a6a96ff0fe7188",
+          "publicado_em": "2026-11-21T03:20:14.845639+00:00"
+        },
+        "Empresas6.zip": {
+          "versao": "4f3f591a6f0e14debd3c118e0757061f130b14bc962c2f9c1ea9fd3b7ce5b0b2",
+          "publicado_em": "2026-11-24T23:13:33.197029+00:00"
+        },
+        "Empresas7.zip": {
+          "versao": "c4e8af8ef84f2859ea621c1f1b40793afe4f3b02b99332fd6aebeb196f2c5fb1",
+          "publicado_em": "2026-11-24T23:17:27.898174+00:00"
+        },
+        "Empresas8.zip": {
+          "versao": "9394cbf99d5ef4bb614a127b007c1ac4864a25eeebfa5a73da97e314dc4fd088",
+          "publicado_em": "2026-11-24T23:21:09.782704+00:00"
+        },
+        "Empresas9.zip": {
+          "versao": "9088de0e3f00faf174b9da47d353ececa2336d1e1b8ef20f1041a596ddfb502e",
+          "publicado_em": "2026-11-24T23:26:17.298271+00:00"
+        },
+        "Estabelecimentos0.zip": {
+          "versao": "bdfa82daea3f0517c92f85d1b9a20b6d420a6c698b4369e20c914cea01229f72",
+          "publicado_em": "2026-11-25T00:58:14.638961+00:00"
+        },
+        "Estabelecimentos1.zip": {
+          "versao": "9f62c5d6f4eec1b6cee280fc564cf8f2264d99f4259f5aac94f0e9236cfb28a9",
+          "publicado_em": "2026-11-25T01:06:01.580567+00:00"
+        },
+        "Estabelecimentos2.zip": {
+          "versao": "04ad4664db0ec37bc5dcae0c4ea98ce4f636bfefefe0b364e042d25fd4bf4e57",
+          "publicado_em": "2026-11-25T01:15:05.410179+00:00"
+        },
+        "Estabelecimentos3.zip": {
+          "versao": "a43dde80adf0acbed396b144d36b5932c0c0526af8ae27bd87632d986e6556eb",
+          "publicado_em": "2026-11-25T01:23:00.941136+00:00"
+        },
+        "Estabelecimentos4.zip": {
+          "versao": "f79249febb043410674dc65e9a4327982bc84b1d88e064c14192b7b35ed0d875",
+          "publicado_em": "2026-11-25T01:30:46.438307+00:00"
+        },
+        "Estabelecimentos5.zip": {
+          "versao": "8fde9409955b9c6689231dbef90b8595e68f44e9e361e45cd8cf25d8c3e11b9d",
+          "publicado_em": "2026-11-25T01:41:39.857242+00:00"
+        },
+        "Estabelecimentos6.zip": {
+          "versao": "d610123e3e43c902d2052bd12900dbcffeec6e145da434dd5b2ff4b7c3943c1b",
+          "publicado_em": "2026-11-25T01:50:47.091871+00:00"
+        },
+        "Estabelecimentos7.zip": {
+          "versao": "d23571ec6df74dcc6c5231aa418ceb9e6bbe1789311ee23e1b187b9665ab442a",
+          "publicado_em": "2026-11-25T01:59:45.771346+00:00"
+        },
+        "Estabelecimentos8.zip": {
+          "versao": "47328bc35559e8f0cab8553ab29dad46461dc3ced8a71f0be2cba0ca58813a25",
+          "publicado_em": "2026-11-25T02:11:58.282781+00:00"
+        },
+        "Estabelecimentos9.zip": {
+          "versao": "009e4304f5471df2b7e6daba5b88ad6589ca94f82b279b085cfc9ef0050fa9d8",
+          "publicado_em": "2026-11-25T02:22:15.045123+00:00"
+        },
+        "Socios0.zip": {
+          "versao": "65bc7e00cd9a106b61f8dbaa5f77d33501c9697a55f4ca8a7b171e52281a2304",
+          "publicado_em": "2026-11-25T02:31:24.143974+00:00"
+        },
+        "Socios1.zip": {
+          "versao": "4c938df7423e1e71a77318ecbdcd9b8b623be8e15fe0957400ac7f102ca14e0f",
+          "publicado_em": "2026-11-25T02:34:35.182189+00:00"
+        },
+        "Socios2.zip": {
+          "versao": "115a0877609d45f067090135bd0cacb2d69dc1cfda92e6efbfbcb755f6d3865d",
+          "publicado_em": "2026-11-25T02:37:52.111350+00:00"
+        },
+        "Socios3.zip": {
+          "versao": "90effe64717343557b44ebc8c41a048037ab42b95cc1b465d04bc3a76b256c5b",
+          "publicado_em": "2026-11-25T02:43:45.905952+00:00"
+        },
+        "Socios4.zip": {
+          "versao": "f47b0bc7b93161d1da0523f068fa8db69ef4b26640e6560755cebc21f10716bd",
+          "publicado_em": "2026-11-25T02:50:39.474264+00:00"
+        },
+        "Socios5.zip": {
+          "versao": "78a89c562036ebfc4a41c6b6053b4585986914be56ed1b4951ba1a93ac974666",
+          "publicado_em": "2026-11-25T02:57:47.966760+00:00"
+        },
+        "Socios6.zip": {
+          "versao": "8ecc20b3c0fb34b55889b2914e383bbc8acb120b5b5e26558e08bcd2402abb32",
+          "publicado_em": "2026-11-25T03:06:29.395163+00:00"
+        },
+        "Socios7.zip": {
+          "versao": "3e49c620e52896c67012745ba4e4bd057a154f15ed0d9e6db5627f749bacac0e",
+          "publicado_em": "2026-11-25T03:15:42.341778+00:00"
+        },
+        "Socios8.zip": {
+          "versao": "fe5112ae05211620096d72e299232b0459380d3f0b72df41b59b76007a9e8ad9",
+          "publicado_em": "2026-11-25T03:25:29.891536+00:00"
+        },
+        "Socios9.zip": {
+          "versao": "0b3f8d7aebd599214d50b9a0a98e85298ae870670351cd0256eab9c6e915b64f",
+          "publicado_em": "2026-11-25T03:36:56.294727+00:00"
+        }
+      },
+      "publicado_em": "2026-11-25T05:46:34.810701+00:00",
+      "caminho": "Ouro/competencia=2026-10",
+      "linhas": {
+        "dim_empresa": 70517437,
+        "dim_socio": 18629111,
+        "fato_resumo_empresarial": 70517437,
+        "fato_socios_multiplas_empresas": 5162326,
+        "fato_perfil_empresarial": 70517437
+      },
+      "bytes": 5384819869
+    },
+    "2026-11": {
+      "status": "sucesso",
+      "erro": null,
+      "atualizado_em": "2026-11-25T14:14:39.718456+00:00",
+      "versao": "dab37e5b1aedaa6001c881daab0ebff13f01f61db3263d82b879fee1a1cccb7f",
+      "dependencias": {
+        "Empresas0.zip": {
+          "versao": "238324d9cf2b8d77196e2c1e167c3041a229d6b25cb1938fd18489dece91dedd",
+          "publicado_em": "2026-11-25T06:06:59.618770+00:00"
+        },
+        "Empresas1.zip": {
+          "versao": "5b83c6c0d8d2ced723d14002a067af6e050a32b950d697a26203b07a03345dea",
+          "publicado_em": "2026-11-25T06:09:36.275108+00:00"
+        },
+        "Empresas2.zip": {
+          "versao": "becf12b9917683114a9f46c8e6107081ab8b386577d47f7b88dab0a8259050cd",
+          "publicado_em": "2026-11-25T06:12:24.538601+00:00"
+        },
+        "Empresas3.zip": {
+          "versao": "54bc637b8aed69c3c0abeda6864faecd59abc5bea14031a2eb8bcdb011d3878f",
+          "publicado_em": "2026-11-25T06:15:46.223207+00:00"
+        },
+        "Empresas4.zip": {
+          "versao": "2997d7b461d9e851c319e13724e000877b2cc69968268c7db57d6f9c2bf1c643",
+          "publicado_em": "2026-11-25T06:18:48.879675+00:00"
+        },
+        "Empresas5.zip": {
+          "versao": "a2508fabb4f614f56d1bae65f2232fcd912b0b85e0c8d68954bac75d9670a5b1",
+          "publicado_em": "2026-11-25T06:22:03.523282+00:00"
+        },
+        "Empresas6.zip": {
+          "versao": "4e5e6fc2e4df2e6d17f2c38dad446391cb668fc4780b40edbc83c222d0690dad",
+          "publicado_em": "2026-11-25T06:26:13.919556+00:00"
+        },
+        "Empresas7.zip": {
+          "versao": "7970fe70696091e2db36182bad86116eabf31f1aca1a3d33afc0336dd271cbcd",
+          "publicado_em": "2026-11-25T06:29:56.285277+00:00"
+        },
+        "Empresas8.zip": {
+          "versao": "983dc6475d9eaec7c040fbc26e5009d2ec34f899444c6814007e27789e544c66",
+          "publicado_em": "2026-11-25T06:34:05.581875+00:00"
+        },
+        "Empresas9.zip": {
+          "versao": "de05f6772ee19d934460ae674a45d0634c0bfbf01b5a177364a878e7e127bb88",
+          "publicado_em": "2026-11-25T06:40:22.055353+00:00"
+        },
+        "Estabelecimentos0.zip": {
+          "versao": "e518e233a3f315e5f53c0509e94aec173c86bb2434862dfb7f73f889bb3beaa7",
+          "publicado_em": "2026-11-25T08:40:03.524947+00:00"
+        },
+        "Estabelecimentos1.zip": {
+          "versao": "2abfb3579473128fd74984b74cc0a39c4dce27773da89b38abe77e0c6f6ae5c4",
+          "publicado_em": "2026-11-25T08:48:46.159656+00:00"
+        },
+        "Estabelecimentos2.zip": {
+          "versao": "426e2e267585c51f47f75fb6f0b858b065595e06f3c2c79bddf437782d7b8ac7",
+          "publicado_em": "2026-11-25T08:59:33.075144+00:00"
+        },
+        "Estabelecimentos3.zip": {
+          "versao": "4c2712d94ca00596df3670f318aa13b65e4c0fc4f4c9769ecec563b40aa37756",
+          "publicado_em": "2026-11-25T09:09:36.499639+00:00"
+        },
+        "Estabelecimentos4.zip": {
+          "versao": "28669ea7603404360395d8d74b96992e6bb48166fddad1397821469e0b7965de",
+          "publicado_em": "2026-11-25T09:18:50.656784+00:00"
+        },
+        "Estabelecimentos5.zip": {
+          "versao": "08cef95c7944ff00d5b0e8c45a640551247d2b5bac9611ee849ebca3234aa278",
+          "publicado_em": "2026-11-25T09:30:46.127102+00:00"
+        },
+        "Estabelecimentos6.zip": {
+          "versao": "16c59f4184dc3dd04ebed41f9333bebb11a2a540eecf305889d33e3377b03196",
+          "publicado_em": "2026-11-25T09:44:35.695272+00:00"
+        },
+        "Estabelecimentos7.zip": {
+          "versao": "44b5b29bf87f95e256e61eba82219d1a907b05358166df023a74977b819b6425",
+          "publicado_em": "2026-11-25T09:55:11.256437+00:00"
+        },
+        "Estabelecimentos8.zip": {
+          "versao": "b318ad9e5739765952e0ebc590f77647d0c15f10712594217572d13a97fceb5c",
+          "publicado_em": "2026-11-25T10:07:29.036473+00:00"
+        },
+        "Estabelecimentos9.zip": {
+          "versao": "68a045c1f0fc7102d4478111c9968a6cca181d2669ee05e1e054409b26dbd692",
+          "publicado_em": "2026-11-25T10:21:32.837403+00:00"
+        },
+        "Socios0.zip": {
+          "versao": "f821a934e8a77a36d1f40c31a8a8c7a0a3555d3051a2397db1ef8ca6e3f32eba",
+          "publicado_em": "2026-11-25T10:39:29.430001+00:00"
+        },
+        "Socios1.zip": {
+          "versao": "010654248c82e89ebf73b5e29c899853e6d63a3cd0f43f7d8a9a2598b44a9ab8",
+          "publicado_em": "2026-11-25T10:44:37.149845+00:00"
+        },
+        "Socios2.zip": {
+          "versao": "c080c58fb629702babc1bba74011d553d37c9724cda7a7fdde61644eeae57fe4",
+          "publicado_em": "2026-11-25T10:50:24.804186+00:00"
+        },
+        "Socios3.zip": {
+          "versao": "b7cf50156f26b0b7e800b2bca9c4d2bbc80b713a6ba80a78de2c7fbd738706ab",
+          "publicado_em": "2026-11-25T10:55:49.987154+00:00"
+        },
+        "Socios4.zip": {
+          "versao": "3d5be7943d6fdba9712020294ab8b57bfb98908cc57252f23a3ae378e15cd991",
+          "publicado_em": "2026-11-25T11:05:36.727910+00:00"
+        },
+        "Socios5.zip": {
+          "versao": "51b5edbaa1477f279a44838316f8f0a321f815f05f9b2b36802127eb0539f86d",
+          "publicado_em": "2026-11-25T11:14:28.240786+00:00"
+        },
+        "Socios6.zip": {
+          "versao": "b0ea0d23dc570d868b5328489854dd751313e45f95552d0df7f11159debc0eb1",
+          "publicado_em": "2026-11-25T11:24:54.245971+00:00"
+        },
+        "Socios7.zip": {
+          "versao": "066ece76095f8dcc8d87a3ebe08443eedc5b56952ece412aa064915282c4eafc",
+          "publicado_em": "2026-11-25T11:36:50.990022+00:00"
+        },
+        "Socios8.zip": {
+          "versao": "4616c0e649eb45f2c2f96be1fb151dbd6dace3c8197920507644ee9977dcb901",
+          "publicado_em": "2026-11-25T11:49:16.652810+00:00"
+        },
+        "Socios9.zip": {
+          "versao": "de7269410f4e40658a6a76ce8d938c140af2c8d44847e43bff5a53e0e9d44701",
+          "publicado_em": "2026-11-25T11:59:11.743169+00:00"
+        }
+      },
+      "publicado_em": "2026-11-25T14:14:39.710933+00:00",
+      "caminho": "Ouro/competencia=2026-11",
+      "linhas": {
+        "dim_empresa": 71068585,
+        "dim_socio": 18725482,
+        "fato_resumo_empresarial": 71068585,
+        "fato_socios_multiplas_empresas": 5198338,
+        "fato_perfil_empresarial": 71068585
+      },
+      "bytes": 5420868982
+    }
+  },
+  "execucoes": [
+    {
+      "registrado_em": "2026-11-23T18:52:36.470830+00:00",
+      "execucao_id": "0086a7fc1f3b4809853e8dedaf5727dd",
+      "competencia": "2026-10",
+      "etapa": "agregacao",
+      "status": "interrompido",
+      "inicio": "2026-11-23T17:16:11.526825+00:00",
+      "fim": "2026-11-23T18:52:36.371403+00:00",
+      "duracao_s": 5784.845,
+      "motivo": "Interrompido pelo operador para retomar com a versão otimizada, preservando a Prata."
+    },
+    {
+      "registrado_em": "2026-11-23T18:52:36.967780+00:00",
+      "execucao_id": "0086a7fc1f3b4809853e8dedaf5727dd",
+      "etapa": "limpeza_staging",
+      "status": "sucesso",
+      "fim": "2026-11-23T18:52:36.951299+00:00",
+      "motivo": "Descarte de resultados incompletos da execução interrompida",
+      "diretorios": [
+        ".competencia=2026-10.staging-dw07ssi_"
+      ]
+    },
+    {
+      "registrado_em": "2026-11-25T05:46:34.851691+00:00",
+      "execucao_id": "6c1bccc505ad4ba5906cecf4fb285f68",
+      "competencia": "2026-10",
+      "arquivo": null,
+      "etapa": "agregacao",
+      "status": "sucesso",
+      "inicio": "2026-11-25T03:36:56.384451+00:00",
+      "fim": "2026-11-25T05:46:34.831102+00:00",
+      "duracao_s": 7778.899,
+      "caminho": "Ouro/competencia=2026-10",
+      "linhas": {
+        "dim_empresa": 70517437,
+        "dim_socio": 18629111,
+        "fato_resumo_empresarial": 70517437,
+        "fato_socios_multiplas_empresas": 5162326,
+        "fato_perfil_empresarial": 70517437
+      },
+      "bytes": 5384819869
+    },
+    {
+      "registrado_em": "2026-11-25T14:14:39.757973+00:00",
+      "execucao_id": "6c1bccc505ad4ba5906cecf4fb285f68",
+      "competencia": "2026-11",
+      "arquivo": null,
+      "etapa": "agregacao",
+      "status": "sucesso",
+      "inicio": "2026-11-25T11:59:11.832814+00:00",
+      "fim": "2026-11-25T14:14:39.734003+00:00",
+      "duracao_s": 8128.37,
+      "caminho": "Ouro/competencia=2026-11",
+      "linhas": {
+        "dim_empresa": 71068585,
+        "dim_socio": 18725482,
+        "fato_resumo_empresarial": 71068585,
+        "fato_socios_multiplas_empresas": 5198338,
+        "fato_perfil_empresarial": 71068585
+      },
+      "bytes": 5420868982
+    }
+  ]
+}

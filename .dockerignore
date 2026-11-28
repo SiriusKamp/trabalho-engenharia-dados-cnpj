@@ -1,0 +1,13 @@
+.git
+.venv
+__pycache__
+**/__pycache__
+DATA
+tests/.teste-*
+.env
+.certificados
+.spark-tmp
+tmp*
+src
+docs
+artifacts

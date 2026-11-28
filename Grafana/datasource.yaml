@@ -1,0 +1,25 @@
+# Montar em /etc/grafana/provisioning/datasources/datasource.yaml.
+# O Compose deve fornecer MONITORAMENTO_USUARIO e MONITORAMENTO_SENHA ao Grafana:
+# demonstração pública monitor / Monitor123!; produção substitui ambas pelo ambiente.
+# Referência: https://grafana.com/docs/plugins/yesoreyeram-infinity-datasource/latest/configure/
+apiVersion: 1
+datasources:
+  - name: CNPJ operacional
+    uid: cnpj-api
+    orgId: 1
+    type: yesoreyeram-infinity-datasource
+    access: proxy
+    url: http://metricas:8000
+    isDefault: true
+    editable: false
+    basicAuth: true
+    basicAuthUser: $MONITORAMENTO_USUARIO
+    jsonData:
+      auth_method: basicAuth
+      allowedHosts:
+        - http://metricas:8000
+      timeoutInSeconds: 30
+      allowDangerousHTTPMethods: false
+      tlsSkipVerify: false
+    secureJsonData:
+      basicAuthPassword: $MONITORAMENTO_SENHA
